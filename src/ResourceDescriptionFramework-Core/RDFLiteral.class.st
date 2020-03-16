@@ -58,6 +58,13 @@ RDFLiteral >> printOn: aStream [
 	aStream nextPut: $@; print: self language. 
 ]
 
+{ #category : #printing }
+RDFLiteral >> printShortOn: aStream [
+	self value ifNil: [ ^ self printOn: aStream ].
+	aStream nextPutAll: self value asString.
+	self language ifNil: [ ^ self ].
+]
+
 { #category : #convenient }
 RDFLiteral >> string: aString [
 	self 

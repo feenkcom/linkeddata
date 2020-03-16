@@ -8,3 +8,8 @@ Class {
 DBOFactory >> prefix [
 	^ 'http://dbpedia.org/ontology/'
 ]
+
+{ #category : #factory }
+DBOFactory >> shortName [
+	^ 'dbo'
+]

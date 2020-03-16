@@ -14,3 +14,8 @@ DBRFactory >> resource: aString [
 	<return: #DBRNamedNode>
 	^ self namedNodeSuffix: aString
 ]
+
+{ #category : #factory }
+DBRFactory >> shortName [
+	^ 'dbr'
+]

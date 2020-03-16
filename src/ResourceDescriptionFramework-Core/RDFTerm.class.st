@@ -20,6 +20,11 @@ RDFTerm >> equals: aRDFTerm [
 			self value = aRDFTerm value ] ]
 ]
 
+{ #category : #'gt-extension' }
+RDFTerm >> gtValueFor: aView [
+	^ self gtPrintFor: aView
+]
+
 { #category : #accessing }
 RDFTerm >> termType [
 	<return: #RDFTermType>

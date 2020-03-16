@@ -87,7 +87,7 @@ RDFTripleExamples >> timBernersLeeGivenNameTriple [
 	aTriple := self emptyTriple.
 	aTriple subject: self timBernersLeeSubject.
 	aTriple predicate: self givenNamePredicate.
-	aTriple object: self timLiteralInEnglish.
+	aTriple object: self timLiteralInEnglishObject.
 	self assert: aTriple subject isNotNil.
 	^ aTriple.
 ]
@@ -122,6 +122,15 @@ RDFTripleExamples >> timLiteralInEnglish [
 	self assert: aLiteral language tags equals: #( 'en' ).
 	self assert: aLiteral printString equals: self timName, '@en'.
 	^ aLiteral.
+]
+
+{ #category : #'examples - Tim Berners-Lee' }
+RDFTripleExamples >> timLiteralInEnglishObject [
+	<gtExample>
+	| aResource |
+	aResource := RDF object: self timLiteralInEnglish.
+	self assert: (aResource term value endsWith: 'Tim').
+	^ aResource
 ]
 
 { #category : #'examples - Tim Berners-Lee' }

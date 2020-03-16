@@ -5,7 +5,18 @@ Class {
 }
 
 { #category : #factory }
+XSDFactory >> prefix [
+	<return: #String>
+	^ 'http://www.w3.org/2001/XMLSchema#'
+]
+
+{ #category : #factory }
+XSDFactory >> shortName [
+	^ 'xsd'
+]
+
+{ #category : #factory }
 XSDFactory >> string [
 	<return: #RDFNamedNode>
-	^ self namedNode: 'http://www.w3.org/2001/XMLSchema#string'
+	^ self namedNodeSuffix: 'string'
 ]

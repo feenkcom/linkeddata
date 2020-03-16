@@ -5,3 +5,8 @@ Class {
 	#classTraits : 'TGtAssert classTrait',
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
+
+{ #category : #printing }
+RDFProtoObject >> printShortOn: aStream [
+	self printOn: aStream
+]

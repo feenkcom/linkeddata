@@ -13,3 +13,8 @@ FOAFFactory >> givenName [
 FOAFFactory >> prefix [
 	^ 'http://xmlns.com/foaf/0.1/'
 ]
+
+{ #category : #factory }
+FOAFFactory >> shortName [
+	^ 'foaf'
+]

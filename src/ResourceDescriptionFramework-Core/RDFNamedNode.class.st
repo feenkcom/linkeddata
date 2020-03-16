@@ -11,7 +11,12 @@ RDFNamedNode >> gtIdentifierFor: aView [
 	^ aView textEditor
 		title: 'IRI';
 		glamorousCodeFontAndSize;
-		text: [ self value asString ]
+		text: [ self printString asString ]
+]
+
+{ #category : #accessing }
+RDFNamedNode >> name [
+	^ self value
 ]
 
 { #category : #printing }
