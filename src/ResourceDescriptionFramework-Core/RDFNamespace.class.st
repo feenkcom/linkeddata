@@ -1,6 +1,6 @@
 Class {
 	#name : #RDFNamespace,
-	#superclass : #RDFBasicFactory,
+	#superclass : #RDFTermFactory,
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 

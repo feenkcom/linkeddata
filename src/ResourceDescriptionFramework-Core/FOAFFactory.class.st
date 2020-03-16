@@ -1,6 +1,6 @@
 Class {
 	#name : #FOAFFactory,
-	#superclass : #RDFBasicFactory,
+	#superclass : #RDFTermFactory,
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 

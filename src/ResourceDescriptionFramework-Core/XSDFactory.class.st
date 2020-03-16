@@ -1,6 +1,6 @@
 Class {
 	#name : #XSDFactory,
-	#superclass : #RDFBasicFactory,
+	#superclass : #RDFTermFactory,
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 

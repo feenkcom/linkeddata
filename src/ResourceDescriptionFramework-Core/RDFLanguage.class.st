@@ -7,6 +7,11 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #accessing }
+RDFLanguage class >> factory [
+	^ RDFLanguageFactory default
+]
+
 { #category : #'gt-extension' }
 RDFLanguage >> gtTagsFor: aView [
 	<gtView>
