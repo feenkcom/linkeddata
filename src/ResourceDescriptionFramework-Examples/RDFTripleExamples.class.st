@@ -46,6 +46,24 @@ RDFTripleExamples >> englishLanguage [
 ]
 
 { #category : #'examples - Tim Berners-Lee' }
+RDFTripleExamples >> givenNamePredicate [
+	<gtExample>
+	| aPredicate |
+	aPredicate := self predicateWith: FOAF givenName.
+	self assert: (aPredicate term value endsWith: 'givenName').
+	^ aPredicate.
+]
+
+{ #category : #'examples - basic' }
+RDFTripleExamples >> predicateWith: aTerm [
+	<gtExample>
+	| aPredicate |
+	aPredicate := RDF predicate: aTerm.
+	self assert: aPredicate term equals: aTerm.
+	^ aPredicate
+]
+
+{ #category : #'examples - Tim Berners-Lee' }
 RDFTripleExamples >> timBernersLeeGivenName [
 	<gtExample>
 	| aTriple |

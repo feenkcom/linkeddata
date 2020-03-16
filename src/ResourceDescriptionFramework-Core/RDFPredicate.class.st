@@ -1,5 +1,5 @@
 Class {
-	#name : #RDFObject,
+	#name : #RDFPredicate,
 	#superclass : #RDFTriplePart,
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }

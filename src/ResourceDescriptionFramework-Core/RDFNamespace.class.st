@@ -12,7 +12,7 @@ RDFNamespace >> foaf [
 { #category : #accessing }
 RDFNamespace >> link: aString [
 	<return: #RDFNamedNode>
-	^ RDF namedNode: aString
+	^ self namedNode: aString
 ]
 
 { #category : #factory }

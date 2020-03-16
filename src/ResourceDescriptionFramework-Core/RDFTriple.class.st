@@ -1,6 +1,6 @@
 Class {
 	#name : #RDFTriple,
-	#superclass : #RDFObject,
+	#superclass : #RDFProtoObject,
 	#instVars : [
 		'subject',
 		'predicate',

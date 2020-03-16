@@ -28,3 +28,27 @@ RDFBasicFactory class >> default [
 RDFBasicFactory class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]
+
+{ #category : #factory }
+RDFBasicFactory >> namedNode: aString [
+	<return: #RDFNamedNode>
+	self 
+		assert: [ aString isString and: [ aString isNotEmpty ] ] 
+		description: [ 'Named node value must be non empty string' ].
+	^ RDFNamedNode new value: aString
+]
+
+{ #category : #factory }
+RDFBasicFactory >> namedNodeSuffix: aString [
+	<return: #RDFNamedNode>
+	self 
+		assert: [ aString isString and: [ aString isNotEmpty ] ] 
+		description: [ 'Named node value must be non-empty string' ].
+	^ self namedNode: self prefix, aString
+]
+
+{ #category : #factory }
+RDFBasicFactory >> prefix [
+	<return: #String>
+	^ self subclassResponsibility
+]

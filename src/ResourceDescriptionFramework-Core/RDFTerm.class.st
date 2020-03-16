@@ -1,6 +1,6 @@
 Class {
 	#name : #RDFTerm,
-	#superclass : #RDFObject,
+	#superclass : #RDFProtoObject,
 	#instVars : [
 		'value'
 	],

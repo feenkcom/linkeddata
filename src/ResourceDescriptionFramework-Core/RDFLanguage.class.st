@@ -1,6 +1,6 @@
 Class {
 	#name : #RDFLanguage,
-	#superclass : #RDFObject,
+	#superclass : #RDFProtoObject,
 	#instVars : [
 		'tags'
 	],

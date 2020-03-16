@@ -5,12 +5,8 @@ Class {
 }
 
 { #category : #factory }
-RDFFactory >> namedNode: aString [
-	<return: #RDFNamedNode>
-	self 
-		assert: [ aString isString and: [ aString isNotEmpty ] ] 
-		description: [ 'Named node value must be non empty string' ].
-	^ RDFNamedNode new value: aString
+RDFFactory >> predicate: aTerm [
+	^ RDFPredicate new term: aTerm
 ]
 
 { #category : #accessing }
