@@ -15,6 +15,11 @@ SCHEMAFactory >> datePublished [
 ]
 
 { #category : #accessing }
+SCHEMAFactory >> name [
+	^ self namedNodeSuffix: 'Name'
+]
+
+{ #category : #accessing }
 SCHEMAFactory >> person [
 	^ self namedNodeSuffix: 'Person'
 ]

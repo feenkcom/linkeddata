@@ -9,7 +9,7 @@ RDFTweetExamples >> accountJohnDoeName [
 	<gtExample>
 	^ RDF tripleBuilder
 		subjectIRI: 'https://twitter.com/JohnDoe';
-		predicate: SCHEMA name;
+		predicateTerm: SCHEMA factory name;
 		objectLiteral: 'Twitter User john_doe';
 		build
 ]
@@ -81,7 +81,7 @@ RDFTweetExamples >> tweetOneText [
 	^ RDF tripleBuilder
 		subjectIRI: 'https://twitter.com/JohnDoe/status/tweet-one';
 		predicateTerm: SCHEMA text;
-		object: 'My tweet number one';
+		objectLiteral: 'My tweet number one';
 		build
 ]
 
