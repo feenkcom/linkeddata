@@ -59,6 +59,20 @@ RDFTripleBuilder >> objectLiteral: aValue type: aType [
 ]
 
 { #category : #'building - object' }
+RDFTripleBuilder >> objectNamespace: aNamespace suffix: aSuffixString [
+	| aTerm |
+	aTerm := RDF namedNode: aSuffixString inNamespace: aNamespace.
+	self objectTerm: aTerm
+]
+
+{ #category : #'building - object' }
+RDFTripleBuilder >> objectNamespaceIRI: aNamespaceString as: aShortNameString suffix: aSuffixString [
+	| aNamespace |
+	aNamespace := RDF namespaceValue: aNamespaceString shortName: aShortNameString.
+	self objectNamespace: aNamespace suffix: aSuffixString.
+]
+
+{ #category : #'building - object' }
 RDFTripleBuilder >> objectTerm: aTerm [
 	| anObject |
 	self 

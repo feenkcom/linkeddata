@@ -10,6 +10,26 @@ SCHEMA class >> author [
 ]
 
 { #category : #factory }
+SCHEMA class >> datePublished [
+	^ self factory datePublished
+]
+
+{ #category : #factory }
 SCHEMA class >> factory [
 	^ SCHEMAFactory default
+]
+
+{ #category : #factory }
+SCHEMA class >> person [
+	^ self factory person
+]
+
+{ #category : #factory }
+SCHEMA class >> socialMediaPosting [
+	^ self factory socialMediaPosting
+]
+
+{ #category : #factory }
+SCHEMA class >> text [
+	^ self factory text
 ]

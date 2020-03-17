@@ -66,12 +66,6 @@ RDFFactory >> shortName [
 	^ 'rdf'
 ]
 
-{ #category : #accessing }
-RDFFactory >> string [
-	<return: #RDFNamedNode>
-	^ self namedNode: 'http://www.w3.org/2001/XMLSchema#string'
-]
-
 { #category : #factory }
 RDFFactory >> subject: aTerm [
 	^ RDFSubject new term: aTerm
@@ -80,4 +74,10 @@ RDFFactory >> subject: aTerm [
 { #category : #factory }
 RDFFactory >> triple [
 	^ RDFTriple new
+]
+
+{ #category : #generated }
+RDFFactory >> type [
+	<return: #RDFShortNamedNode>
+	^ self namedNodeSuffix: 'type'
 ]

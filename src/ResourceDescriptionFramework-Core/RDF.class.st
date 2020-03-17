@@ -71,3 +71,9 @@ RDF class >> triple [
 RDF class >> tripleBuilder [
 	^ RDFTripleBuilder new
 ]
+
+{ #category : #factory }
+RDF class >> type [
+	<return: #RDFShortNamedNode>
+	^ self factory type
+]
