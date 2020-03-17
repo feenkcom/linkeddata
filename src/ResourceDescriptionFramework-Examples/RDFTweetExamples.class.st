@@ -24,6 +24,27 @@ RDFTweetExamples >> accountJohnDoeType [
 		build
 ]
 
+{ #category : #'examples - store' }
+RDFTweetExamples >> simpleStore [
+	<gtExample>
+	^ RDFStore simple
+		
+]
+
+{ #category : #'examples - store' }
+RDFTweetExamples >> simpleStoreWithTweets [
+	<gtExample>
+	| aStore |
+	aStore := self simpleStore.
+	aStore addTriple: self accountJohnDoeName.
+	aStore addTriple: self accountJohnDoeType.
+	aStore addTriple: self tweetOneAuthor.
+	aStore addTriple: self tweetOneDatePublished.
+	aStore addTriple: self tweetOneText.
+	aStore addTriple: self tweetOneType.
+	^ aStore
+]
+
 { #category : #'examples - tweets' }
 RDFTweetExamples >> socialMediaPostingTypeName [
 	<gtExample>
