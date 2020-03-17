@@ -1,6 +1,8 @@
 Class {
 	#name : #RDFTripleExamples,
 	#superclass : #Object,
+	#traits : 'TRDFExamples',
+	#classTraits : 'TRDFExamples classTrait',
 	#category : #'ResourceDescriptionFramework-Examples'
 }
 
@@ -51,33 +53,6 @@ RDFTripleExamples >> givenNamePredicate [
 	aPredicate := self predicateWith: FOAF givenName.
 	self assert: (aPredicate term value endsWith: 'givenName').
 	^ aPredicate.
-]
-
-{ #category : #'examples - basic' }
-RDFTripleExamples >> objectWith: aTerm [
-	<gtExample>
-	| aSubject |
-	aSubject := RDF object: aTerm.
-	self assert: aSubject term equals: aTerm.
-	^ aSubject
-]
-
-{ #category : #'examples - basic' }
-RDFTripleExamples >> predicateWith: aTerm [
-	<gtExample>
-	| aPredicate |
-	aPredicate := RDF predicate: aTerm.
-	self assert: aPredicate term equals: aTerm.
-	^ aPredicate
-]
-
-{ #category : #'examples - basic' }
-RDFTripleExamples >> subjectWith: aTerm [
-	<gtExample>
-	| aSubject |
-	aSubject := RDF subject: aTerm.
-	self assert: aSubject term equals: aTerm.
-	^ aSubject
 ]
 
 { #category : #'examples - Tim Berners-Lee' }

@@ -4,6 +4,16 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 
+{ #category : #factory }
+XSD class >> date [
+	^ self factory date
+]
+
+{ #category : #factory }
+XSD class >> dateTime [
+	^ self factory dateTime
+]
+
 { #category : #accessing }
 XSD class >> factory [
 	^ XSDFactory default

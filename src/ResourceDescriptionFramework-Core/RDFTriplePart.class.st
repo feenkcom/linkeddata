@@ -17,6 +17,12 @@ RDFTriplePart >> gtTermFor: aView [
 		view: #gtValueFor:
 ]
 
+{ #category : #accessing }
+RDFTriplePart >> name [
+	<return: #String>
+	^ self subclassResponsibility
+]
+
 { #category : #printing }
 RDFTriplePart >> printOn: aStream [
 	self term ifNil: [ ^ super printOn: aStream ].

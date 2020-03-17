@@ -12,10 +12,12 @@ Class {
 { #category : #'gt-extension' }
 RDFTriple >> gtPartsFor: aView [
 	<gtView>
-	^ aView list
+	^ aView columnedList
 		title: 'Parts';
 		priority: 2;
-		items: [ self parts ]
+		items: [ self parts ];
+		column: 'Part' item: [ :aPart | aPart name ] width: 80;
+		column: 'Term' item: [ :aPart | aPart ]
 ]
 
 { #category : #'gt-extension' }
@@ -64,8 +66,8 @@ RDFTriple >> sentence [
 	<return: #String>
 	^ String streamContents: [ :aStream | 
 		self subject ifNotNil: [ :aSubject | aStream print: aSubject; space ].
-		self predicate ifNotNil: [ :aPredicate | aStream print: aPredicate; nextPutAll: ' is ' ].
-		self object ifNotNil: [ :anObject | aStream print: anObject; nextPut: $. ].  ]
+		self predicate ifNotNil: [ :aPredicate | aStream nextPutAll: 'has a '; print: aPredicate ].
+		self object ifNotNil: [ :anObject | aStream nextPutAll: ' whose value is '; print: anObject; nextPut: $. ].  ]
 ]
 
 { #category : #accessing }

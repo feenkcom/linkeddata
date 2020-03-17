@@ -5,6 +5,18 @@ Class {
 }
 
 { #category : #factory }
+XSDFactory >> date [
+	<return: #RDFNamedNode>
+	^ self namedNodeSuffix: 'date'
+]
+
+{ #category : #factory }
+XSDFactory >> dateTime [
+	<return: #RDFNamedNode>
+	^ self namedNodeSuffix: 'dateTime'
+]
+
+{ #category : #factory }
 XSDFactory >> prefix [
 	<return: #String>
 	^ 'http://www.w3.org/2001/XMLSchema#'

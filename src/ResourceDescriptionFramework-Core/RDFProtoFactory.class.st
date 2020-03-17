@@ -1,6 +1,8 @@
 Class {
 	#name : #RDFProtoFactory,
 	#superclass : #Object,
+	#traits : 'TGtAssert',
+	#classTraits : 'TGtAssert classTrait',
 	#classInstVars : [
 		'uniqueInstance'
 	],
