@@ -71,7 +71,7 @@ RDFTweetExamples >> tweetOneDatePublished [
 	^ RDF tripleBuilder
 		subjectIRI: 'https://twitter.com/JohnDoe/status/tweet-one';
 		predicateTerm: SCHEMA datePublished;
-		objectLiteral: '2020-02-25' type: XSD date;
+		objectLiteral: '2020-02-25T10:25:00' asDateAndTime type: XSD date;
 		build.
 ]
 

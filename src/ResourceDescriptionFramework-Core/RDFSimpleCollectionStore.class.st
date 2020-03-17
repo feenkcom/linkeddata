@@ -9,6 +9,7 @@ Class {
 
 { #category : #adding }
 RDFSimpleCollectionStore >> addTriple: aRDFTriple [
+	aRDFTriple store: self.
 	self collection add: aRDFTriple
 ]
 
@@ -31,4 +32,24 @@ RDFSimpleCollectionStore >> gtCollectionFor: aView [
 RDFSimpleCollectionStore >> initialize [
 	super initialize.
 	collection := OrderedCollection new.
+]
+
+{ #category : #enumerating }
+RDFSimpleCollectionStore >> resourceForSubject: aSubject withSphere: aRDFSphere [
+	<return: #RDFResourceWithSphere>
+
+	^ RDFResourceWithSphere new 
+		sphere: aRDFSphere;
+		triplets: (self triplesForSubject: aSubject)
+]
+
+{ #category : #enumerating }
+RDFSimpleCollectionStore >> triplesForSubject: aSubject [
+	<return: #RDFList>
+
+	^ RDFList new collection: (self collection 
+		inject: OrderedCollection new
+		into: [ :aList :eachTriple |
+			(eachTriple subject = aSubject) ifTrue: [
+				aList add: eachTriple ]. aList ])
 ]

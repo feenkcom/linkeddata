@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'subject',
 		'predicate',
-		'object'
+		'object',
+		'store'
 	],
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
@@ -68,6 +69,16 @@ RDFTriple >> sentence [
 		self subject ifNotNil: [ :aSubject | aStream print: aSubject; space ].
 		self predicate ifNotNil: [ :aPredicate | aStream nextPutAll: 'has a '; print: aPredicate ].
 		self object ifNotNil: [ :anObject | aStream nextPutAll: ' whose value is '; print: anObject; nextPut: $. ].  ]
+]
+
+{ #category : #accessing }
+RDFTriple >> store [
+	^ store
+]
+
+{ #category : #accessing }
+RDFTriple >> store: anObject [
+	store := anObject
 ]
 
 { #category : #accessing }

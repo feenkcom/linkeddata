@@ -78,7 +78,7 @@ RDFTripleBuilder >> objectTerm: aTerm [
 	self 
 		assert: [ aTerm isNotNil ] 
 		description: [ 'Object term must be non-nil' ].
-	anObject := RDF subject: aTerm.
+	anObject := RDF object: aTerm.
 	self object: anObject.
 ]
 

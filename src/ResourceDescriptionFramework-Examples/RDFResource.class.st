@@ -19,7 +19,7 @@ RDFResource >> metaDescription: anObject [
 ]
 
 { #category : #accessing }
-RDFResource >> triplets [
+RDFResource >> triples [
 	^ triplets
 ]
 
