@@ -1,8 +1,13 @@
 Class {
 	#name : #RDFTweetSphere,
-	#superclass : #RDFSphere,
+	#superclass : #RDFUniqueSphere,
 	#category : #'ResourceDescriptionFramework-Examples'
 }
+
+{ #category : #accessing }
+RDFTweetSphere class >> sphereName [
+	^ 'tweet'
+]
 
 { #category : #'as yet unclassified' }
 RDFTweetSphere >> buildOverviewElementFor: theTweetTriples [

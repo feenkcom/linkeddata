@@ -20,6 +20,11 @@ SCHEMA class >> factory [
 ]
 
 { #category : #factory }
+SCHEMA class >> name1 [
+	^ self factory name
+]
+
+{ #category : #factory }
 SCHEMA class >> person [
 	^ self factory person
 ]

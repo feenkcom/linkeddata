@@ -1,11 +1,20 @@
 Class {
 	#name : #RDFSphere,
 	#superclass : #Object,
-	#instVars : [
-		'name'
-	],
 	#category : #'ResourceDescriptionFramework-Examples'
 }
+
+{ #category : #factory }
+RDFSphere class >> ofName: aString [
+	self allSubclassesDo: [ :eachClass | 
+		eachClass sphereName = aString ifTrue: [ ^ eachClass default ] ].
+	^ RDFUnknownSphere new name: aString
+]
+
+{ #category : #accessing }
+RDFSphere class >> sphereName [
+	^ self name
+]
 
 { #category : #'as yet unclassified' }
 RDFSphere >> gtSphereViewsFor: aView forTriples: aList [
@@ -19,10 +28,6 @@ RDFSphere >> gtSphereViewsFor: aView forTriples: aList [
 
 { #category : #accessing }
 RDFSphere >> name [
-	^ name
-]
-
-{ #category : #accessing }
-RDFSphere >> name: anObject [
-	name := anObject
+	<return: #String>
+	^ self class sphereName
 ]

@@ -28,6 +28,17 @@ RDFSimpleCollectionStore >> gtCollectionFor: aView [
 		itemFormat: [ :aTriple | aTriple sentence ]
 ]
 
+{ #category : #'gt-extension' }
+RDFSimpleCollectionStore >> gtSpheresFor: aView [
+	<gtView>
+	self collection ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Spheres';
+		priority: 1;
+		object: [ self spheres ];
+		view: #gtSpheresFor:
+]
+
 { #category : #initialization }
 RDFSimpleCollectionStore >> initialize [
 	super initialize.
@@ -40,7 +51,20 @@ RDFSimpleCollectionStore >> resourceForSubject: aSubject withSphere: aRDFSphere 
 
 	^ RDFResourceWithSphere new 
 		sphere: aRDFSphere;
-		triplets: (self triplesForSubject: aSubject)
+		triples: (self triplesForSubject: aSubject)
+]
+
+{ #category : #enumerating }
+RDFSimpleCollectionStore >> spheres [
+	<return: #RDFSpheres>
+	| aCollection |
+	aCollection := RDFSpheres new store: self.
+	self collection 
+		inject: aCollection collection
+		into: [ :aList :eachTriple |
+			(eachTriple predicate term = POLY sphere) ifTrue: [
+				aList add: eachTriple ]. aList ].
+	^ aCollection 
 ]
 
 { #category : #enumerating }

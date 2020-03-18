@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'metaDescription',
-		'triplets'
+		'triples'
 	],
 	#category : #'ResourceDescriptionFramework-Examples'
 }
@@ -20,10 +20,10 @@ RDFResource >> metaDescription: anObject [
 
 { #category : #accessing }
 RDFResource >> triples [
-	^ triplets
+	^ triples
 ]
 
 { #category : #accessing }
-RDFResource >> triplets: anObject [
-	triplets := anObject
+RDFResource >> triples: anObject [
+	triples := anObject
 ]

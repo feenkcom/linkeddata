@@ -1,6 +1,9 @@
 Class {
 	#name : #RDFTermFactory,
 	#superclass : #RDFProtoFactory,
+	#instVars : [
+		'namespace'
+	],
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 
@@ -25,9 +28,9 @@ RDFTermFactory >> namedNodeSuffix: aString [
 { #category : #factory }
 RDFTermFactory >> namespace [
 	<return: #RDFNamespaceNamedNode>
-	^ RDFNamespaceNamedNode new 
+	^ namespace ifNil: [ namespace := RDFNamespaceNamedNode new 
 		value: self prefix;
-		shortName: self shortName
+		shortName: self shortName ]
 ]
 
 { #category : #factory }
