@@ -9,7 +9,7 @@ RDFTweetSphere class >> sphereName [
 	^ 'tweet'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'gt-extension' }
 RDFTweetSphere >> buildOverviewElementFor: theTweetTriples [
 	"Receives tweets as triple objects"
 	| container |
@@ -46,7 +46,7 @@ RDFTweetSphere >> datePublishedFor: theTweetTriples [
 		ifNone: [ DateAndTime now ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'gt-extension' }
 RDFTweetSphere >> gtExplicitViewFor: aView triples: aList [
 	<gtSphereView>
 	^ aView explicit 
@@ -54,7 +54,7 @@ RDFTweetSphere >> gtExplicitViewFor: aView triples: aList [
 		stencil: [ self buildOverviewElementFor: aList ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'gt-extension' }
 RDFTweetSphere >> gtSphereViewsFor: aView forTriples: aList [
 	^ { self gtExplicitViewFor: aView triples: aList }
 ]
