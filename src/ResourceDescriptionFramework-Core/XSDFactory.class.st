@@ -5,6 +5,12 @@ Class {
 }
 
 { #category : #factory }
+XSDFactory >> boolean [
+	<return: #RDFNamedNode>
+	^ self namedNodeSuffix: 'boolean'
+]
+
+{ #category : #factory }
 XSDFactory >> date [
 	<return: #RDFNamedNode>
 	^ self namedNodeSuffix: 'date'

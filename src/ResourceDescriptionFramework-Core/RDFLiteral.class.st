@@ -8,6 +8,15 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #convenient }
+RDFLiteral >> boolean: aBoolean [
+	self 
+		assert: [ aBoolean isString ] 
+		description: [ 'Literal value must be a string' ].
+	self dataType: XSD boolean.
+	self value: aBoolean.
+]
+
 { #category : #accessing }
 RDFLiteral >> dataType [
 	"Return a value whose IRI represents the datatype of the literal"

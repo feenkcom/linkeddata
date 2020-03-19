@@ -4,6 +4,11 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 
+{ #category : #accessing }
+POLYFactory >> isRetweet [
+	^ self namedNodeSuffix: 'isRetweet'
+]
+
 { #category : #factory }
 POLYFactory >> prefix [
 	^ 'http://www.polypoly.tech/2020/02/02/'

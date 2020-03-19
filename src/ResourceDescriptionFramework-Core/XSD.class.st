@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #factory }
+XSD class >> boolean [
+	^ self factory boolean
+]
+
+{ #category : #factory }
 XSD class >> date [
 	^ self factory date
 ]

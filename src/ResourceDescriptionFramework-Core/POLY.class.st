@@ -10,6 +10,11 @@ POLY class >> factory [
 ]
 
 { #category : #factory }
+POLY class >> isRetweet [
+	^ self factory isRetweet
+]
+
+{ #category : #factory }
 POLY class >> sphere [
 	^ self factory sphere
 ]
