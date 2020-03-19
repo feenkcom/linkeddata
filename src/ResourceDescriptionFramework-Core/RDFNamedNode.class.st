@@ -4,6 +4,12 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #accessing }
+RDFNamedNode >> description [
+	^ String streamContents: [ :aStream | 
+		self printDescriptionOn: aStream ]
+]
+
 { #category : #'gt-extension' }
 RDFNamedNode >> gtIdentifierFor: aView [
 	<gtView>
@@ -11,12 +17,22 @@ RDFNamedNode >> gtIdentifierFor: aView [
 	^ aView textEditor
 		title: 'IRI';
 		glamorousCodeFontAndSize;
-		text: [ self printString asString ]
+		text: [ self description ]
+]
+
+{ #category : #'gt-extension' }
+RDFNamedNode >> gtValueFor: aView [
+	^ self gtIdentifierFor: aView
 ]
 
 { #category : #accessing }
 RDFNamedNode >> name [
 	^ self value
+]
+
+{ #category : #printing }
+RDFNamedNode >> printDescriptionOn: aStream [
+	aStream print: self
 ]
 
 { #category : #printing }

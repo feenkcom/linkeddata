@@ -27,7 +27,7 @@ SCHEMAFactory >> person [
 { #category : #factory }
 SCHEMAFactory >> prefix [
 	<return: #String>
-	^ 'http://schema.org'
+	^ 'http://schema.org/'
 ]
 
 { #category : #factory }

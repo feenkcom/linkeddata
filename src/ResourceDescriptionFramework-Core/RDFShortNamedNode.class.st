@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #accessing }
+RDFShortNamedNode >> fullName [
+	^ self namespace fullName asString, self value
+]
+
+{ #category : #accessing }
 RDFShortNamedNode >> namespace [
 	<return: #RDFNamespaceNamedNode>
 	^ namespace
@@ -19,6 +24,15 @@ RDFShortNamedNode >> namespace: aRDFNamespaceNamedNode [
 		assert: [ aRDFNamespaceNamedNode isNotNil ] 
 		description: [ 'Namespace must be non-nil' ].
 	namespace := aRDFNamespaceNamedNode
+]
+
+{ #category : #printing }
+RDFShortNamedNode >> printDescriptionOn: aStream [
+	aStream 
+		nextPutAll: 'Short name: '; 
+		print: self; cr;
+		nextPutAll: ' Full name: ';
+		print: self fullName
 ]
 
 { #category : #printing }

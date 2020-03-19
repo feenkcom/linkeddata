@@ -1,6 +1,6 @@
 Class {
 	#name : #RDFTripleWithSameSubject,
-	#superclass : #RDFAuxiliaryTriple,
+	#superclass : #RDFPreviewTriple,
 	#category : #'ResourceDescriptionFramework-Core-Helpers'
 }
 

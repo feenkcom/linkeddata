@@ -1,28 +1,28 @@
 Trait {
-	#name : #TRDFAuxiliaryTriplesEnumeration,
+	#name : #TRDFPreviewTriplesEnumeration,
 	#category : #'ResourceDescriptionFramework-Core-Helpers'
 }
 
 { #category : #accessing }
-TRDFAuxiliaryTriplesEnumeration >> store [
+TRDFPreviewTriplesEnumeration >> store [
 	<return: #RDFStore>
 	^ self explicitRequirement
 ]
 
 { #category : #accessing }
-TRDFAuxiliaryTriplesEnumeration >> tripleSubject [
+TRDFPreviewTriplesEnumeration >> tripleSubject [
 	<return: #RDFSubject>
 	^ self explicitRequirement
 ]
 
 { #category : #accessing }
-TRDFAuxiliaryTriplesEnumeration >> tripleSubjectTerm [
+TRDFPreviewTriplesEnumeration >> tripleSubjectTerm [
 	<return: #RDFTerm>
 	^ self tripleSubject term
 ]
 
 { #category : #enumerating }
-TRDFAuxiliaryTriplesEnumeration >> triplesReferingToSubjectInto: aStream [
+TRDFPreviewTriplesEnumeration >> triplesReferingToSubjectInto: aStream [
 	self store
 		do: [ :eachTriple | 
 			eachTriple object term = self tripleSubjectTerm
@@ -34,7 +34,7 @@ TRDFAuxiliaryTriplesEnumeration >> triplesReferingToSubjectInto: aStream [
 ]
 
 { #category : #enumerating }
-TRDFAuxiliaryTriplesEnumeration >> triplesWithSameSubjectInto: aStream [
+TRDFPreviewTriplesEnumeration >> triplesWithSameSubjectInto: aStream [
 	self store
 		do: [ :eachTriple | 
 			eachTriple subject = self tripleSubject
