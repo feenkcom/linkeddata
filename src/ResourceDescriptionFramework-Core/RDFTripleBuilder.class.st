@@ -8,6 +8,16 @@ Class {
 }
 
 { #category : #'building - object' }
+RDFTripleBuilder >> boooleanLiteral: aBoolean [
+	| aTerm |
+	self 
+		assert: [ aBoolean isBoolean  ] 
+		description: [ 'Boolean literals must be booleans.' ].
+	aTerm := RDF boolean: aBoolean.
+	self objectTerm: aTerm.
+]
+
+{ #category : #'building - object' }
 RDFTripleBuilder >> build [
 	^ self triple
 ]
