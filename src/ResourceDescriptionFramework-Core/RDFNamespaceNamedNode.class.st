@@ -7,10 +7,10 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : #accessing }
-RDFNamespaceNamedNode >> fullName [
-	<return: #String>
-	^ self value
+{ #category : #printing }
+RDFNamespaceNamedNode >> printFullNameOn: aStream [
+	self value ifNil: [ ^ super printOn: aStream ].
+	aStream nextPutAll: self value asString.
 ]
 
 { #category : #printing }

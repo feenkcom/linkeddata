@@ -66,13 +66,13 @@ RDFSimpleCollectionStore >> gtViewCollectionRawFor: aView [
 		items: [ self collection ];
 		column: 'Subject' 
 			item: #subject
-			format: [ :aSubject | aSubject term fullName ];
+			format: [ :aSubject | aSubject term fullNameWithDataType ];
 		column: 'Predicate' 
 			item: #predicate
-			format: [ :aPredicate | aPredicate term fullName ];
+			format: [ :aPredicate | aPredicate term fullNameWithDataType ];
 		column: 'Object' 
 			item: #object
-			format: [ :anObject | anObject term fullName ]
+			format: [ :anObject | anObject term fullNameWithDataType ]
 ]
 
 { #category : #'gt-extension' }

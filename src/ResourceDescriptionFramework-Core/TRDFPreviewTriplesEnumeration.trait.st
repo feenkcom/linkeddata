@@ -9,6 +9,20 @@ TRDFPreviewTriplesEnumeration >> store [
 	^ self explicitRequirement
 ]
 
+{ #category : #enumerating }
+TRDFPreviewTriplesEnumeration >> subjectsMentionedInTripleObjectInto: aStream [
+	self store extractedSubjects
+		do: [ :eachSubject | 
+			eachSubject term = self tripleObjectTerm
+				ifTrue: [ aStream nextPut: eachSubject ] ]
+]
+
+{ #category : #accessing }
+TRDFPreviewTriplesEnumeration >> tripleObjectTerm [
+	<return: #RDFTerm>
+	^ self explicitRequirement
+]
+
 { #category : #accessing }
 TRDFPreviewTriplesEnumeration >> tripleSubject [
 	<return: #RDFSubject>

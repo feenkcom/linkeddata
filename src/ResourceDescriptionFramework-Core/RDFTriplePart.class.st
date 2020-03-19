@@ -42,7 +42,12 @@ RDFTriplePart >> name [
 { #category : #printing }
 RDFTriplePart >> printOn: aStream [
 	self term ifNil: [ ^ super printOn: aStream ].
-	self term printShortOn: aStream.
+	self term printShortNameOn: aStream.
+]
+
+{ #category : #accessing }
+RDFTriplePart >> shortName [
+	^ self term shortName
 ]
 
 { #category : #accessing }

@@ -21,6 +21,12 @@ RDFExtractedSubject >> printOn: aStream [
 ]
 
 { #category : #accessing }
+RDFExtractedSubject >> term [
+	<return: #RDFTerm>
+	^ self realObject term
+]
+
+{ #category : #accessing }
 RDFExtractedSubject >> tripleSubject [
 	<return: #RDFStore>
 	^ self realObject

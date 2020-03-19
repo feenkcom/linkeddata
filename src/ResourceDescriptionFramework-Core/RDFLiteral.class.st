@@ -29,17 +29,6 @@ RDFLiteral >> dataType: anObject [
 	dataType := anObject
 ]
 
-{ #category : #accessing }
-RDFLiteral >> description [
-	^ String streamContents: [ :aStream |
-		self value ifNil: [ ^ super description ].
-		aStream nextPutAll: self dataType asString.
-		aStream nextPutAll: ' '.
-		aStream nextPutAll: self value asString.
-		self language ifNotNil: [ 
-			aStream nextPut: $@; print: self language ] ]
-]
-
 { #category : #comparing }
 RDFLiteral >> equals: aRDFTerm [
 	^ (super equals: aRDFTerm) and: [ 
@@ -71,6 +60,31 @@ RDFLiteral >> language: anObject [
 ]
 
 { #category : #printing }
+RDFLiteral >> printDescriptionOn: aStream [
+	self value ifNil: [ ^ self printOn: aStream ].
+	aStream nextPutAll: self dataType asString.
+	aStream nextPutAll: ' '.
+	aStream nextPutAll: self value asString.
+	self language ifNotNil: [ 
+		aStream nextPut: $@; print: self language ]
+]
+
+{ #category : #printing }
+RDFLiteral >> printFullNameOn: aStream [
+	self value ifNil: [ ^ self printOn: aStream ].
+	aStream nextPutAll: self value asString
+]
+
+{ #category : #printing }
+RDFLiteral >> printFullNameWithDataTypeOn: aStream [
+	self value ifNil: [ ^ self printFullNameOn: aStream ].
+	aStream 
+		print: self dataType;
+		nextPutAll: ': ';
+		nextPutAll: self value asString
+]
+
+{ #category : #printing }
 RDFLiteral >> printOn: aStream [
 	self value ifNil: [ ^ super printOn: aStream ].
 	aStream nextPutAll: self value asString.
@@ -79,7 +93,7 @@ RDFLiteral >> printOn: aStream [
 ]
 
 { #category : #printing }
-RDFLiteral >> printShortOn: aStream [
+RDFLiteral >> printShortNameOn: aStream [
 	self value ifNil: [ ^ self printOn: aStream ].
 	aStream nextPutAll: self value asString.
 ]

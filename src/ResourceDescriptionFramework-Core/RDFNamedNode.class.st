@@ -4,12 +4,6 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : #accessing }
-RDFNamedNode >> description [
-	^ String streamContents: [ :aStream | 
-		self printDescriptionOn: aStream ]
-]
-
 { #category : #'gt-extension' }
 RDFNamedNode >> gtIdentifierFor: aView [
 	<gtView>
@@ -33,6 +27,13 @@ RDFNamedNode >> name [
 { #category : #printing }
 RDFNamedNode >> printDescriptionOn: aStream [
 	aStream print: self
+]
+
+{ #category : #printing }
+RDFNamedNode >> printFullNameWithDataTypeOn: aStream [
+	self value ifNil: [ ^ self printOn: aStream ].
+	aStream nextPutAll: 'IRI: '.
+	self printFullNameOn: aStream.
 ]
 
 { #category : #printing }

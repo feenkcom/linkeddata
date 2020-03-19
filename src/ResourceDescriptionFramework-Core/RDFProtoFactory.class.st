@@ -10,6 +10,12 @@ Class {
 }
 
 { #category : #cleanup }
+RDFProtoFactory class >> cleanAll [
+	<script>
+	self withAllSubclassesDo: #cleanUniqueInstance 
+]
+
+{ #category : #cleanup }
 RDFProtoFactory class >> cleanUniqueInstance [
 	^ uniqueInstance := nil
 ]
