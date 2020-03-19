@@ -12,6 +12,11 @@ RDFTerm >> = aRDFTerm [
 	^ self equals: aRDFTerm
 ]
 
+{ #category : #accessing }
+RDFTerm >> description [
+	^ self printString
+]
+
 { #category : #comparing }
 RDFTerm >> equals: aRDFTerm [
 	<return: #Boolean>
