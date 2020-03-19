@@ -1,8 +1,8 @@
 Class {
 	#name : #RDFTripleRefereingToSubject,
-	#superclass : #RDFAuxiliaryTriple,
-	#traits : 'TRDFAuxiliaryTriplesEnumeration - {#store}',
-	#classTraits : 'TRDFAuxiliaryTriplesEnumeration classTrait',
+	#superclass : #RDFPreviewTriple,
+	#traits : 'TRDFPreviewTriplesEnumeration - {#store}',
+	#classTraits : 'TRDFPreviewTriplesEnumeration classTrait',
 	#category : #'ResourceDescriptionFramework-Core-Helpers'
 }
 

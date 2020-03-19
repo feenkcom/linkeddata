@@ -1,8 +1,8 @@
 Class {
 	#name : #RDFExtractedSubject,
-	#superclass : #RDFAuxiliaryObject,
-	#traits : 'TRDFAuxiliaryTriplesEnumeration - {#store}',
-	#classTraits : 'TRDFAuxiliaryTriplesEnumeration classTrait',
+	#superclass : #RDFPreviewObject,
+	#traits : 'TRDFPreviewTriplesEnumeration - {#store}',
+	#classTraits : 'TRDFPreviewTriplesEnumeration classTrait',
 	#category : #'ResourceDescriptionFramework-Core-Helpers'
 }
 

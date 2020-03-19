@@ -13,6 +13,11 @@ RDFTriplePart >> = aTriplePart [
 		self term = aTriplePart term ]
 ]
 
+{ #category : #accessing }
+RDFTriplePart >> fullName [
+	^ self term fullName
+]
+
 { #category : #'gt-extension' }
 RDFTriplePart >> gtTermFor: aView [
 	<gtView>

@@ -1,20 +1,20 @@
 Class {
-	#name : #RDFAuxiliaryTriple,
-	#superclass : #RDFAuxiliaryObject,
+	#name : #RDFPreviewTriple,
+	#superclass : #RDFPreviewObject,
 	#category : #'ResourceDescriptionFramework-Core-Helpers'
 }
 
 { #category : #accessing }
-RDFAuxiliaryTriple >> object [
+RDFPreviewTriple >> object [
 	^ self realObject object
 ]
 
 { #category : #accessing }
-RDFAuxiliaryTriple >> predicate [
+RDFPreviewTriple >> predicate [
 	^ self realObject predicate
 ]
 
 { #category : #accessing }
-RDFAuxiliaryTriple >> subject [
+RDFPreviewTriple >> subject [
 	^ self realObject subject
 ]

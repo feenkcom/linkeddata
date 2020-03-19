@@ -7,12 +7,7 @@ Class {
 { #category : #accessing }
 RDFNamedNode >> description [
 	^ String streamContents: [ :aStream | 
-		self value ifNil: [ ^ super description ].
-		aStream 
-			nextPutAll: 'URI';
-			nextPut: $:;
-			nextPut: Character space;
-			nextPutAll: self value asString. ]
+		self printDescriptionOn: aStream ]
 ]
 
 { #category : #'gt-extension' }
@@ -22,12 +17,22 @@ RDFNamedNode >> gtIdentifierFor: aView [
 	^ aView textEditor
 		title: 'IRI';
 		glamorousCodeFontAndSize;
-		text: [ self printString asString ]
+		text: [ self description ]
+]
+
+{ #category : #'gt-extension' }
+RDFNamedNode >> gtValueFor: aView [
+	^ self gtIdentifierFor: aView
 ]
 
 { #category : #accessing }
 RDFNamedNode >> name [
 	^ self value
+]
+
+{ #category : #printing }
+RDFNamedNode >> printDescriptionOn: aStream [
+	aStream print: self
 ]
 
 { #category : #printing }

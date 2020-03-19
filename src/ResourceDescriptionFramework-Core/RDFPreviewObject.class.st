@@ -1,5 +1,5 @@
 Class {
-	#name : #RDFAuxiliaryObject,
+	#name : #RDFPreviewObject,
 	#superclass : #RDFProtoObject,
 	#instVars : [
 		'store',
@@ -9,12 +9,12 @@ Class {
 }
 
 { #category : #accessing }
-RDFAuxiliaryObject >> children [
+RDFPreviewObject >> children [
 	^ #()
 ]
 
 { #category : #'gt-extension' }
-RDFAuxiliaryObject >> gtTriplesSubjectFor: aView [
+RDFPreviewObject >> gtTriplesSubjectFor: aView [
 	<gtView>
 	self realObject ifNil: [ ^ aView empty ].
 	^ aView tree
@@ -24,7 +24,7 @@ RDFAuxiliaryObject >> gtTriplesSubjectFor: aView [
 ]
 
 { #category : #simulation }
-RDFAuxiliaryObject >> gtViewsInContext: aContext [
+RDFPreviewObject >> gtViewsInContext: aContext [
 	^ OrderedCollection new
 		addAll: (self realObject gtMainViewsInContext: GtPhlowEmptyView new);
 		addAll: (super gtViewsInContext: GtPhlowEmptyView new);
@@ -32,21 +32,21 @@ RDFAuxiliaryObject >> gtViewsInContext: aContext [
 ]
 
 { #category : #accessing }
-RDFAuxiliaryObject >> realObject [
+RDFPreviewObject >> realObject [
 	^ realObject
 ]
 
 { #category : #accessing }
-RDFAuxiliaryObject >> realObject: anObject [
+RDFPreviewObject >> realObject: anObject [
 	realObject := anObject
 ]
 
 { #category : #accessing }
-RDFAuxiliaryObject >> store [
+RDFPreviewObject >> store [
 	^ store
 ]
 
 { #category : #accessing }
-RDFAuxiliaryObject >> store: anObject [
+RDFPreviewObject >> store: anObject [
 	store := anObject
 ]

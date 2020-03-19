@@ -8,17 +8,8 @@ Class {
 }
 
 { #category : #accessing }
-RDFShortNamedNode >> description [
-	^ String streamContents: [ :aStream | 
-		self value ifNil: [ ^ super description ].
-		self namespace ifNil: [ ^ super description ].
-		aStream 
-			nextPutAll: 'URI';
-			nextPut: $:;
-			nextPut: Character space;
-			nextPutAll: self namespace value asString; 
-			nextPut: $:;
-			nextPutAll: self value asString. ]
+RDFShortNamedNode >> fullName [
+	^ self namespace fullName asString, self value
 ]
 
 { #category : #accessing }
@@ -33,6 +24,15 @@ RDFShortNamedNode >> namespace: aRDFNamespaceNamedNode [
 		assert: [ aRDFNamespaceNamedNode isNotNil ] 
 		description: [ 'Namespace must be non-nil' ].
 	namespace := aRDFNamespaceNamedNode
+]
+
+{ #category : #printing }
+RDFShortNamedNode >> printDescriptionOn: aStream [
+	aStream 
+		nextPutAll: 'Short name: '; 
+		print: self; cr;
+		nextPutAll: ' Full name: ';
+		print: self fullName
 ]
 
 { #category : #printing }

@@ -51,6 +51,7 @@ RDFSimpleCollectionStore >> gtTriplesSubjectFor: aView [
 	self collection ifNil: [ ^ aView empty ].
 	^ aView tree
 		title: 'Subjects';
+		priority: 2;
 		items: [ self extractedSubjects ];
 		children: [ :eachExtractedItem | eachExtractedItem children ]
 ]
@@ -65,13 +66,13 @@ RDFSimpleCollectionStore >> gtViewCollectionRawFor: aView [
 		items: [ self collection ];
 		column: 'Subject' 
 			item: #subject
-			format: [ :aSubject | aSubject term description ];
+			format: [ :aSubject | aSubject term fullName ];
 		column: 'Predicate' 
 			item: #predicate
-			format: [ :aPredicate | aPredicate term description ];
+			format: [ :aPredicate | aPredicate term fullName ];
 		column: 'Object' 
 			item: #object
-			format: [ :anObject | anObject term description ]
+			format: [ :anObject | anObject term fullName ]
 ]
 
 { #category : #'gt-extension' }
