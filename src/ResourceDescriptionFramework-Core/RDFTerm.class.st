@@ -59,11 +59,6 @@ RDFTerm >> printFullNameWithDataTypeOn: aStream [
 ]
 
 { #category : #accessing }
-RDFTerm >> shortName [
-	^ self printString
-]
-
-{ #category : #accessing }
 RDFTerm >> termType [
 	<return: #RDFTermType>
 	^ self subclassResponsibility

@@ -21,6 +21,12 @@ RDFProtoObject >> gtMainViewsInContext: aContext [
 ]
 
 { #category : #printing }
-RDFProtoObject >> printShortOn: aStream [
+RDFProtoObject >> printShortNameOn: aStream [
 	self printOn: aStream
+]
+
+{ #category : #accessing }
+RDFProtoObject >> shortName [
+	^ String streamContents: [ :aStream | 
+		self printShortNameOn: aStream ]
 ]

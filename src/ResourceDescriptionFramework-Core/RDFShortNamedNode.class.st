@@ -24,7 +24,7 @@ RDFShortNamedNode >> namespace: aRDFNamespaceNamedNode [
 { #category : #printing }
 RDFShortNamedNode >> printDescriptionOn: aStream [
 	aStream nextPutAll: 'Short name: '.
-	self printShortOn: aStream.
+	self printShortNameOn: aStream.
 	aStream cr; nextPutAll: ' Full name: '.
 	self printFullNameOn: aStream
 ]
@@ -54,7 +54,7 @@ RDFShortNamedNode >> printOn: aStream [
 ]
 
 { #category : #printing }
-RDFShortNamedNode >> printShortOn: aStream [
+RDFShortNamedNode >> printShortNameOn: aStream [
 	self value ifNil: [ ^ super printOn: aStream ].
 	aStream nextPutAll: self value asString.
 ]

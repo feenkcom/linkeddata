@@ -93,7 +93,7 @@ RDFLiteral >> printOn: aStream [
 ]
 
 { #category : #printing }
-RDFLiteral >> printShortOn: aStream [
+RDFLiteral >> printShortNameOn: aStream [
 	self value ifNil: [ ^ self printOn: aStream ].
 	aStream nextPutAll: self value asString.
 ]
