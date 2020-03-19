@@ -18,6 +18,22 @@ RDFSimpleCollectionStore >> collection [
 	^ collection
 ]
 
+{ #category : #enumerating }
+RDFSimpleCollectionStore >> do: doBlock [
+	^ self collection do: doBlock
+]
+
+{ #category : #enumerating }
+RDFSimpleCollectionStore >> extractedSubjects [
+	<return: #Array of: #RDFExtracedSubject>
+	| theSubjects |
+	theSubjects := (self collection collect: #subject as: OrderedCollection) removeDuplicates.
+	^ theSubjects collect: [ :eachSubject | 
+			RDFExtractedSubject new 
+				realObject: eachSubject;
+				store: self ]
+]
+
 { #category : #'gt-extension' }
 RDFSimpleCollectionStore >> gtCollectionFor: aView [
 	<gtView>
@@ -26,6 +42,16 @@ RDFSimpleCollectionStore >> gtCollectionFor: aView [
 		title: 'Triples';
 		items: [ self collection ];
 		itemFormat: [ :aTriple | aTriple sentence ]
+]
+
+{ #category : #'gt-extension' }
+RDFSimpleCollectionStore >> gtTriplesSubjectFor: aView [
+	<gtView>
+	self collection ifNil: [ ^ aView empty ].
+	^ aView tree
+		title: 'Subjects';
+		items: [ self extractedSubjects ];
+		children: [ :eachExtractedItem | eachExtractedItem children ]
 ]
 
 { #category : #initialization }
@@ -41,6 +67,11 @@ RDFSimpleCollectionStore >> resourceForSubject: aSubject withSphere: aRDFSphere 
 	^ RDFResourceWithSphere new 
 		sphere: aRDFSphere;
 		triples: (self triplesForSubject: aSubject)
+]
+
+{ #category : #enumerating }
+RDFSimpleCollectionStore >> select: selectBlock thenCollect: collectBlock [
+	^ self collection select: selectBlock thenCollect: collectBlock
 ]
 
 { #category : #enumerating }
