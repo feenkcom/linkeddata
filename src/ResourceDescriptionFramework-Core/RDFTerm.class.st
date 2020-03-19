@@ -36,6 +36,11 @@ RDFTerm >> gtValueFor: aView [
 ]
 
 { #category : #accessing }
+RDFTerm >> shortName [
+	^ self printString
+]
+
+{ #category : #accessing }
 RDFTerm >> termType [
 	<return: #RDFTermType>
 	^ self subclassResponsibility

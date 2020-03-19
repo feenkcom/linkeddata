@@ -46,6 +46,11 @@ RDFTriplePart >> printOn: aStream [
 ]
 
 { #category : #accessing }
+RDFTriplePart >> shortName [
+	^ self term shortName
+]
+
+{ #category : #accessing }
 RDFTriplePart >> term [
 	<return: #RDFTerm>
 	^ term
