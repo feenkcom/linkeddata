@@ -14,7 +14,8 @@ RDFTerm >> = aRDFTerm [
 
 { #category : #accessing }
 RDFTerm >> description [
-	^ self printString
+	^ String streamContents: [ :aStream | 
+		self printDescriptionOn: aStream ]
 ]
 
 { #category : #comparing }
@@ -27,12 +28,34 @@ RDFTerm >> equals: aRDFTerm [
 
 { #category : #accessing }
 RDFTerm >> fullName [
-	^ self printString
+	^ String streamContents: [ :aStream | 
+		self printFullNameOn: aStream ]
+]
+
+{ #category : #accessing }
+RDFTerm >> fullNameWithDataType [
+	^ String streamContents: [ :aStream | 
+		self printFullNameWithDataTypeOn: aStream ]
 ]
 
 { #category : #'gt-extension' }
 RDFTerm >> gtValueFor: aView [
 	^ self gtPrintFor: aView
+]
+
+{ #category : #printing }
+RDFTerm >> printDescriptionOn: aStream [
+	self printFullNameOn: aStream
+]
+
+{ #category : #printing }
+RDFTerm >> printFullNameOn: aStream [
+	self printOn: aStream
+]
+
+{ #category : #printing }
+RDFTerm >> printFullNameWithDataTypeOn: aStream [
+	self printFullNameOn: aStream
 ]
 
 { #category : #accessing }

@@ -8,11 +8,6 @@ Class {
 }
 
 { #category : #accessing }
-RDFShortNamedNode >> fullName [
-	^ self namespace fullName asString, self value
-]
-
-{ #category : #accessing }
 RDFShortNamedNode >> namespace [
 	<return: #RDFNamespaceNamedNode>
 	^ namespace
@@ -28,11 +23,24 @@ RDFShortNamedNode >> namespace: aRDFNamespaceNamedNode [
 
 { #category : #printing }
 RDFShortNamedNode >> printDescriptionOn: aStream [
-	aStream 
-		nextPutAll: 'Short name: '; 
-		print: self; cr;
-		nextPutAll: ' Full name: ';
-		print: self fullName
+	aStream nextPutAll: 'Short name: '.
+	self printShortOn: aStream.
+	aStream cr; nextPutAll: ' Full name: '.
+	self printFullNameOn: aStream
+]
+
+{ #category : #accessing }
+RDFShortNamedNode >> printFullNameOn: aStream [
+	self namespace ifNil: [ ^ self printOn: aStream ].
+	self namespace printFullNameOn: aStream.
+	self printOn: aStream
+]
+
+{ #category : #printing }
+RDFShortNamedNode >> printFullNameWithDataTypeOn: aStream [
+	self namespace ifNil: [ ^ self printOn: aStream ].
+	self namespace printFullNameWithDataTypeOn: aStream.
+	self printOn: aStream
 ]
 
 { #category : #printing }
