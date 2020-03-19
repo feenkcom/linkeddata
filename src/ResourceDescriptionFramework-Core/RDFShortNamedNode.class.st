@@ -8,6 +8,20 @@ Class {
 }
 
 { #category : #accessing }
+RDFShortNamedNode >> description [
+	^ String streamContents: [ :aStream | 
+		self value ifNil: [ ^ super description ].
+		self namespace ifNil: [ ^ super description ].
+		aStream 
+			nextPutAll: 'URI';
+			nextPut: $:;
+			nextPut: Character space;
+			nextPutAll: self namespace value asString; 
+			nextPut: $:;
+			nextPutAll: self value asString. ]
+]
+
+{ #category : #accessing }
 RDFShortNamedNode >> namespace [
 	<return: #RDFNamespaceNamedNode>
 	^ namespace

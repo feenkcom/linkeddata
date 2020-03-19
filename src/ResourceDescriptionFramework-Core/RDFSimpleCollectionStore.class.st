@@ -39,7 +39,8 @@ RDFSimpleCollectionStore >> gtCollectionFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
 	^ aView list
-		title: 'Triples';
+		title: 'Triples (sentence)';
+		priority: 20;
 		items: [ self collection ];
 		itemFormat: [ :aTriple | aTriple sentence ]
 ]
@@ -52,6 +53,38 @@ RDFSimpleCollectionStore >> gtTriplesSubjectFor: aView [
 		title: 'Subjects';
 		items: [ self extractedSubjects ];
 		children: [ :eachExtractedItem | eachExtractedItem children ]
+]
+
+{ #category : #'gt-extension' }
+RDFSimpleCollectionStore >> gtViewCollectionRawFor: aView [
+	<gtView>
+	self collection ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Triples (raw)';
+		priority: 30;
+		items: [ self collection ];
+		column: 'Subject' 
+			item: #subject
+			format: [ :aSubject | aSubject term description ];
+		column: 'Predicate' 
+			item: #predicate
+			format: [ :aPredicate | aPredicate term description ];
+		column: 'Object' 
+			item: #object
+			format: [ :anObject | anObject term description ]
+]
+
+{ #category : #'gt-extension' }
+RDFSimpleCollectionStore >> gtViewCollectionSimpleFor: aView [
+	<gtView>
+	self collection ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Triples (basic)';
+		priority: 25;
+		items: [ self collection ];
+		column: 'Subject' item: #subject;
+		column: 'Predicate' item: #predicate;
+		column: 'Object' item: #object
 ]
 
 { #category : #initialization }

@@ -4,6 +4,17 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #accessing }
+RDFNamedNode >> description [
+	^ String streamContents: [ :aStream | 
+		self value ifNil: [ ^ super description ].
+		aStream 
+			nextPutAll: 'URI';
+			nextPut: $:;
+			nextPut: Character space;
+			nextPutAll: self value asString. ]
+]
+
 { #category : #'gt-extension' }
 RDFNamedNode >> gtIdentifierFor: aView [
 	<gtView>
