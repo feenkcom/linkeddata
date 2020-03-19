@@ -8,16 +8,6 @@ Class {
 }
 
 { #category : #'building - object' }
-RDFTripleBuilder >> boooleanLiteral: aBoolean [
-	| aTerm |
-	self 
-		assert: [ aBoolean isBoolean  ] 
-		description: [ 'Boolean literals must be booleans.' ].
-	aTerm := RDF boolean: aBoolean.
-	self objectTerm: aTerm.
-]
-
-{ #category : #'building - object' }
 RDFTripleBuilder >> build [
 	^ self triple
 ]
@@ -64,7 +54,7 @@ RDFTripleBuilder >> objectLiteral: aString [
 { #category : #'building - object' }
 RDFTripleBuilder >> objectLiteral: aValue type: aType [
 	| aTerm |
-	aTerm := RDF literal: aValue type: XSD date.
+	aTerm := RDF literal: aValue type: aType.
 	self objectTerm: aTerm.
 ]
 
