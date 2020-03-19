@@ -23,20 +23,9 @@ RDFSimpleCollectionStore >> gtCollectionFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
 	^ aView list
-		title: 'Collection';
+		title: 'Triples';
 		items: [ self collection ];
 		itemFormat: [ :aTriple | aTriple sentence ]
-]
-
-{ #category : #'gt-extension' }
-RDFSimpleCollectionStore >> gtSpheresFor: aView [
-	<gtView>
-	self collection ifNil: [ ^ aView empty ].
-	^ aView forward
-		title: 'Spheres';
-		priority: 1;
-		object: [ self spheres ];
-		view: #gtSpheresFor:
 ]
 
 { #category : #initialization }

@@ -62,13 +62,27 @@ RDFTriple >> predicate: anObject [
 	predicate := anObject
 ]
 
+{ #category : #printing }
+RDFTriple >> printOn: aStream [
+	self subject ifNil: [ ^ super printOn: aStream ].
+	self printSentenceOn: aStream
+]
+
+{ #category : #printing }
+RDFTriple >> printSentenceOn: aStream [
+	self subject ifNotNil: [ :aSubject | 
+		aStream print: aSubject; space ].
+	self predicate ifNotNil: [ :aPredicate | 
+		aStream nextPutAll: 'has a '; print: aPredicate ].
+	self object ifNotNil: [ :anObject | 
+		aStream nextPutAll: ' whose value is '; print: anObject; nextPut: $. ].
+]
+
 { #category : #accessing }
 RDFTriple >> sentence [
 	<return: #String>
 	^ String streamContents: [ :aStream | 
-		self subject ifNotNil: [ :aSubject | aStream print: aSubject; space ].
-		self predicate ifNotNil: [ :aPredicate | aStream nextPutAll: 'has a '; print: aPredicate ].
-		self object ifNotNil: [ :anObject | aStream nextPutAll: ' whose value is '; print: anObject; nextPut: $. ].  ]
+		self printSentenceOn: aStream ]
 ]
 
 { #category : #accessing }

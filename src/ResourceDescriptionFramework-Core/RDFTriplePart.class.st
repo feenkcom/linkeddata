@@ -7,6 +7,12 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #comparing }
+RDFTriplePart >> = aTriplePart [
+	^ self class = aTriplePart class and: [ 
+		self term = aTriplePart term ]
+]
+
 { #category : #'gt-extension' }
 RDFTriplePart >> gtTermFor: aView [
 	<gtView>
@@ -15,6 +21,11 @@ RDFTriplePart >> gtTermFor: aView [
 		title: self term termType name;
 		object: [ self term ];
 		view: #gtValueFor:
+]
+
+{ #category : #comparing }
+RDFTriplePart >> hash [
+	^ self class hash bitXor: self term hash
 ]
 
 { #category : #accessing }
