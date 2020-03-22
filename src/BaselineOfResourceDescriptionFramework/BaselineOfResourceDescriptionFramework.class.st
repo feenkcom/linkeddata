@@ -8,10 +8,9 @@ Class {
 BaselineOfResourceDescriptionFramework >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
-		spec 
-			baseline: 'ResourceDescriptionFrameworkCore' with: [
-				spec repository: 'github://feenkcom/linkeddata/src' ];
-			package: 'ResourceDescriptionFramework-Examples' with: [ 
-				spec requires: #( 'ResourceDescriptionFrameworkCore' ) ].
-	]
+		spec baseline: 'ResourceDescriptionFrameworkCore' with: [
+				spec repository: 'github://feenkcom/linkeddata:v0.6.0/src' ].
+		spec package: 'ResourceDescriptionFramework-Examples' with: [
+				spec requires: #('ResourceDescriptionFrameworkCore' ). ]. ].
+
 ]
