@@ -11,7 +11,7 @@ POLYFactory >> isRetweet [
 
 { #category : #factory }
 POLYFactory >> prefix [
-	^ 'http://www.polypoly.eu/schema/'
+	^ 'http://polypoly.eu/schema/'
 ]
 
 { #category : #factory }

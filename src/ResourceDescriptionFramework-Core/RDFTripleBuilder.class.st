@@ -150,7 +150,7 @@ RDFTripleBuilder >> predicateTerm: aTerm [
 
 	"There's a limited number of known predicates, and a potentially large number of users.
 	Try and get a unique instance to save memory."
-	(RDFConvenience uniqueInstanceOf: aPredicate fullName)
+	(RDFConvenience uniqueInstanceOf: aPredicate)
 		ifNotNil: [ :uniqueInstance | aPredicate := uniqueInstance ].
 
 	self predicate: aPredicate.
