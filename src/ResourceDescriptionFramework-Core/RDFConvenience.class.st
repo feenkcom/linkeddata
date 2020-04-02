@@ -1,8 +1,8 @@
 Class {
 	#name : #RDFConvenience,
 	#superclass : #Object,
-	#classInstVars : [
-		'knownPredicates'
+	#classVars : [
+		'KnownPredicates'
 	],
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
@@ -20,17 +20,17 @@ RDFConvenience class >> factory [
 ]
 
 { #category : #accessing }
-RDFConvenience class >> findUniqueInstanceOf: aPredicateFullname [
+RDFConvenience class >> findUniquePredicateFor: aPredicateFullname [
 	"Ask each of the subclasses for the unique instance matching the supplied string"
 
 	self subclassesDo: [ :cls |
-		(cls getUniqueInstanceOf: aPredicateFullname) ifNotNil: 
+		(cls getUniquePredicateFor: aPredicateFullname) ifNotNil: 
 			[ :uniquePredicate | ^uniquePredicate ] ].
 	^ nil.
 ]
 
 { #category : #private }
-RDFConvenience class >> getUniqueInstanceOf: aPredicateFullname [
+RDFConvenience class >> getUniquePredicateFor: aPredicateFullname [
 
 	^ (aPredicateFullname beginsWith: self factory prefix) 
 		ifTrue: [ RDF predicate: (self factory namedNodeSuffix: aPredicateFullname asZnUrl lastPathSegment) ]
@@ -40,30 +40,11 @@ RDFConvenience class >> getUniqueInstanceOf: aPredicateFullname [
 { #category : #accessing }
 RDFConvenience class >> knownPredicates [
 
-	^ knownPredicates ifNil: [ knownPredicates := Dictionary new ]
+	^ KnownPredicates ifNil: [ KnownPredicates := Dictionary new ]
 ]
 
 { #category : #initialization }
 RDFConvenience class >> reset [ 
 	
-	knownPredicates := nil.
-]
-
-{ #category : #accessing }
-RDFConvenience class >> uniqueInstanceOf: aPredicate [
-	"Answer a unique instance of the supplied predicate, or nil if one can't be found"
-	| uniquePredicate fullName |
-
-	fullName := aPredicate fullName.
-	self knownPredicates
-		at: fullName
-		ifPresent: [ :predicate | ^predicate ].
-
-	uniquePredicate := self findUniqueInstanceOf: fullName.
-	uniquePredicate ifNil: [ ^nil ].
-
-	self knownPredicates
-		at: fullName 
-		put: uniquePredicate.
-	^ uniquePredicate
+	KnownPredicates := nil.
 ]

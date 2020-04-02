@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #accessing }
+POLYFactory >> baseDomain [
+	^ self namedNodeSuffix: 'baseDomain'
+]
+
+{ #category : #accessing }
 POLYFactory >> isRetweet [
 	^ self namedNodeSuffix: 'isRetweet'
 ]

@@ -10,6 +10,11 @@ SCHEMA class >> author [
 ]
 
 { #category : #factory }
+SCHEMA class >> dateCreated [
+	^ self factory dateCreated
+]
+
+{ #category : #factory }
 SCHEMA class >> datePublished [
 	^ self factory datePublished
 ]

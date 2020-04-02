@@ -72,7 +72,7 @@ RDFTripleBuilder >> objectNTerm: aString [
 	(DateAndTime gtIsISO8601: aString) ifTrue: 
 		[ ^ self objectLiteral: (DateAndTime readFrom: aString readStream) type: XSD date ].
 	(aString first = $<) ifTrue: 
-		[ ^ self objectLiteral: aString ].
+		[ ^ self objectLiteral: (aString copyFrom: 2 to: aString size - 1) ].
 	(aString = 'true' or: [ aString = 'false' ]) ifTrue: 
 		[ ^ self objectLiteral: aString = 'true' type: XSD boolean ].
 	aString first isDigit ifTrue: 
@@ -80,7 +80,7 @@ RDFTripleBuilder >> objectNTerm: aString [
 			ifTrue: [ self objectLiteral: aString asNumber type: XSD decimal ]
 			ifFalse: [ self objectLiteral: aString asNumber type: XSD integer ] ].
 	aString first = $" ifTrue: 
-		[ ^ self objectLiteral: aString type: XSD string ].
+		[ ^ self objectLiteral: (aString copyFrom: 2 to: aString size - 1) type: XSD string ].
 	self error: 'Unknown N-Type'.
 ]
 
@@ -147,12 +147,6 @@ RDFTripleBuilder >> predicateTerm: aTerm [
 		assert: [ aTerm isNotNil ] 
 		description: [ 'Predicate term must be non-nil' ].
 	aPredicate := RDF predicate: aTerm.
-
-	"There's a limited number of known predicates, and a potentially large number of users.
-	Try and get a unique instance to save memory."
-	(RDFConvenience uniqueInstanceOf: aPredicate)
-		ifNotNil: [ :uniqueInstance | aPredicate := uniqueInstance ].
-
 	self predicate: aPredicate.
 ]
 
