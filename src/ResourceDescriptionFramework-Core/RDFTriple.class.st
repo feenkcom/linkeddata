@@ -10,6 +10,28 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #'instance creation' }
+RDFTriple class >> fromNTriple: aString [
+	"Answer an instance based on the values in the supplied N-Triple"
+	| fields subject predicate |
+
+	"Assume single tab based separation for now"
+	fields := Character tab split: aString.
+	"N-Triples have four fields: subject predicate object ."
+	self assert: fields size equals: 4.
+	self assert: fields last equals: '.'.
+	"IRIs are enclosed in angle brackets"
+	subject := fields first copyFrom: 2 to: fields first size - 1.
+	predicate := fields second copyFrom: 2 to: fields second size - 1.
+
+	^ RDF tripleBuilder
+		subjectIRI: subject;
+		predicateIRI: predicate;
+		objectNTerm: fields third;
+		build.
+
+]
+
 { #category : #'gt-extension' }
 RDFTriple >> gtPartsFor: aView [
 	<gtView>
