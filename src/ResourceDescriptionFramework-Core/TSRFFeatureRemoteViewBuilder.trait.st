@@ -4,6 +4,59 @@ Trait {
 }
 
 { #category : #private }
+TSRFFeatureRemoteViewBuilder >> createColumnedListViewFrom: aViewData onTarget: anObject [
+	| view |
+	view := GtPhlowView empty columnedList.
+	view 
+		title: (aViewData at: 'title');
+		priority: (aViewData at: 'priority');
+		items: [ 
+			| currentObject |
+			currentObject := anObject.
+			(aViewData at: 'items') do: [ :anOperation | 
+				anOperation isString ifTrue: [ 
+					currentObject := currentObject perform: anOperation asSymbol ].
+				anOperation isDictionary ifTrue: [ 
+					currentObject := self performQuery: anOperation on: currentObject. ] ].
+			currentObject ].
+	
+	(aViewData at: 'columns') do: [ :aColumnData | 
+		view 
+			column: (aColumnData at: 'title') 
+			do: [ :aColumn |
+				aColumn 
+					titleStencil: [ :titleText |
+						self createHeaderElementFor: titleText asRopedText ];
+					itemStencil: [ :anItem | 
+						| currentObject |
+						currentObject := anItem.
+						(aColumnData at: 'computation') do: [ :anOperation | 
+							anOperation isString ifTrue: [ 
+								currentObject := currentObject perform: anOperation asSymbol ].
+							anOperation isDictionary ifTrue: [ 
+								currentObject := self performFormatFor: anOperation on: currentObject. ] ].
+						self createListElementFor: currentObject ] ]	].
+	
+	^ view
+		
+]
+
+{ #category : #'private - ui' }
+TSRFFeatureRemoteViewBuilder >> createHeaderElementFor: aString [ 
+	^ BrLabel new
+		look:( SoPolypolyLabelLook new
+			foreground: BrGlamorousColors defaultButtonTextColor);
+		text: aString asRopedText
+]
+
+{ #category : #'private - ui' }
+TSRFFeatureRemoteViewBuilder >> createListElementFor: aString [ 
+	^ BrLabel new
+		look: SoPolypolyListLabelLook;
+		text: aString
+]
+
+{ #category : #private }
 TSRFFeatureRemoteViewBuilder >> createListViewFrom: aViewData onTarget: anObject [
 	| view |
 	view := GtPhlowView empty list.
@@ -65,6 +118,8 @@ TSRFFeatureRemoteViewBuilder >> getSerialisableViewForId: aViewId [
 	viewType := viewData at: 'type'.
 	(viewType = 'list') ifTrue: [
 		^ self createListViewFrom: viewData onTarget: self ].
+	(viewType = 'columned-list') ifTrue: [
+		^ self createColumnedListViewFrom: viewData onTarget: self ].
 	
 	^ nil
 ]
@@ -74,11 +129,13 @@ TSRFFeatureRemoteViewBuilder >> performFormatFor: anOperation on: extractedSubje
 	| list |
 	list := OrderedCollection streamContents: [ :aStream | 
 		extractedSubject triplesWithSameSubjectInto: aStream ].
-	self halt.
+	
 	^ list 
 			detect: [ :aTripple |
 				aTripple predicate fullName = (anOperation at: 'getPredicate') ]
-			ifNone: [ 'a' ]
+			ifFound: [:aTripple |
+				aTripple object ]
+			ifNone: [ '' ]
 ]
 
 { #category : #private }

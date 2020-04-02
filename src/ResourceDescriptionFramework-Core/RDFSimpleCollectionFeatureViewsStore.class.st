@@ -102,8 +102,19 @@ RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesNamesViewFor: aView [
 	self collection ifNil: [ ^ aView empty ].
 	^ aView explicit 
 		title: 'Cookies names-F';
-		priority: 200;
+		priority: 2;
 		stencil: [ (self getSerialisableViewForId: 'gtSerialisableCookiesList')
+			asElementDo: [ :anElement | anElement ] ]
+]
+
+{ #category : #'gt-extension' }
+RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesViewFor: aView [
+	<gtView>
+	self collection ifNil: [ ^ aView empty ].
+	^ aView explicit 
+		title: 'Cookies-F';
+		priority: 5;
+		stencil: [ (self getSerialisableViewForId: 'gtSerialisableCookiesTable')
 			asElementDo: [ :anElement | anElement ] ]
 ]
 
