@@ -7,7 +7,7 @@ Trait {
 TSRFFeatureRemoteViewBuilder >> computeColorFromColorMap: aColorMap forTarget: anObject [
 	| colorValues value |
 	colorValues := aColorMap at: 'colors'.
-	(anObject isKindOf: RDFObject) ifFalse: [ ^ Color gray ].
+	"(anObject isKindOf: RDFObject) ifFalse: [ ^ Color gray ]."
 	
 	value := self 
 		computeObjectValueForPredicateMatching: (aColorMap at: 'value')
@@ -32,20 +32,16 @@ TSRFFeatureRemoteViewBuilder >> computeItemsFromQuery: aQuery forTarget: aTarget
 ]
 
 { #category : #private }
-TSRFFeatureRemoteViewBuilder >> computeObjectValueForPredicateMatching: aQuery [
-]
-
-{ #category : #private }
 TSRFFeatureRemoteViewBuilder >> computeObjectValueForPredicateMatching: aQuery forTarget: anObject [
 	| currentObject |
 	
 	currentObject := anObject.
 	aQuery do: [ :anOperation | 
+		currentObject ifNil: [ ^ '' ].
 		anOperation isString ifTrue: [ 
 			currentObject := currentObject perform: anOperation asSymbol ].
 		anOperation isDictionary ifTrue: [ 
-			currentObject := (self performFormatFor: anOperation on: currentObject)
-				"ifEmpty: [ ^ '' ]" ] ].
+			currentObject := (self performFormatFor: anOperation on: currentObject) ] ].
 	^ currentObject
 ]
 
@@ -81,7 +77,7 @@ TSRFFeatureRemoteViewBuilder >> createColumnedListViewFrom: aViewData onTarget: 
 								currentObject := currentObject perform: anOperation asSymbol ].
 							anOperation isDictionary ifTrue: [ 
 								currentObject := self performFormatFor: anOperation on: currentObject. ] ].
-						self createListElementFor: currentObject ] ]	].
+						self createListElementFor: (currentObject ifNil: ['']) ] ]	].
 	
 	^ view
 		
@@ -101,16 +97,27 @@ TSRFFeatureRemoteViewBuilder >> createColumnedTreeMapFrom: aViewData onTarget: a
 			dataLawElements := (((items groupedBy: [ :anItem | self computeObjectValueForPredicateMatching: (aViewData at: 'grouping') forTarget: anItem ]) associations
 				sortDescending: [ :assoc | assoc value size ])) 
 				collect: [ :assoc |
+					
 					BlElement new
 						layout: BlFrameLayout new;
 						border: (BlBorder paint: Color white width: 1);
-						background: (self 
-							computeColorFromColorMap: (aViewData at: 'colorMap')
-							forTarget: assoc key );
+						background: ((assoc key isKindOf: RDFObject) 
+							ifTrue: [ self 
+								computeColorFromColorMap: (aViewData at: 'colorMap')
+								forTarget: assoc  ]
+							ifFalse: [ Color gray ]);
 						constraintsDo: [ :c | 
 							c horizontal matchParent.
 							c vertical matchParent.
-							c treemap weight: assoc value size  ] ].
+							c treemap weight: assoc value size  ];
+						 addChild: (BrEditor new
+							fitContent;
+							text: ((assoc key isKindOf: RDFObject)
+								ifTrue: [ self 
+									computeObjectValueForPredicateMatching: (aViewData at: 'groupLabel')
+									forTarget: assoc ]
+								ifFalse: [ 'Undefined']);
+							look: SoPolypolyParagraphLook) ].
 			
 			BlElement new 
 				layout: GtGraphTreemapLayout squarify;
@@ -220,7 +227,7 @@ TSRFFeatureRemoteViewBuilder >> performFormatFor: anOperation on: extractedSubje
 				aTripple predicate fullName = (anOperation at: 'getPredicate') ]
 			ifFound: [:aTripple |
 				aTripple object ]
-			ifNone: [ '' ]
+			ifNone: [ nil ]
 ]
 
 { #category : #private }
