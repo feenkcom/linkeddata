@@ -35,6 +35,7 @@ RDFTermFactory >> namespace [
 
 { #category : #factory }
 RDFTermFactory >> prefix [
+	"Note that the prefix must finish with a separator, typically / or #, so that name can be appended"
 	<return: #String>
 	^ self subclassResponsibility
 ]

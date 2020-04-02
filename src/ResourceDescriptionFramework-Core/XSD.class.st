@@ -19,9 +19,19 @@ XSD class >> dateTime [
 	^ self factory dateTime
 ]
 
+{ #category : #factory }
+XSD class >> decimal [
+	^ self factory decimal
+]
+
 { #category : #accessing }
 XSD class >> factory [
 	^ XSDFactory default
+]
+
+{ #category : #factory }
+XSD class >> integer [
+	^ self factory integer
 ]
 
 { #category : #factory }

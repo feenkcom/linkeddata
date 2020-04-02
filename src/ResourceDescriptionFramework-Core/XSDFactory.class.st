@@ -23,6 +23,18 @@ XSDFactory >> dateTime [
 ]
 
 { #category : #factory }
+XSDFactory >> decimal [
+	<return: #RDFNamedNode>
+	^ self namedNodeSuffix: 'decimal'
+]
+
+{ #category : #factory }
+XSDFactory >> integer [
+	<return: #RDFNamedNode>
+	^ self namedNodeSuffix: 'integer'
+]
+
+{ #category : #factory }
 XSDFactory >> prefix [
 	<return: #String>
 	^ 'http://www.w3.org/2001/XMLSchema#'

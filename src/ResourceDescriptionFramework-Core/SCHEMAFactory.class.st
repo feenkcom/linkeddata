@@ -10,6 +10,11 @@ SCHEMAFactory >> author [
 ]
 
 { #category : #accessing }
+SCHEMAFactory >> dateCreated [
+	^ self namedNodeSuffix: 'dateCreated'
+]
+
+{ #category : #accessing }
 SCHEMAFactory >> datePublished [
 	^ self namedNodeSuffix: 'datePublished'
 ]

@@ -59,6 +59,32 @@ RDFTripleBuilder >> objectLiteral: aValue type: aType [
 ]
 
 { #category : #'building - object' }
+RDFTripleBuilder >> objectNTerm: aString [ 
+	"Build the object assuming the type from the encoding.
+	This is a hack - the type should be determined by looking up the predicate schema and parsing based on that information.
+	Assume type based on first character:
+	- iso8601 regex -> date (must be UTC)
+	- greater-than -> IRI
+	- true or false -> boolean
+	- digit -> number
+	- double-quote -> string"
+
+	(DateAndTime gtIsISO8601: aString) ifTrue: 
+		[ ^ self objectLiteral: (DateAndTime readFrom: aString readStream) type: XSD date ].
+	(aString first = $<) ifTrue: 
+		[ ^ self objectLiteral: (aString copyFrom: 2 to: aString size - 1) ].
+	(aString = 'true' or: [ aString = 'false' ]) ifTrue: 
+		[ ^ self objectLiteral: aString = 'true' type: XSD boolean ].
+	aString first isDigit ifTrue: 
+		[ ^ (aString indexOf: $.) > 0
+			ifTrue: [ self objectLiteral: aString asNumber type: XSD decimal ]
+			ifFalse: [ self objectLiteral: aString asNumber type: XSD integer ] ].
+	aString first = $" ifTrue: 
+		[ ^ self objectLiteral: (aString copyFrom: 2 to: aString size - 1) type: XSD string ].
+	self error: 'Unknown N-Type'.
+]
+
+{ #category : #'building - object' }
 RDFTripleBuilder >> objectNamespace: aNamespace suffix: aSuffixString [
 	| aTerm |
 	aTerm := RDF namedNode: aSuffixString inNamespace: aNamespace.

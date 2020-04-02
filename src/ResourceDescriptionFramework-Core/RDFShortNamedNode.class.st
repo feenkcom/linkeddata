@@ -33,14 +33,14 @@ RDFShortNamedNode >> printDescriptionOn: aStream [
 RDFShortNamedNode >> printFullNameOn: aStream [
 	self namespace ifNil: [ ^ self printOn: aStream ].
 	self namespace printFullNameOn: aStream.
-	self printOn: aStream
+	aStream << value asString.
 ]
 
 { #category : #printing }
 RDFShortNamedNode >> printFullNameWithDataTypeOn: aStream [
 	self namespace ifNil: [ ^ self printOn: aStream ].
 	self namespace printFullNameWithDataTypeOn: aStream.
-	self printOn: aStream
+	aStream << value asString.
 ]
 
 { #category : #printing }

@@ -10,6 +10,28 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #'instance creation' }
+RDFTriple class >> fromNTriple: aString [
+	"Answer an instance based on the values in the supplied N-Triple"
+	| fields subject predicate |
+
+	"Assume single tab based separation for now"
+	fields := Character tab split: aString.
+	"N-Triples have four fields: subject predicate object ."
+	self assert: fields size equals: 4.
+	self assert: fields last equals: '.'.
+	"IRIs are enclosed in angle brackets"
+	subject := fields first copyFrom: 2 to: fields first size - 1.
+	predicate := fields second copyFrom: 2 to: fields second size - 1.
+
+	^ RDF tripleBuilder
+		subjectIRI: subject;
+		predicateIRI: predicate;
+		objectNTerm: fields third;
+		build.
+
+]
+
 { #category : #'gt-extension' }
 RDFTriple >> gtPartsFor: aView [
 	<gtView>
@@ -58,8 +80,33 @@ RDFTriple >> predicate [
 ]
 
 { #category : #accessing }
-RDFTriple >> predicate: anObject [
-	predicate := anObject
+RDFTriple >> predicate: aPredicate [
+	"Set the receiver's predicate.
+	There's only a limited set of predicates, however they are used many times each.  Try and use a single instance."
+	| uniquePredicate fullName |
+
+	predicate := aPredicate.
+	fullName := aPredicate fullName.
+	RDFConvenience knownPredicates
+		at: fullName
+		ifPresent: [ :thePredicate | 
+			predicate := thePredicate.
+			^self ].
+
+	uniquePredicate := RDFConvenience findUniquePredicateFor: fullName.
+	uniquePredicate ifNil: [ ^self ].
+
+	RDFConvenience knownPredicates
+		at: fullName 
+		put: uniquePredicate.
+	predicate := uniquePredicate.
+
+]
+
+{ #category : #accessing }
+RDFTriple >> predicateIRI [
+
+	^ predicate term printString
 ]
 
 { #category : #printing }
@@ -103,4 +150,11 @@ RDFTriple >> subject [
 { #category : #accessing }
 RDFTriple >> subject: anObject [
 	subject := anObject
+]
+
+{ #category : #accessing }
+RDFTriple >> subjectIRI [
+	"Answer the receiver's subject IRI as a string (useful for adhoc searches)"
+
+	^ subject printString
 ]

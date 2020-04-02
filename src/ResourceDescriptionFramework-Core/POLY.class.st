@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #factory }
+POLY class >> baseDomain [
+	^ self factory baseDomain
+]
+
+{ #category : #factory }
 POLY class >> factory [
 	^ POLYFactory default
 ]
