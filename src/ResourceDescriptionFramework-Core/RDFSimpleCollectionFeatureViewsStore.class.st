@@ -97,6 +97,17 @@ RDFSimpleCollectionFeatureViewsStore >> gtViewCollectionSimpleFor: aView [
 ]
 
 { #category : #'gt-extension' }
+RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesCountriesTreeMapFor: aView [
+	<gtView>
+	self collection ifNil: [ ^ aView empty ].
+	^ aView explicit 
+		title: 'Cookies Coountries -F';
+		priority: 6;
+		stencil: [ (self getSerialisableViewForId: 'gtSerialisableCookiesCountryTreeMap')
+			asElementDo: [ :anElement | anElement ] ]
+]
+
+{ #category : #'gt-extension' }
 RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesDataLawTreeMapFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].

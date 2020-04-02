@@ -4,6 +4,22 @@ Trait {
 }
 
 { #category : #private }
+TSRFFeatureRemoteViewBuilder >> computeColorFromColorMap: aColorMap forTarget: anObject [
+	| colorValues value |
+	colorValues := aColorMap at: 'colors'.
+	(anObject isKindOf: RDFObject) ifFalse: [ ^ Color gray ].
+	
+	value := self 
+		computeObjectValueForPredicateMatching: (aColorMap at: 'value')
+		forTarget: anObject.
+	
+	^ colorValues 
+		at: value 
+		ifPresent: [ :aColorString | Color fromHexString: aColorString ]
+		ifAbsent: [ Color gray ]
+]
+
+{ #category : #private }
 TSRFFeatureRemoteViewBuilder >> computeItemsFromQuery: aQuery forTarget: aTarget [
 	| currentObject |
 	currentObject := aTarget.
@@ -82,23 +98,19 @@ TSRFFeatureRemoteViewBuilder >> createColumnedTreeMapFrom: aViewData onTarget: a
 			| dataLawElements items |
 			
 			items := (self computeItemsFromQuery: (aViewData at: 'items') forTarget: self).
-			dataLawElements := ((items groupedBy: [ :anItem | self computeObjectValueForPredicateMatching: (aViewData at: 'grouping') forTarget: anItem ])
-				sortDescending: [ :assoc | assoc value size ])
+			dataLawElements := (((items groupedBy: [ :anItem | self computeObjectValueForPredicateMatching: (aViewData at: 'grouping') forTarget: anItem ]) associations
+				sortDescending: [ :assoc | assoc value size ])) 
 				collect: [ :assoc |
 					BlElement new
 						layout: BlFrameLayout new;
 						border: (BlBorder paint: Color white width: 1);
-						background: Color gray;
+						background: (self 
+							computeColorFromColorMap: (aViewData at: 'colorMap')
+							forTarget: assoc key );
 						constraintsDo: [ :c | 
 							c horizontal matchParent.
 							c vertical matchParent.
-							c treemap weight: assoc value size .
-					
-					"
-					(SoCsCookiesJurisdictionsTreemapTileStencil new
-						label: (assoc key label replaceAll: $/ with: Character cr);
-						weight: assoc value size;
-						dataLaw: assoc key) create" ] ].
+							c treemap weight: assoc value size  ] ].
 			
 			BlElement new 
 				layout: GtGraphTreemapLayout squarify;
