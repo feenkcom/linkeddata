@@ -4,6 +4,36 @@ Trait {
 }
 
 { #category : #private }
+TSRFFeatureRemoteViewBuilder >> computeItemsFromQuery: aQuery forTarget: aTarget [
+	| currentObject |
+	currentObject := aTarget.
+	aQuery do: [ :anOperation | 
+		anOperation isString ifTrue: [ 
+			currentObject := currentObject perform: anOperation asSymbol ].
+		anOperation isDictionary ifTrue: [ 
+			currentObject := self performQuery: anOperation on: currentObject. ] ].
+	^ currentObject
+]
+
+{ #category : #private }
+TSRFFeatureRemoteViewBuilder >> computeObjectValueForPredicateMatching: aQuery [
+]
+
+{ #category : #private }
+TSRFFeatureRemoteViewBuilder >> computeObjectValueForPredicateMatching: aQuery forTarget: anObject [
+	| currentObject |
+	
+	currentObject := anObject.
+	aQuery do: [ :anOperation | 
+		anOperation isString ifTrue: [ 
+			currentObject := currentObject perform: anOperation asSymbol ].
+		anOperation isDictionary ifTrue: [ 
+			currentObject := (self performFormatFor: anOperation on: currentObject)
+				"ifEmpty: [ ^ '' ]" ] ].
+	^ currentObject
+]
+
+{ #category : #private }
 TSRFFeatureRemoteViewBuilder >> createColumnedListViewFrom: aViewData onTarget: anObject [
 	| view |
 	view := GtPhlowView empty columnedList.
@@ -37,6 +67,47 @@ TSRFFeatureRemoteViewBuilder >> createColumnedListViewFrom: aViewData onTarget: 
 								currentObject := self performFormatFor: anOperation on: currentObject. ] ].
 						self createListElementFor: currentObject ] ]	].
 	
+	^ view
+		
+]
+
+{ #category : #private }
+TSRFFeatureRemoteViewBuilder >> createColumnedTreeMapFrom: aViewData onTarget: anObject [
+	| view |
+	view := GtPhlowView empty explicit.
+	view 
+		title: (aViewData at: 'title');
+		priority: (aViewData at: 'priority');
+		stencil: [ 
+			| dataLawElements items |
+			
+			items := (self computeItemsFromQuery: (aViewData at: 'items') forTarget: self).
+			dataLawElements := ((items groupedBy: [ :anItem | self computeObjectValueForPredicateMatching: (aViewData at: 'grouping') forTarget: anItem ])
+				sortDescending: [ :assoc | assoc value size ])
+				collect: [ :assoc |
+					BlElement new
+						layout: BlFrameLayout new;
+						border: (BlBorder paint: Color white width: 1);
+						background: Color gray;
+						constraintsDo: [ :c | 
+							c horizontal matchParent.
+							c vertical matchParent.
+							c treemap weight: assoc value size .
+					
+					"
+					(SoCsCookiesJurisdictionsTreemapTileStencil new
+						label: (assoc key label replaceAll: $/ with: Character cr);
+						weight: assoc value size;
+						dataLaw: assoc key) create" ] ].
+			
+			BlElement new 
+				layout: GtGraphTreemapLayout squarify;
+				constraintsDo: [ :constraints |
+					constraints horizontal matchParent.
+					constraints vertical matchParent ];
+				margin: (BlInsets top: 5 left: 5 bottom: 5 right: 5);
+				addChildren: dataLawElements;
+				yourself ].
 	^ view
 		
 ]
@@ -120,6 +191,8 @@ TSRFFeatureRemoteViewBuilder >> getSerialisableViewForId: aViewId [
 		^ self createListViewFrom: viewData onTarget: self ].
 	(viewType = 'columned-list') ifTrue: [
 		^ self createColumnedListViewFrom: viewData onTarget: self ].
+	(viewType = 'treemap') ifTrue: [
+		^ self createColumnedTreeMapFrom: viewData onTarget: self ].
 	
 	^ nil
 ]

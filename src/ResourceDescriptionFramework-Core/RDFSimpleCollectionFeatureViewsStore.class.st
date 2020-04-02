@@ -97,6 +97,17 @@ RDFSimpleCollectionFeatureViewsStore >> gtViewCollectionSimpleFor: aView [
 ]
 
 { #category : #'gt-extension' }
+RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesDataLawTreeMapFor: aView [
+	<gtView>
+	self collection ifNil: [ ^ aView empty ].
+	^ aView explicit 
+		title: 'Cookies DataLaw -F';
+		priority: 5;
+		stencil: [ (self getSerialisableViewForId: 'gtSerialisableCookiesDataLawTreeMap')
+			asElementDo: [ :anElement | anElement ] ]
+]
+
+{ #category : #'gt-extension' }
 RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesNamesViewFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].

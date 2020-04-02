@@ -43,6 +43,13 @@ RDFTerm >> gtValueFor: aView [
 	^ self gtPrintFor: aView
 ]
 
+{ #category : #comparing }
+RDFTerm >> hash [
+	^ (self class hash 
+		bitXor: self termType hash)
+			bitXor: self value hash
+]
+
 { #category : #printing }
 RDFTerm >> printDescriptionOn: aStream [
 	self printFullNameOn: aStream
