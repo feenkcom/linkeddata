@@ -216,6 +216,42 @@ TSRFFeatureRemoteViewBuilder >> getSerialisableViewForId: aViewId [
 	^ nil
 ]
 
+{ #category : #ui }
+TSRFFeatureRemoteViewBuilder >> getSerialisableViewsData [
+	| featureServer importer |
+	featureServer := JSLinkApplication withDefaultSettings.
+	[ 
+		featureServer start.
+		importer :=  featureServer newCommandFactory
+			<< self getJsObjectCode;
+			sendAndWait.
+		^ importer newCommandFactory
+			beImmediate;
+			<< 'let GtViewedObject = require(''../gtoolkit/gt'');
+let viewedObject = new GtViewedObject(this);
+let viewsNames = viewedObject.getGtSerialisableViewMethodNames();
+let viewsData = [];
+viewsNames.forEach(viewName => {
+  		viewsData.push(viewedObject.getViewDeclaration(viewName));
+		  });
+viewsData';
+			sendAndWait
+	] ensure: [ featureServer stop ].
+]
+
+{ #category : #ui }
+TSRFFeatureRemoteViewBuilder >> gtSerialisableViewsListFor: aView [
+	<gtView>
+	^ aView list 
+		title: 'Feature views';
+		priority: 1005;
+		items: [ self getSerialisableViewsData ];
+		itemFormat: [ :data | data at: 'title' ];
+		send: [ :data |
+			SoSerialisableView new
+				data: data ]
+]
+
 { #category : #private }
 TSRFFeatureRemoteViewBuilder >> performFormatFor: anOperation on: extractedSubject [
 	| list |
