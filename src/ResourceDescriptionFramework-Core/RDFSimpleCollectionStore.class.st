@@ -42,7 +42,7 @@ RDFSimpleCollectionStore >> gtCollectionFor: aView [
 		title: 'Triples (sentence)';
 		priority: 20;
 		items: [ self collection ];
-		itemFormat: [ :aTriple | aTriple sentence ]
+		itemText: [ :aTriple | aTriple sentence ]
 ]
 
 { #category : #'gt-extension' }
@@ -64,15 +64,15 @@ RDFSimpleCollectionStore >> gtViewCollectionRawFor: aView [
 		title: 'Triples (raw)';
 		priority: 30;
 		items: [ self collection ];
-		column: 'Subject' 
+		column: 'Subject'
 			item: #subject
-			format: [ :aSubject | aSubject term fullNameWithDataType ];
-		column: 'Predicate' 
+			text: [ :aSubject | aSubject term fullNameWithDataType ];
+		column: 'Predicate'
 			item: #predicate
-			format: [ :aPredicate | aPredicate term fullNameWithDataType ];
-		column: 'Object' 
+			text: [ :aPredicate | aPredicate term fullNameWithDataType ];
+		column: 'Object'
 			item: #object
-			format: [ :anObject | anObject term fullNameWithDataType ]
+			text: [ :anObject | anObject term fullNameWithDataType ]
 ]
 
 { #category : #'gt-extension' }
