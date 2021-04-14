@@ -41,6 +41,20 @@ RDFTripleBuilder >> objectIRI: aString [
 	self objectTerm: aTerm.
 ]
 
+{ #category : #'building - subject' }
+RDFTripleBuilder >> objectJSONDictionary: aDictionary [
+	"Set the triple's object based on the dictionary returned by the SPARQL server"
+	| type |
+
+	"Parsing the type is better left to the parser.
+	Until that's available, handle a few basic types locally"
+	type := aDictionary at: #type.
+	(#(literal uri) includes: type) ifTrue:
+		[ ^ self objectTerm: (RDF namedNode: (aDictionary at: #value)) ].
+	self error: 'Unknown object type'.
+
+]
+
 { #category : #'building - object' }
 RDFTripleBuilder >> objectLiteral: aString [
 	| aTerm |
@@ -166,6 +180,13 @@ RDFTripleBuilder >> subjectIRI: aString [
 		description: [ 'Subject IRI must be non-empty string' ].
 	aTerm := RDF namedNode: aString.
 	self subjectTerm: aTerm.
+]
+
+{ #category : #'building - subject' }
+RDFTripleBuilder >> subjectJSONDictionary: aDictionary [
+
+	self assert: (aDictionary at: #type) equals: #uri.
+	self subjectTerm: (RDF namedNode: (aDictionary at: #value)).
 ]
 
 { #category : #'building - subject' }
