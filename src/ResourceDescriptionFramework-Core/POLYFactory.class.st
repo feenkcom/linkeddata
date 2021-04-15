@@ -10,13 +10,33 @@ POLYFactory >> baseDomain [
 ]
 
 { #category : #accessing }
+POLYFactory >> favouriteCount [
+	^ self namedNodeSuffix: 'favouriteCount'
+]
+
+{ #category : #accessing }
+POLYFactory >> isFavourited [
+	^ self namedNodeSuffix: 'isFavourited'
+]
+
+{ #category : #accessing }
 POLYFactory >> isRetweet [
 	^ self namedNodeSuffix: 'isRetweet'
+]
+
+{ #category : #accessing }
+POLYFactory >> possibleSensitive [
+	^ self namedNodeSuffix: 'possibleSensitive'
 ]
 
 { #category : #factory }
 POLYFactory >> prefix [
 	^ 'http://polypoly.eu/schema/'
+]
+
+{ #category : #accessing }
+POLYFactory >> retweetCount [
+	^ self namedNodeSuffix: 'retweetCount'
 ]
 
 { #category : #factory }

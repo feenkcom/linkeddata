@@ -15,8 +15,28 @@ POLY class >> factory [
 ]
 
 { #category : #factory }
+POLY class >> favouriteCount [
+	^ self factory favouriteCount
+]
+
+{ #category : #factory }
+POLY class >> isFavourited [
+	^ self factory isFavourited
+]
+
+{ #category : #factory }
 POLY class >> isRetweet [
 	^ self factory isRetweet
+]
+
+{ #category : #factory }
+POLY class >> possibleSensitive [
+	^ self factory possibleSensitive
+]
+
+{ #category : #factory }
+POLY class >> retweetCount [
+	^ self factory retweetCount
 ]
 
 { #category : #factory }

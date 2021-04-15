@@ -13,6 +13,12 @@ RDFSimpleCollectionStore >> addTriple: aRDFTriple [
 	self collection add: aRDFTriple
 ]
 
+{ #category : #adding }
+RDFSimpleCollectionStore >> addTriples: aCollectionOfRDFTriples [
+	aCollectionOfRDFTriples do: [ :aRDFTriple | 
+		self addTriple: aRDFTriple ]
+]
+
 { #category : #accessing }
 RDFSimpleCollectionStore >> collection [
 	^ collection
