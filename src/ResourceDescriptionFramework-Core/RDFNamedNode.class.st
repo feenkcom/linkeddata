@@ -4,6 +4,28 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #'instance creation' }
+RDFNamedNode class >> fromJsonDictionary: aDictionary [
+	"Answer an instance of the appropriate subclass.
+	aDictionary follows the structure defined at https://www.w3.org/TR/sparql11-results-json/"
+
+	^ self new value: (aDictionary at: #value)
+]
+
+{ #category : #accessing }
+RDFNamedNode class >> typeName [ 
+	"Answer the type the receiver represents."
+
+	^ #uri
+]
+
+{ #category : #comparing }
+RDFNamedNode >> equals: anObject [
+	<return: #Boolean>
+
+	^ (anObject isKindOf: RDFNamedNode) and: [ self name = anObject name ]
+]
+
 { #category : #'gt-extension' }
 RDFNamedNode >> gtIdentifierFor: aView [
 	<gtView>
@@ -19,9 +41,32 @@ RDFNamedNode >> gtValueFor: aView [
 	^ self gtIdentifierFor: aView
 ]
 
+{ #category : #comparing }
+RDFNamedNode >> hash [ 
+
+	^ self name hash
+]
+
 { #category : #accessing }
 RDFNamedNode >> name [
 	^ self value
+]
+
+{ #category : #printing }
+RDFNamedNode >> print: anObject onSparqlStream: aStream [
+
+	value = #string ifTrue: 
+		[ aStream 
+			<< '"""';
+			<< anObject;
+			<< '"""' ]
+	ifFalse: [ value = #date ifTrue: 
+		[ aStream
+			nextPut: $";
+			print: anObject;
+			<< '"^^xsd:dateTime' ]
+	ifFalse:
+		[ aStream print: anObject ] ]
 ]
 
 { #category : #printing }

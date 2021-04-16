@@ -8,6 +8,27 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #'instance creation' }
+RDFLiteral class >> fromJsonDictionary: aDictionary [
+	"Answer an instance of the appropriate subclass.
+	aDictionary follows the structure defined at https://www.w3.org/TR/sparql11-results-json/"
+
+	^ self new 
+		language: (aDictionary at: #'xml:lang' ifAbsent: []);
+		value: (aDictionary at: #value)
+			dataType: (aDictionary at: #datatype 
+				ifPresent: [ :datatype | RDFNamedNode new value: datatype ]
+				ifAbsent: []);
+		yourself
+]
+
+{ #category : #accessing }
+RDFLiteral class >> typeName [ 
+	"Answer the type the receiver represents."
+
+	^ #literal
+]
+
 { #category : #convenient }
 RDFLiteral >> boolean: aBoolean [
 	self 
@@ -98,6 +119,14 @@ RDFLiteral >> printShortNameOn: aStream [
 	aStream nextPutAll: self value asString.
 ]
 
+{ #category : #printing }
+RDFLiteral >> printSparqlOn: aStream [
+	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
+	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
+
+	dataType print: value onSparqlStream: aStream
+]
+
 { #category : #convenient }
 RDFLiteral >> string: aString [
 	self 
@@ -110,4 +139,20 @@ RDFLiteral >> string: aString [
 { #category : #accessing }
 RDFLiteral >> termType [
 	^ RDFTermType literal
+]
+
+{ #category : #accessing }
+RDFLiteral >> value: anObject dataType: aRDFNamedNode [
+	"Set the receiver's type and value, decoding the supplied string for common types"
+
+	dataType := aRDFNamedNode.
+	value := anObject.
+	aRDFNamedNode = XSD integer ifTrue: 
+		[ value := anObject asNumber ]
+	ifFalse: [ aRDFNamedNode = XSD decimal ifTrue:
+		[ value := anObject asNumber ]
+	ifFalse: [ aRDFNamedNode = XSD boolean ifTrue: 
+		[ value := anObject = #true ]
+	ifFalse: [ aRDFNamedNode = XSD dateTime ifTrue: 
+		[ value := DateAndTime readFrom: anObject readStream ] ] ] ]
 ]

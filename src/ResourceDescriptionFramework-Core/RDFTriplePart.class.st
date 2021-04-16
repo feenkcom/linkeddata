@@ -45,6 +45,12 @@ RDFTriplePart >> printOn: aStream [
 	self term printShortNameOn: aStream.
 ]
 
+{ #category : #printing }
+RDFTriplePart >> printSparqlOn: aStream [
+
+	term printSparqlOn: aStream
+]
+
 { #category : #accessing }
 RDFTriplePart >> shortName [
 	^ self term shortName
