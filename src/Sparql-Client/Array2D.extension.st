@@ -1,6 +1,6 @@
 Extension { #name : #Array2D }
 
-{ #category : #'*Gtoolkit-Sparql-Client' }
+{ #category : #'*Sparql-Client' }
 Array2D >> rowsCollect: aBlock [ 
 	"Collect the result of evaluating aBlock with each row of the receiver"
 
@@ -9,7 +9,7 @@ Array2D >> rowsCollect: aBlock [
 			stream nextPut: (aBlock value: (self atRow: row)) ] ]
 ]
 
-{ #category : #'*Gtoolkit-Sparql-Client' }
+{ #category : #'*Sparql-Client' }
 Array2D >> rowsDo: aBlock [ 
 	"Evaluate aBlock with each row of the receiver"
 

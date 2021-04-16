@@ -12,7 +12,7 @@ Class {
 		'value',
 		'fieldNames'
 	],
-	#category : #'Gtoolkit-Sparql-Client'
+	#category : #'Sparql-Client'
 }
 
 { #category : #accessing }

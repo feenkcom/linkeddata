@@ -12,7 +12,7 @@ Class {
 	#instVars : [
 		'datasetUrl'
 	],
-	#category : #'Gtoolkit-Sparql-Client'
+	#category : #'Sparql-Client'
 }
 
 { #category : #accessing }
