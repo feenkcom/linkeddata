@@ -114,14 +114,13 @@ RDFJenaStore >> polySphereTriples [
 'PREFIX poly: <http://polypoly.eu/schema/>
 
 SELECT ?s ?o WHERE { ?s poly:sphere ?o }'.
-	queryResults := sparqlClient evaluate: query.
-	bindings := (queryResults at: #results) at: #bindings.
+	queryResults := sparqlClient read: query.
 	predicate := RDF namedNode: 'http://polypoly.eu/schema/sphere'.
-	^ bindings collect: [ :bindingDictionary |
+	^ queryResults value rowsCollect: [ :row |
 		RDF tripleBuilder
-			subjectJSONDictionary: (bindingDictionary at: #s);
+			subject: row first;
 			predicate: predicate;
-			objectJSONDictionary: (bindingDictionary at: #o);
+			object: row second;
 			build ]
 ]
 
