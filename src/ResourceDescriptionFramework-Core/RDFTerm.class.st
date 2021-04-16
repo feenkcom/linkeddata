@@ -7,6 +7,29 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #accessing }
+RDFTerm class >> classForType: aString [
+	"Answer the subclass that represents the supplied type name"
+
+	^ self subclasses detect: [ :cls | cls typeName = aString ]
+]
+
+{ #category : #'instance creation' }
+RDFTerm class >> fromJsonDictionary: aDictionary [
+	"Answer an instance of the appropriate subclass.
+	aDictionary follows the structure defined at https://www.w3.org/TR/sparql11-results-json/"
+
+	^ (self classForType: (aDictionary at: #type)) fromJsonDictionary: aDictionary
+]
+
+{ #category : #accessing }
+RDFTerm class >> typeName [ 
+	"Answer the type the receiver represents.
+	Subclasses will override this as appropriate"
+
+	^ nil
+]
+
 { #category : #comparing }
 RDFTerm >> = aRDFTerm [
 	^ self equals: aRDFTerm
@@ -63,6 +86,16 @@ RDFTerm >> printFullNameOn: aStream [
 { #category : #printing }
 RDFTerm >> printFullNameWithDataTypeOn: aStream [
 	self printFullNameOn: aStream
+]
+
+{ #category : #printing }
+RDFTerm >> printSparqlOn: aStream [
+	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
+	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
+
+	aStream nextPut: $<.
+	self printFullNameOn: aStream.
+	aStream nextPut: $>.
 ]
 
 { #category : #accessing }

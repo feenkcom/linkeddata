@@ -8,6 +8,8 @@ Class {
 BaselineOfResourceDescriptionFrameworkCore >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
-		spec package: 'ResourceDescriptionFramework-Core'.
+		spec 
+			package: 'ResourceDescriptionFramework-Core';
+			package: 'Sparql-Client'.
 	]
 ]

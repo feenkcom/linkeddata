@@ -147,16 +147,6 @@ RDFSimpleCollectionFeatureViewsStore >> initialize [
 ]
 
 { #category : #enumerating }
-RDFSimpleCollectionFeatureViewsStore >> resourceForSubject: aSubject withSphere: aRDFSphere [
-	<return: #RDFResourceWithSphere>
-	
-	^ RDFResourceWithSphere new 
-		subject: aSubject;
-		sphere: aRDFSphere;
-		triples: (self triplesForSubject: aSubject forSphere: aRDFSphere)
-]
-
-{ #category : #enumerating }
 RDFSimpleCollectionFeatureViewsStore >> select: selectBlock thenCollect: collectBlock [
 	^ self collection select: selectBlock thenCollect: collectBlock
 ]
@@ -172,35 +162,4 @@ RDFSimpleCollectionFeatureViewsStore >> spheres [
 			(eachTriple predicate term = POLY sphere) ifTrue: [
 				aList add: eachTriple ]. aList ].
 	^ spheres 
-]
-
-{ #category : #enumerating }
-RDFSimpleCollectionFeatureViewsStore >> triplesForPredicate: aPredicate [
-	<return: #RDFList>
-
-	^ RDFList new collection: (self collection 
-		inject: OrderedCollection new
-		into: [ :aList :eachTriple |
-			(eachTriple predicate = aPredicate) ifTrue: [
-				aList add: eachTriple ]. aList ])
-]
-
-{ #category : #enumerating }
-RDFSimpleCollectionFeatureViewsStore >> triplesForSubject: aSubject [
-	<return: #RDFList>
-
-	^ RDFList new collection: (self collection 
-		inject: OrderedCollection new
-		into: [ :aList :eachTriple |
-			(eachTriple subject = aSubject) ifTrue: [
-				aList add: eachTriple ]. aList ])
-]
-
-{ #category : #enumerating }
-RDFSimpleCollectionFeatureViewsStore >> triplesForSubject: aSubject forSphere: aRDFSphere [
-	<return: #RDFList>
-
-	^ RDFList new collection: ((
-		self triplesForSubject: aSubject) collection select: [ :aTriplet |
-			aRDFSphere isInterestedInTriplet: aTriplet ])
 ]
