@@ -25,6 +25,11 @@ SCHEMA class >> factory [
 ]
 
 { #category : #factory }
+SCHEMA class >> identifier [
+	^ self factory identifier
+]
+
+{ #category : #factory }
 SCHEMA class >> name1 [
 	^ self factory name
 ]

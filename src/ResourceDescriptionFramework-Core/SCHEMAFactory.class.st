@@ -20,6 +20,11 @@ SCHEMAFactory >> datePublished [
 ]
 
 { #category : #accessing }
+SCHEMAFactory >> identifier [
+	^ self namedNodeSuffix: 'identifier'
+]
+
+{ #category : #accessing }
 SCHEMAFactory >> name [
 	^ self namedNodeSuffix: 'Name'
 ]
