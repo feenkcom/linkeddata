@@ -21,11 +21,31 @@ SparqlClient class >> datasetUrl: aUrl [
 	^ self new datasetUrl: aUrl
 ]
 
+{ #category : #private }
+SparqlClient >> checkPostException: anException [
+	| sender string |
+self halt.
+	anException messageText = 'Incomplete input for character decoding' ifFalse:
+		[ ^ anException pass ].
+
+	sender := anException signalerContext sender.
+	[ sender isNotNil and: [ sender method selector ~= #readInto:startingAt:count:fromStream: ] ] whileTrue:
+		[ sender := sender sender ].
+	sender ifNil: [ ^ anException pass ].
+	string := sender tempNamed: #string.
+	(string includesSubstring: #succeeded) ifTrue: [ 
+		"The string looks OK, simulate a response"
+		^ (ZnResponse statusCode: 200)
+			headers: ZnHeaders defaultResponseHeaders;
+			entity: (ZnStringEntity text: (string copyFrom: 1 to: (string indexOf: Character null))) ].
+	^ anException pass
+]
+
 { #category : #accessing }
 SparqlClient >> count [
 	"Answer the total number of records in the supplied DB"
 
-	^ self read: 'SELECT COUNT(?s) WHERE { ?s ?p ?o }'
+	^ (self read: 'SELECT COUNT(?s) WHERE { ?s ?p ?o }') value value
 ]
 
 { #category : #accessing }
@@ -41,24 +61,12 @@ SparqlClient >> datasetUrl: anObject [
 { #category : #querying }
 SparqlClient >> evaluate: aString [
 	"Send the supplied sparql string to be evaluated by the remote server"
-	| fieldName entity response contentType |
+	| fieldName |
 
 	fieldName := self fieldNameFor: aString.
 	fieldName = #query ifTrue: [ ^ self read: aString ].
+	^ self update: aString.
 
-	entity := ZnApplicationFormUrlEncodedEntity withAll: { 	fieldName -> aString } asDictionary.
-	response := ZnEasy post: datasetUrl data: entity.
-	contentType := response contentType.
-	response isSuccess ifFalse:
-		[ (self isPlainText: contentType) ifTrue: 
-			[ self error: response contents ]
-		ifFalse:
-			[ self error: 'Unable to complete sparql query' ] ].
-	(self isSparqlResult: contentType) ifTrue: 
-		[ ^ STONJSON fromString: response contents ].
-	(self isHTML: contentType) ifTrue: 
-		[ ^ response contents ].
-	self error: 'Unexpected result type: ', contentType asString
 ]
 
 { #category : #private }
@@ -96,6 +104,16 @@ SparqlClient >> isPlainText: aZnMimeType [
 SparqlClient >> isSparqlResult: aZnMimeType [
 
 	^ aZnMimeType main = #application and: [ aZnMimeType sub beginsWith: 'sparql-results+json' ]
+]
+
+{ #category : #private }
+SparqlClient >> post: znEntity [
+	"Post the supplied Zn entity and catch spurious errors triggered by Jena's encoding.
+	Zinc will raise an 'Incomplete input for character decoding' exception when in fact the entire response appears to be present.  It looks like the issue is that Jena is providing the content length, which Zinc doesn't handle well."
+
+	^ [ ZnEasy post: datasetUrl data: znEntity ]
+		on: Error
+		do: [ :ex | self checkPostException: ex ]
 ]
 
 { #category : #querying }
@@ -144,4 +162,26 @@ SparqlClient >> triplesWithSubject: aRDFSubject [
 			predicate: each first;
 			object: each second;
 			build ]
+]
+
+{ #category : #querying }
+SparqlClient >> update: aString [
+	"Send the supplied sparql update string (e.g. INSERT) to be evaluated by the remote server"
+	| entity response contentType |
+
+	entity := ZnApplicationFormUrlEncodedEntity withAll: { #update -> aString } asDictionary.
+	response := self post: entity.
+	contentType := response contentType.
+	response isSuccess ifFalse:
+		[ (self isPlainText: contentType) ifTrue: 
+			[ self error: response contents ]
+		ifFalse:
+			[ self error: 'Unable to complete sparql query' ] ].
+	(self isSparqlResult: contentType) ifTrue: 
+		[ ^ self error: 'Update expected HTML response' ].
+	(self isHTML: contentType) ifTrue: 
+		[ (response contents includesSubstring: '') ifFalse:
+			[ self error: 'Unexpected response: ', response contents ].
+		^ self ].
+	self error: 'Unexpected result type: ', contentType asString
 ]
