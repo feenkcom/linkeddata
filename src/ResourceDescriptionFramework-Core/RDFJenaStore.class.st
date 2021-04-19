@@ -13,6 +13,12 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Storage'
 }
 
+{ #category : #'instance creation' }
+RDFJenaStore class >> datasetURL: aURL [
+
+	^ self new datasetURL: aURL
+]
+
 { #category : #adding }
 RDFJenaStore >> addKnownPrefixesTo: stream [
 	"Add the known prefix definitions to the supplied stream.
@@ -34,6 +40,7 @@ RDFJenaStore >> addKnownPrefixesTo: stream [
 RDFJenaStore >> addTriple: aRDFTriple [
 	| cmdString |
 
+	aRDFTriple ifNil: [ ^ self ].
 	cmdString := String streamContents: [ :stream |
 		self addKnownPrefixesTo: stream.
 		stream cr.
@@ -45,7 +52,28 @@ RDFJenaStore >> addTriple: aRDFTriple [
 		aRDFTriple object term printSparqlOn: stream.
 		stream << ' } WHERE {}'
 		 ].
-	^ sparqlClient evaluate: cmdString.
+	^ sparqlClient update: cmdString.
+]
+
+{ #category : #adding }
+RDFJenaStore >> addTriples: aCollection [
+	| cmdString |
+
+	aCollection ifEmpty: [ ^ self ].
+	self halt.
+	cmdString := String streamContents: [ :stream |
+		self addKnownPrefixesTo: stream.
+		stream cr.
+		aCollection do: [ :aRDFTriple |
+			stream << 'INSERT { '.
+			aRDFTriple subject term printSparqlOn: stream.
+			stream << ' '.
+			aRDFTriple predicate term printSparqlOn: stream.
+			stream << ' '.
+			aRDFTriple object term printSparqlOn: stream.
+			stream << ' } WHERE {}'; cr ].
+		 ].
+	^ sparqlClient update: cmdString.
 ]
 
 { #category : #accessing }
