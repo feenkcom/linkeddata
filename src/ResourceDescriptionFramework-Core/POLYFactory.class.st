@@ -15,8 +15,18 @@ POLYFactory >> favouriteCount [
 ]
 
 { #category : #accessing }
+POLYFactory >> follows [
+	^ self namedNodeSuffix: 'follows'
+]
+
+{ #category : #accessing }
 POLYFactory >> isFavourited [
 	^ self namedNodeSuffix: 'isFavourited'
+]
+
+{ #category : #accessing }
+POLYFactory >> isFollowedBy [
+	^ self namedNodeSuffix: 'isFollowedBy'
 ]
 
 { #category : #accessing }

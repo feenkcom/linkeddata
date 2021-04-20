@@ -20,8 +20,18 @@ POLY class >> favouriteCount [
 ]
 
 { #category : #factory }
+POLY class >> follows [
+	^ self factory follows
+]
+
+{ #category : #factory }
 POLY class >> isFavourited [
 	^ self factory isFavourited
+]
+
+{ #category : #factory }
+POLY class >> isFollowedBy [
+	^ self factory isFollowedBy
 ]
 
 { #category : #factory }
