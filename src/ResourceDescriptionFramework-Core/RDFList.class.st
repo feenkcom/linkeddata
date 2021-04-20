@@ -24,7 +24,7 @@ RDFList >> gtItemsFor: aView [
 	^ aView list
 		title: 'Triples';
 		items: [ self collection ];
-		itemFormat: [ :aTriple | aTriple sentence ]
+		itemText: [ :aTriple | aTriple sentence ]
 ]
 
 { #category : #initialization }

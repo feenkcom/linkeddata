@@ -24,7 +24,7 @@ SparqlClient class >> datasetUrl: aUrl [
 { #category : #private }
 SparqlClient >> checkPostException: anException [
 	| sender string |
-self halt.
+
 	anException messageText = 'Incomplete input for character decoding' ifFalse:
 		[ ^ anException pass ].
 
@@ -37,7 +37,7 @@ self halt.
 		"The string looks OK, simulate a response"
 		^ (ZnResponse statusCode: 200)
 			headers: ZnHeaders defaultResponseHeaders;
-			entity: (ZnStringEntity text: (string copyFrom: 1 to: (string indexOf: Character null))) ].
+			entity: (ZnStringEntity html: (string copyFrom: 1 to: (string indexOf: Character null)-1)) ].
 	^ anException pass
 ]
 
@@ -148,6 +148,40 @@ SparqlClient >> send: aString type: type [
 ]
 
 { #category : #querying }
+SparqlClient >> triplesWithObject: aRDFObject [
+	"Answer the receiver's triples that match aRDFObject"
+	| queryResult |
+
+	queryResult := self read: (String streamContents: [ :stream |
+		stream << 'SELECT ?p ?o WHERE { ?s ?p '.
+		aRDFObject printSparqlOn: stream.
+		stream << ' }' ]).
+	^ queryResult value rowsCollect: [ :each |
+		RDF tripleBuilder
+			subject: (RDFSubject term: each first);
+			predicate: (RDFPredicate term: each second);
+			object: aRDFObject;
+			build ]
+]
+
+{ #category : #querying }
+SparqlClient >> triplesWithPredicate: aRDFPredicate [
+	"Answer the receiver's triples that match aRDFPredicate"
+	| queryResult |
+
+	queryResult := self read: (String streamContents: [ :stream |
+		stream << 'SELECT ?s ?o WHERE { ?s '.
+		aRDFPredicate printSparqlOn: stream.
+		stream << ' ?o. }' ]).
+	^ queryResult value rowsCollect: [ :each |
+		RDF tripleBuilder
+			subject: (RDFSubject term: each first);
+			predicate: aRDFPredicate;
+			object: (RDFObject term: each second);
+			build ]
+]
+
+{ #category : #querying }
 SparqlClient >> triplesWithSubject: aRDFSubject [
 	"Answer the receiver's triples that match aRDFSubject"
 	| queryResult |
@@ -159,8 +193,8 @@ SparqlClient >> triplesWithSubject: aRDFSubject [
 	^ queryResult value rowsCollect: [ :each |
 		RDF tripleBuilder
 			subject: aRDFSubject;
-			predicate: each first;
-			object: each second;
+			predicate: (RDFPredicate term: each first);
+			object: (RDFObject term: each second);
 			build ]
 ]
 
@@ -180,7 +214,7 @@ SparqlClient >> update: aString [
 	(self isSparqlResult: contentType) ifTrue: 
 		[ ^ self error: 'Update expected HTML response' ].
 	(self isHTML: contentType) ifTrue: 
-		[ (response contents includesSubstring: '') ifFalse:
+		[ (response contents includesSubstring: 'succeeded') ifFalse:
 			[ self error: 'Unexpected response: ', response contents ].
 		^ self ].
 	self error: 'Unexpected result type: ', contentType asString

@@ -60,7 +60,6 @@ RDFJenaStore >> addTriples: aCollection [
 	| cmdString |
 
 	aCollection ifEmpty: [ ^ self ].
-	self halt.
 	cmdString := String streamContents: [ :stream |
 		self addKnownPrefixesTo: stream.
 		stream cr.
@@ -71,7 +70,7 @@ RDFJenaStore >> addTriples: aCollection [
 			aRDFTriple predicate term printSparqlOn: stream.
 			stream << ' '.
 			aRDFTriple object term printSparqlOn: stream.
-			stream << ' } WHERE {}'; cr ].
+			stream << ' } WHERE {};'; cr ].
 		 ].
 	^ sparqlClient update: cmdString.
 ]
@@ -110,7 +109,7 @@ RDFJenaStore >> gtListSpheresFor: aView [
 						withSphere: (RDFSphere ofName: aSphereTypeTriple object term value) ]) ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #ui }
 RDFJenaStore >> gtPredicatesFor: aView [
 	<gtView>
 
@@ -119,7 +118,8 @@ RDFJenaStore >> gtPredicatesFor: aView [
 		title: 'Predicates';
 		priority: 10;
 		items: [ (sparqlClient read: 'SELECT DISTINCT ?p WHERE { ?s ?p ?o. }') value asArray sorted:
-			[ :a :b | a name < b name ] ]
+			[ :a :b | a name < b name ] ];
+		send: [ :item | self triplesForPredicate: (RDFPredicate new term: item) ]
 ]
 
 { #category : #'gt-extension' }
@@ -136,7 +136,7 @@ RDFJenaStore >> gtTripleSpheresFor: aView [
 
 { #category : #'as yet unclassified' }
 RDFJenaStore >> polySphereTriples [
-	| queryResults bindings query predicate |
+	| queryResults query predicate |
 
 	query :=
 'PREFIX poly: <http://polypoly.eu/schema/>
@@ -159,6 +159,22 @@ RDFJenaStore >> spheres [
 	^ RDFSpheres new 
 		store: self;
 		collection: self polySphereTriples
+
+]
+
+{ #category : #enumerating }
+RDFJenaStore >> triplesForObject: aRDFObject [
+	<return: #RDFList>
+
+	^ RDFList new collection: (sparqlClient triplesWithObject: aRDFObject)
+
+]
+
+{ #category : #enumerating }
+RDFJenaStore >> triplesForPredicate: aRDFPredicate [
+	<return: #RDFList>
+
+	^ RDFList new collection: (sparqlClient triplesWithPredicate: aRDFPredicate)
 
 ]
 
