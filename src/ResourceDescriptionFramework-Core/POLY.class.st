@@ -10,6 +10,11 @@ POLY class >> baseDomain [
 ]
 
 { #category : #factory }
+POLY class >> endIndex [
+	^ self factory endIndex
+]
+
+{ #category : #accessing }
 POLY class >> factory [
 	^ POLYFactory default
 ]
@@ -22,6 +27,11 @@ POLY class >> favouriteCount [
 { #category : #factory }
 POLY class >> follows [
 	^ self factory follows
+]
+
+{ #category : #factory }
+POLY class >> hasUserMention [
+	^ self factory hasUserMention
 ]
 
 { #category : #factory }
@@ -52,4 +62,14 @@ POLY class >> retweetCount [
 { #category : #factory }
 POLY class >> sphere [
 	^ self factory sphere
+]
+
+{ #category : #factory }
+POLY class >> startIndex [
+	^ self factory startIndex
+]
+
+{ #category : #factory }
+POLY class >> userMention [
+	^ self factory userMention
 ]

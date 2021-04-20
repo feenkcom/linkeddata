@@ -4,24 +4,29 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : #accessing }
+{ #category : #'accessing - property' }
 SCHEMAFactory >> author [
 	^ self namedNodeSuffix: 'author'
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - property' }
 SCHEMAFactory >> dateCreated [
 	^ self namedNodeSuffix: 'dateCreated'
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - property' }
 SCHEMAFactory >> datePublished [
 	^ self namedNodeSuffix: 'datePublished'
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - property' }
 SCHEMAFactory >> identifier [
 	^ self namedNodeSuffix: 'identifier'
+]
+
+{ #category : #'accessing - property' }
+SCHEMAFactory >> mentions [
+	^ self namedNodeSuffix: 'mentions'
 ]
 
 { #category : #accessing }
@@ -29,7 +34,7 @@ SCHEMAFactory >> name [
 	^ self namedNodeSuffix: 'Name'
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - type' }
 SCHEMAFactory >> person [
 	^ self namedNodeSuffix: 'Person'
 ]
@@ -45,7 +50,7 @@ SCHEMAFactory >> shortName [
 	^ 'schema'
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - type' }
 SCHEMAFactory >> socialMediaPosting [
 	^ self namedNodeSuffix: 'SocialMediaPosting'
 ]

@@ -30,6 +30,11 @@ SCHEMA class >> identifier [
 ]
 
 { #category : #factory }
+SCHEMA class >> mentions [
+	^ self factory mentions
+]
+
+{ #category : #factory }
 SCHEMA class >> name1 [
 	^ self factory name
 ]

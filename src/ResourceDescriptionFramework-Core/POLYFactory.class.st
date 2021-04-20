@@ -10,6 +10,11 @@ POLYFactory >> baseDomain [
 ]
 
 { #category : #accessing }
+POLYFactory >> endIndex [
+	^ self namedNodeSuffix: 'endIndex'
+]
+
+{ #category : #accessing }
 POLYFactory >> favouriteCount [
 	^ self namedNodeSuffix: 'favouriteCount'
 ]
@@ -17,6 +22,11 @@ POLYFactory >> favouriteCount [
 { #category : #accessing }
 POLYFactory >> follows [
 	^ self namedNodeSuffix: 'follows'
+]
+
+{ #category : #accessing }
+POLYFactory >> hasUserMention [
+	^ self namedNodeSuffix: 'hasUserMention'
 ]
 
 { #category : #accessing }
@@ -57,4 +67,14 @@ POLYFactory >> shortName [
 { #category : #accessing }
 POLYFactory >> sphere [
 	^ self namedNodeSuffix: 'sphere'
+]
+
+{ #category : #accessing }
+POLYFactory >> startIndex [
+	^ self namedNodeSuffix: 'startIndex'
+]
+
+{ #category : #accessing }
+POLYFactory >> userMention [
+	^ self namedNodeSuffix: 'UserMention'
 ]
