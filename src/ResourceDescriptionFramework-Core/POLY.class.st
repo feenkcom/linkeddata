@@ -25,6 +25,11 @@ POLY class >> favouriteCount [
 ]
 
 { #category : #factory }
+POLY class >> fileName [
+	^ self factory fileName
+]
+
+{ #category : #factory }
 POLY class >> follows [
 	^ self factory follows
 ]
@@ -52,6 +57,11 @@ POLY class >> isRetweet [
 { #category : #factory }
 POLY class >> possibleSensitive [
 	^ self factory possibleSensitive
+]
+
+{ #category : #factory }
+POLY class >> referencer [
+	^ self factory referencer
 ]
 
 { #category : #factory }

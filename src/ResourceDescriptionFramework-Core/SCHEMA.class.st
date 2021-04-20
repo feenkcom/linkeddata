@@ -10,6 +10,11 @@ SCHEMA class >> author [
 ]
 
 { #category : #factory }
+SCHEMA class >> contentUrl [
+	^ self factory contentUrl
+]
+
+{ #category : #factory }
 SCHEMA class >> dateCreated [
 	^ self factory dateCreated
 ]
@@ -27,6 +32,16 @@ SCHEMA class >> factory [
 { #category : #factory }
 SCHEMA class >> identifier [
 	^ self factory identifier
+]
+
+{ #category : #factory }
+SCHEMA class >> image [
+	^ self factory image
+]
+
+{ #category : #factory }
+SCHEMA class >> imageObject [
+	^ self factory imageObject
 ]
 
 { #category : #factory }

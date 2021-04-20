@@ -20,6 +20,11 @@ POLYFactory >> favouriteCount [
 ]
 
 { #category : #accessing }
+POLYFactory >> fileName [
+	^ self namedNodeSuffix: 'fileName'
+]
+
+{ #category : #accessing }
 POLYFactory >> follows [
 	^ self namedNodeSuffix: 'follows'
 ]
@@ -52,6 +57,11 @@ POLYFactory >> possibleSensitive [
 { #category : #factory }
 POLYFactory >> prefix [
 	^ 'http://polypoly.eu/schema/'
+]
+
+{ #category : #accessing }
+POLYFactory >> referencer [
+	^ self namedNodeSuffix: 'referencer'
 ]
 
 { #category : #accessing }

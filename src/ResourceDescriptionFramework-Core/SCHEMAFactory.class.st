@@ -10,6 +10,11 @@ SCHEMAFactory >> author [
 ]
 
 { #category : #'accessing - property' }
+SCHEMAFactory >> contentUrl [
+	^ self namedNodeSuffix: 'contentUrl'
+]
+
+{ #category : #'accessing - property' }
 SCHEMAFactory >> dateCreated [
 	^ self namedNodeSuffix: 'dateCreated'
 ]
@@ -22,6 +27,16 @@ SCHEMAFactory >> datePublished [
 { #category : #'accessing - property' }
 SCHEMAFactory >> identifier [
 	^ self namedNodeSuffix: 'identifier'
+]
+
+{ #category : #'accessing - property' }
+SCHEMAFactory >> image [
+	^ self namedNodeSuffix: 'image'
+]
+
+{ #category : #'accessing - type' }
+SCHEMAFactory >> imageObject [
+	^ self namedNodeSuffix: 'ImageObject'
 ]
 
 { #category : #'accessing - property' }
