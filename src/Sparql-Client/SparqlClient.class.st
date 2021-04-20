@@ -153,15 +153,10 @@ SparqlClient >> triplesWithObject: aRDFObject [
 	| queryResult |
 
 	queryResult := self read: (String streamContents: [ :stream |
-		stream << 'SELECT ?p ?o WHERE { ?s ?p '.
+		stream << 'SELECT ?s ?p WHERE { ?s ?p '.
 		aRDFObject printSparqlOn: stream.
 		stream << ' }' ]).
-	^ queryResult value rowsCollect: [ :each |
-		RDF tripleBuilder
-			subject: (RDFSubject term: each first);
-			predicate: (RDFPredicate term: each second);
-			object: aRDFObject;
-			build ]
+	^ queryResult triplesWithObject: aRDFObject
 ]
 
 { #category : #querying }
@@ -173,12 +168,7 @@ SparqlClient >> triplesWithPredicate: aRDFPredicate [
 		stream << 'SELECT ?s ?o WHERE { ?s '.
 		aRDFPredicate printSparqlOn: stream.
 		stream << ' ?o. }' ]).
-	^ queryResult value rowsCollect: [ :each |
-		RDF tripleBuilder
-			subject: (RDFSubject term: each first);
-			predicate: aRDFPredicate;
-			object: (RDFObject term: each second);
-			build ]
+	^ queryResult triplesWithPredicate: aRDFPredicate
 ]
 
 { #category : #querying }
@@ -190,12 +180,7 @@ SparqlClient >> triplesWithSubject: aRDFSubject [
 		stream << 'SELECT ?p ?o WHERE { '.
 		aRDFSubject printSparqlOn: stream.
 		stream << ' ?p ?o. }' ]).
-	^ queryResult value rowsCollect: [ :each |
-		RDF tripleBuilder
-			subject: aRDFSubject;
-			predicate: (RDFPredicate term: each first);
-			object: (RDFObject term: each second);
-			build ]
+	^ queryResult triplesWithSubject: aRDFSubject
 ]
 
 { #category : #querying }

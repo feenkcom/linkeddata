@@ -122,6 +122,17 @@ RDFJenaStore >> gtPredicatesFor: aView [
 		send: [ :item | self triplesForPredicate: (RDFPredicate new term: item) ]
 ]
 
+{ #category : #ui }
+RDFJenaStore >> gtStatusFor: aView [
+	<gtView>
+
+	sparqlClient ifNil: [ ^ aView empty ].
+	^ aView textEditor 
+		title: 'Status';
+		priority: 50;
+		text: [ self statusString asRopedText glamorousCodeFont ]
+]
+
 { #category : #'gt-extension' }
 RDFJenaStore >> gtTripleSpheresFor: aView [
 	<gtView>
@@ -136,20 +147,13 @@ RDFJenaStore >> gtTripleSpheresFor: aView [
 
 { #category : #'as yet unclassified' }
 RDFJenaStore >> polySphereTriples [
-	| queryResults query predicate |
+	| queryResults |
 
-	query :=
+	queryResults := sparqlClient read:
 'PREFIX poly: <http://polypoly.eu/schema/>
 
 SELECT ?s ?o WHERE { ?s poly:sphere ?o }'.
-	queryResults := sparqlClient read: query.
-	predicate := RDF namedNode: 'http://polypoly.eu/schema/sphere'.
-	^ queryResults value rowsCollect: [ :row |
-		RDF tripleBuilder
-			subject: row first;
-			predicate: predicate;
-			object: row second;
-			build ]
+	^ queryResults triplesWithPredicate: POLY sphere.
 ]
 
 { #category : #accessing }
@@ -160,6 +164,18 @@ RDFJenaStore >> spheres [
 		store: self;
 		collection: self polySphereTriples
 
+]
+
+{ #category : #ui }
+RDFJenaStore >> statusString [ 
+
+	sparqlClient ifNil: [ ^ '<no client>' ].
+	^ String streamContents: [ :stream |
+		stream 
+			<< 'Dataset:      ';
+				print: sparqlClient datasetUrl; cr;
+			<< 'Triple count: ';
+				print: sparqlClient count; cr ].
 ]
 
 { #category : #enumerating }
@@ -183,5 +199,42 @@ RDFJenaStore >> triplesForSubject: aRDFSubject [
 	<return: #RDFList>
 
 	^ RDFList new collection: (sparqlClient triplesWithSubject: aRDFSubject)
+
+]
+
+{ #category : #enumerating }
+RDFJenaStore >> triplesForSubject: aRDFSubject forSphere: aRDFSphere [
+	<return: #RDFList>
+	| queryResult predicateNames term |
+
+	predicateNames := aRDFSphere relevantPredicates collect: #shortName.
+	queryResult := sparqlClient read: (String streamContents: [ :stream |
+		stream << 'SELECT '.
+		predicateNames 
+			do: [ :name | 
+				stream 
+					nextPut: $?;
+					<< name ]
+			separatedBy: [ stream space ].
+		stream << ' WHERE { '; cr.
+		aRDFSphere relevantPredicates do: [ :predicate |
+			stream << 'OPTIONAL {'.
+			aRDFSubject printSparqlOn: stream.
+			stream space.
+			predicate printSparqlOn: stream.
+			stream
+				<< ' ?';
+				<< predicate shortName;
+				<< ' }';
+				cr ].
+		stream << '}' ] ).
+	^ RDFList new collection: ((aRDFSphere relevantPredicates collectWithIndex: [ :predicate :index |
+		term := queryResult at: 1 at: index.
+		term ifNotNil:
+			[ RDF tripleBuilder
+				subject: aRDFSubject;
+				predicate: predicate;
+				object: (RDFObject term: term);
+				build ] ] ) select: #isNotNil )
 
 ]
