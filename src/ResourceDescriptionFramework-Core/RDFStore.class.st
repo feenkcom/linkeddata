@@ -23,7 +23,7 @@ RDFStore >> addTriple: aRDFTriple [
 { #category : #enumerating }
 RDFStore >> resourceForSubject: aSubject withSphere: aRDFSphere [
 	<return: #RDFResourceWithSphere>
-	
+
 	^ RDFResourceWithSphere new 
 		subject: aSubject;
 		sphere: aRDFSphere;

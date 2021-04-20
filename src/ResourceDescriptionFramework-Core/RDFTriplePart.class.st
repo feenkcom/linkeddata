@@ -7,6 +7,12 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #'instance creation' }
+RDFTriplePart class >> term: aRDFTerm [
+
+	^ self new term: aRDFTerm
+]
+
 { #category : #comparing }
 RDFTriplePart >> = aTriplePart [
 	^ self class = aTriplePart class and: [ 

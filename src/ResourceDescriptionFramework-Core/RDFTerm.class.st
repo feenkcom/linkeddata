@@ -19,6 +19,7 @@ RDFTerm class >> fromJsonDictionary: aDictionary [
 	"Answer an instance of the appropriate subclass.
 	aDictionary follows the structure defined at https://www.w3.org/TR/sparql11-results-json/"
 
+	aDictionary ifNil: [ ^ nil ].
 	^ (self classForType: (aDictionary at: #type)) fromJsonDictionary: aDictionary
 ]
 

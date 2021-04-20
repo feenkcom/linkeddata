@@ -28,6 +28,13 @@ SparqlQueryResult class >> sourceString: aString [
 ]
 
 { #category : #accessing }
+SparqlQueryResult >> at: rowNumber at: columnNumber [
+
+	self assert: self isSingle not.
+	^ self value at: rowNumber at: columnNumber
+]
+
+{ #category : #accessing }
 SparqlQueryResult >> bindings [ 
 	"Answer the receiver's bindings"
 
@@ -52,7 +59,7 @@ SparqlQueryResult >> getArrayValueFromSource [
 	1 to: rowCount do: [ :row |
 		1 to: columnCount do: [ :column |
 			result at: row at: column put: 
-				(RDFTerm fromJsonDictionary: ((self bindings at: row) at: (self fieldNames at: column))) ] ].
+				(RDFTerm fromJsonDictionary: ((self bindings at: row) at: (self fieldNames at: column) ifAbsent: [ nil ])) ] ].
 	^ result
 ]
 
@@ -123,6 +130,57 @@ SparqlQueryResult >> source [
 { #category : #accessing }
 SparqlQueryResult >> source: anObject [
 	source := anObject
+]
+
+{ #category : #querying }
+SparqlQueryResult >> triplesWithObject: aRDFObject [
+	"Answer a collection of triples based on the receiver holding the subject and object and using the supplied object.
+	Assumes names: predicate = p and object = o"
+
+	self assert: fieldNames size equals: 2.
+	self assert: fieldNames second equals: #s.
+	self assert: fieldNames first equals: #p.
+
+	^ self value rowsCollect: [ :each |
+		RDF tripleBuilder
+			subject: (RDFSubject term: each first);
+			predicate: (RDFPredicate term: each second);
+			object: aRDFObject;
+			build ]
+]
+
+{ #category : #querying }
+SparqlQueryResult >> triplesWithPredicate: aRDFPredicate [
+	"Answer a collection of triples based on the receiver holding the subject and object and using the supplied predicate.
+	Assumes names: subject = s and object = o"
+
+	self assert: self fieldNames size equals: 2.
+	self assert: self fieldNames first equals: #s.
+	self assert: self fieldNames second equals: #o.
+
+	^ self value rowsCollect: [ :each |
+		RDF tripleBuilder
+			subject: (RDFSubject term: each first);
+			predicate: aRDFPredicate;
+			object: (RDFObject term: each second);
+			build ]
+]
+
+{ #category : #querying }
+SparqlQueryResult >> triplesWithSubject: aRDFSubject [
+	"Answer a collection of triples based on the receiver holding the subject and object and using the supplied subject.
+	Assumes names: predicate = p and object = o"
+
+	self assert: self fieldNames size equals: 2.
+	self assert: self fieldNames first equals: #p.
+	self assert: self fieldNames second equals: #o.
+
+	^ self value rowsCollect: [ :each |
+		RDF tripleBuilder
+			subject: aRDFSubject;
+			predicate: (RDFPredicate term: each first);
+			object: (RDFObject term: each second);
+			build ]
 ]
 
 { #category : #evaluating }
