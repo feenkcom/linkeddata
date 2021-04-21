@@ -8,7 +8,9 @@ Class {
 	#name : #RDFJenaStore,
 	#superclass : #RDFStore,
 	#instVars : [
-		'sparqlClient'
+		'sparqlClient',
+		'triples',
+		'maxBufferSize'
 	],
 	#category : #'ResourceDescriptionFramework-Core-Storage'
 }
@@ -38,41 +40,18 @@ RDFJenaStore >> addKnownPrefixesTo: stream [
 
 { #category : #adding }
 RDFJenaStore >> addTriple: aRDFTriple [
-	| cmdString |
 
-	aRDFTriple ifNil: [ ^ self ].
-	cmdString := String streamContents: [ :stream |
-		self addKnownPrefixesTo: stream.
-		stream cr.
-		stream << 'INSERT { '.
-		aRDFTriple subject term printSparqlOn: stream.
-		stream << ' '.
-		aRDFTriple predicate term printSparqlOn: stream.
-		stream << ' '.
-		aRDFTriple object term printSparqlOn: stream.
-		stream << ' } WHERE {}'
-		 ].
-	^ sparqlClient update: cmdString.
+	maxBufferSize = 0 ifTrue: [ ^ self saveTriple: aRDFTriple ].
+	triples add: aRDFTriple.
+	triples size >= maxBufferSize ifTrue: [ self flush ].
 ]
 
 { #category : #adding }
 RDFJenaStore >> addTriples: aCollection [
-	| cmdString |
 
-	aCollection ifEmpty: [ ^ self ].
-	cmdString := String streamContents: [ :stream |
-		self addKnownPrefixesTo: stream.
-		stream cr.
-		aCollection do: [ :aRDFTriple |
-			stream << 'INSERT { '.
-			aRDFTriple subject term printSparqlOn: stream.
-			stream << ' '.
-			aRDFTriple predicate term printSparqlOn: stream.
-			stream << ' '.
-			aRDFTriple object term printSparqlOn: stream.
-			stream << ' } WHERE {};'; cr ].
-		 ].
-	^ sparqlClient update: cmdString.
+	maxBufferSize = 0 ifTrue: [ ^ self saveTriples: aCollection ].
+	triples addAll: aCollection.
+	triples size >= maxBufferSize ifTrue: [ self flush ].
 ]
 
 { #category : #accessing }
@@ -86,6 +65,21 @@ RDFJenaStore >> datasetURL: aUrl [
 	E.g. 'http://localhost:3030/mydataset' asZnURL"
 
 	sparqlClient := SparqlClient datasetUrl: aUrl
+]
+
+{ #category : #accessing }
+RDFJenaStore >> flush [ 
+	| newTriples oldTriples |
+
+	triples ifEmpty: [ ^ self ].
+
+	"Get the old triples as an atomic operation (assignments aren't interrupted)"
+	newTriples := OrderedCollection new: (maxBufferSize * 1.5) rounded.
+	oldTriples := triples.
+	triples := newTriples.
+
+	self saveTriples: oldTriples.
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -145,6 +139,24 @@ RDFJenaStore >> gtTripleSpheresFor: aView [
 		view: #gtTripleSpheresFor:
 ]
 
+{ #category : #initialization }
+RDFJenaStore >> initialize [ 
+
+	super initialize.
+	maxBufferSize := 0.
+	triples := OrderedCollection new: (maxBufferSize * 1.5) rounded.
+]
+
+{ #category : #accessing }
+RDFJenaStore >> maxBufferSize [
+	^ maxBufferSize
+]
+
+{ #category : #accessing }
+RDFJenaStore >> maxBufferSize: anObject [
+	maxBufferSize := anObject
+]
+
 { #category : #'as yet unclassified' }
 RDFJenaStore >> polySphereTriples [
 	| queryResults |
@@ -154,6 +166,45 @@ RDFJenaStore >> polySphereTriples [
 
 SELECT ?s ?o WHERE { ?s poly:sphere ?o }'.
 	^ queryResults triplesWithPredicate: POLY sphere.
+]
+
+{ #category : #private }
+RDFJenaStore >> saveTriple: aRDFTriple [
+	| cmdString |
+
+	aRDFTriple ifNil: [ ^ self ].
+	cmdString := String streamContents: [ :stream |
+		self addKnownPrefixesTo: stream.
+		stream cr.
+		stream << 'INSERT { '.
+		aRDFTriple subject term printSparqlOn: stream.
+		stream << ' '.
+		aRDFTriple predicate term printSparqlOn: stream.
+		stream << ' '.
+		aRDFTriple object term printSparqlOn: stream.
+		stream << ' } WHERE {}'
+		 ].
+	^ sparqlClient update: cmdString.
+]
+
+{ #category : #private }
+RDFJenaStore >> saveTriples: aCollection [
+	| cmdString |
+
+	aCollection ifEmpty: [ ^ self ].
+	cmdString := String streamContents: [ :stream |
+		self addKnownPrefixesTo: stream.
+		stream cr.
+		aCollection do: [ :aRDFTriple |
+			stream << 'INSERT { '.
+			aRDFTriple subject term printSparqlOn: stream.
+			stream << ' '.
+			aRDFTriple predicate term printSparqlOn: stream.
+			stream << ' '.
+			aRDFTriple object term printSparqlOn: stream.
+			stream << ' } WHERE {};'; cr ].
+		 ].
+	^ sparqlClient update: cmdString.
 ]
 
 { #category : #accessing }
