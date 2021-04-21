@@ -10,7 +10,8 @@ Class {
 	#instVars : [
 		'sparqlClient',
 		'triples',
-		'maxBufferSize'
+		'maxBufferSize',
+		'telemetry'
 	],
 	#category : #'ResourceDescriptionFramework-Core-Storage'
 }
@@ -148,19 +149,27 @@ RDFJenaStore >> saveTriples: aCollection [
 	| cmdString |
 
 	aCollection ifEmpty: [ ^ self ].
-	cmdString := String streamContents: [ :stream |
-		self addKnownPrefixesTo: stream.
-		stream cr.
-		aCollection do: [ :aRDFTriple |
-			stream << 'INSERT { '.
-			aRDFTriple subject term printSparqlOn: stream.
-			stream << ' '.
-			aRDFTriple predicate term printSparqlOn: stream.
-			stream << ' '.
-			aRDFTriple object term printSparqlOn: stream.
-			stream << ' } WHERE {};'; cr ].
-		 ].
-	^ sparqlClient update: cmdString.
+	
+	self telemetry
+		timeSync: [ 'Build insert query string' ]
+		during: [ 
+			cmdString := String new: 2000000 streamContents: [ :stream |
+				self addKnownPrefixesTo: stream.
+				stream cr.
+				aCollection do: [ :aRDFTriple |
+					stream << 'INSERT { '.
+					aRDFTriple subject term printSparqlOn: stream.
+					stream << ' '.
+					aRDFTriple predicate term printSparqlOn: stream.
+					stream << ' '.
+					aRDFTriple object term printSparqlOn: stream.
+					stream << ' } WHERE {};'; cr ].
+				 ] ].
+		
+	^ self telemetry
+		timeSync: [ 'Perform insert query of size ', cmdString size asString ]
+		during: [ 
+			sparqlClient update: cmdString. ] 
 ]
 
 { #category : #ui }
@@ -173,6 +182,16 @@ RDFJenaStore >> statusString [
 				print: sparqlClient datasetUrl; cr;
 			<< 'Triple count: ';
 				print: sparqlClient count; cr ].
+]
+
+{ #category : #accessing }
+RDFJenaStore >> telemetry [
+	^ telemetry
+]
+
+{ #category : #accessing }
+RDFJenaStore >> telemetry: anObject [
+	telemetry := anObject
 ]
 
 { #category : #enumerating }
