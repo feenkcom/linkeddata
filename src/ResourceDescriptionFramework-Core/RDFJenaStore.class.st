@@ -82,27 +82,6 @@ RDFJenaStore >> flush [
 
 ]
 
-{ #category : #'as yet unclassified' }
-RDFJenaStore >> gtListSpheresFor: aView [
-	<gtView>
-
-	(sparqlClient isNil or: [ sparqlClient count = 0 ]) ifTrue: [ ^ aView empty ].
-	^ aView list
-		title: 'Sphere types';
-		priority: 1;
-		items: [ RDFUniqueSphere allSubclasses collect: [ :eachClass | eachClass ] ];
-		itemText: #sphereName;
-		send: [ :sphereClass | 
-			| sphereTypeTriples |
-			sphereTypeTriples := self spheres collection
-				select: [ :aSphereTriple | aSphereTriple object term value = sphereClass sphereName ].
-			RDFSphereResourcesGroup withAll:
-				(sphereTypeTriples collect: [ :aSphereTypeTriple | 
-					self
-						resourceForSubject: aSphereTypeTriple subject
-						withSphere: (RDFSphere ofName: aSphereTypeTriple object term value) ]) ]
-]
-
 { #category : #ui }
 RDFJenaStore >> gtPredicatesFor: aView [
 	<gtView>
@@ -127,18 +106,6 @@ RDFJenaStore >> gtStatusFor: aView [
 		text: [ self statusString asRopedText glamorousCodeFont ]
 ]
 
-{ #category : #'gt-extension' }
-RDFJenaStore >> gtTripleSpheresFor: aView [
-	<gtView>
-	
-	(sparqlClient isNil or: [ sparqlClient count = 0 ]) ifTrue: [ ^ aView empty ].
-	^ aView forward
-		title: 'Triples (spheres)';
-		priority: 1;
-		object: [ self spheres ];
-		view: #gtTripleSpheresFor:
-]
-
 { #category : #initialization }
 RDFJenaStore >> initialize [ 
 
@@ -155,17 +122,6 @@ RDFJenaStore >> maxBufferSize [
 { #category : #accessing }
 RDFJenaStore >> maxBufferSize: anObject [
 	maxBufferSize := anObject
-]
-
-{ #category : #'as yet unclassified' }
-RDFJenaStore >> polySphereTriples [
-	| queryResults |
-
-	queryResults := sparqlClient read:
-'PREFIX poly: <http://polypoly.eu/schema/>
-
-SELECT ?s ?o WHERE { ?s poly:sphere ?o }'.
-	^ queryResults triplesWithPredicate: POLY sphere.
 ]
 
 { #category : #private }
@@ -207,16 +163,6 @@ RDFJenaStore >> saveTriples: aCollection [
 	^ sparqlClient update: cmdString.
 ]
 
-{ #category : #accessing }
-RDFJenaStore >> spheres [
-	<return: #RDFSpheres>
-
-	^ RDFSpheres new 
-		store: self;
-		collection: self polySphereTriples
-
-]
-
 { #category : #ui }
 RDFJenaStore >> statusString [ 
 
@@ -250,42 +196,5 @@ RDFJenaStore >> triplesForSubject: aRDFSubject [
 	<return: #RDFList>
 
 	^ RDFList new collection: (sparqlClient triplesWithSubject: aRDFSubject)
-
-]
-
-{ #category : #enumerating }
-RDFJenaStore >> triplesForSubject: aRDFSubject forSphere: aRDFSphere [
-	<return: #RDFList>
-	| queryResult predicateNames term |
-
-	predicateNames := aRDFSphere relevantPredicates collect: #shortName.
-	queryResult := sparqlClient read: (String streamContents: [ :stream |
-		stream << 'SELECT '.
-		predicateNames 
-			do: [ :name | 
-				stream 
-					nextPut: $?;
-					<< name ]
-			separatedBy: [ stream space ].
-		stream << ' WHERE { '; cr.
-		aRDFSphere relevantPredicates do: [ :predicate |
-			stream << 'OPTIONAL {'.
-			aRDFSubject printSparqlOn: stream.
-			stream space.
-			predicate printSparqlOn: stream.
-			stream
-				<< ' ?';
-				<< predicate shortName;
-				<< ' }';
-				cr ].
-		stream << '}' ] ).
-	^ RDFList new collection: ((aRDFSphere relevantPredicates collectWithIndex: [ :predicate :index |
-		term := queryResult at: 1 at: index.
-		term ifNotNil:
-			[ RDF tripleBuilder
-				subject: aRDFSubject;
-				predicate: predicate;
-				object: (RDFObject term: term);
-				build ] ] ) select: #isNotNil )
 
 ]

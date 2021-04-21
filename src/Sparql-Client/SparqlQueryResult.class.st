@@ -41,6 +41,15 @@ SparqlQueryResult >> bindings [
 	^ (source at: #results) at: #bindings
 ]
 
+{ #category : #enumerating }
+SparqlQueryResult >> do: aBlock [ 
+	"Evaluate a block for each of the records in the receiver"
+
+	self isSingle
+		ifTrue: [ aBlock value: self value ]
+		ifFalse: [ self value rowsDo: aBlock ]
+]
+
 { #category : #accessing }
 SparqlQueryResult >> fieldNames [ 
 	"Answer a collection of the receiver's field names"
