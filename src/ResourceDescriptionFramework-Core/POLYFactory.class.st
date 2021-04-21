@@ -35,6 +35,11 @@ POLYFactory >> hasUserMention [
 ]
 
 { #category : #accessing }
+POLYFactory >> inReplyTo [
+	^ self namedNodeSuffix: 'inReplyTo'
+]
+
+{ #category : #accessing }
 POLYFactory >> isFavourited [
 	^ self namedNodeSuffix: 'isFavourited'
 ]
@@ -62,6 +67,11 @@ POLYFactory >> prefix [
 { #category : #accessing }
 POLYFactory >> referencer [
 	^ self namedNodeSuffix: 'referencer'
+]
+
+{ #category : #accessing }
+POLYFactory >> reply [
+	^ self namedNodeSuffix: 'reply'
 ]
 
 { #category : #accessing }

@@ -40,6 +40,11 @@ POLY class >> hasUserMention [
 ]
 
 { #category : #factory }
+POLY class >> inReplyTo [
+	^ self factory inReplyTo
+]
+
+{ #category : #factory }
 POLY class >> isFavourited [
 	^ self factory isFavourited
 ]
@@ -62,6 +67,11 @@ POLY class >> possibleSensitive [
 { #category : #factory }
 POLY class >> referencer [
 	^ self factory referencer
+]
+
+{ #category : #factory }
+POLY class >> reply [
+	^ self factory reply
 ]
 
 { #category : #factory }
