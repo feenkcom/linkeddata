@@ -100,6 +100,16 @@ RDFSimpleCollectionStore >> initialize [
 	collection := OrderedCollection new.
 ]
 
+{ #category : #accessing }
+RDFSimpleCollectionStore >> printOn: aStream [
+	super printOn: aStream.
+	aStream
+		nextPutAll: ' (';
+		nextPutAll: self collection size asString;
+		nextPutAll: ' triples';
+		nextPutAll: ')'
+]
+
 { #category : #enumerating }
 RDFSimpleCollectionStore >> select: selectBlock thenCollect: collectBlock [
 	^ self collection select: selectBlock thenCollect: collectBlock
