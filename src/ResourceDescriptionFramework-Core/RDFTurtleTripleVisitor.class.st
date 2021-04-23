@@ -4,8 +4,6 @@ RDFTurtleTripleVisitor extracts all the triples from a RDFTurtleTurtleDocNode.
 Class {
 	#name : #RDFTurtleTripleVisitor,
 	#superclass : #RDFTurtleDocumentNodeVisitor,
-	#traits : 'TRDFTurtleDocumentNodeVisitor',
-	#classTraits : 'TRDFTurtleDocumentNodeVisitor classTrait',
 	#instVars : [
 		'triples',
 		'subject'
