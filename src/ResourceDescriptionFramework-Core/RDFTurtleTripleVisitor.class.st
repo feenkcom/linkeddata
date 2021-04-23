@@ -11,6 +11,16 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Parsers'
 }
 
+{ #category : #parsing }
+RDFTurtleTripleVisitor class >> parse: aRDFTurtleDocumentString [
+	"Parse the supplied TURTLE document (String) and answer the collection of triples"
+	| visitor |
+
+	visitor := self new.
+	(RDFTurtleParser parse: aRDFTurtleDocumentString) acceptVisitor: visitor.
+	^ visitor triples
+]
+
 { #category : #initialization }
 RDFTurtleTripleVisitor >> initialize [ 
 

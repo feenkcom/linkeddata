@@ -7,7 +7,10 @@ Class {
 { #category : #factory }
 XSDFactory >> boolean [
 	<return: #RDFNamedNode>
-	^ self namedNodeSuffix: 'boolean'
+
+	^ self 
+		namedNodeSuffix: 'boolean'
+		parser: [ :aString | XSD parseBoolean: aString ]
 ]
 
 { #category : #factory }
@@ -19,19 +22,36 @@ XSDFactory >> date [
 { #category : #factory }
 XSDFactory >> dateTime [
 	<return: #RDFNamedNode>
-	^ self namedNodeSuffix: 'dateTime'
+	^ self 
+		namedNodeSuffix: 'dateTime'
+		parser: [ :aString | XSD parseDateTime: aString ]
 ]
 
 { #category : #factory }
 XSDFactory >> decimal [
 	<return: #RDFNamedNode>
-	^ self namedNodeSuffix: 'decimal'
+
+	^ self 
+		namedNodeSuffix: 'decimal'
+		parser: [ :aString | XSD parseDecimal: aString ]
+]
+
+{ #category : #factory }
+XSDFactory >> double [
+	<return: #RDFNamedNode>
+
+	^ self 
+		namedNodeSuffix: 'double'
+		parser: [ :aString | XSD parseDouble: aString ]
 ]
 
 { #category : #factory }
 XSDFactory >> integer [
 	<return: #RDFNamedNode>
-	^ self namedNodeSuffix: 'integer'
+
+	^ self 
+		namedNodeSuffix: 'integer'
+		parser: [ :aString | XSD parseInteger: aString ]
 ]
 
 { #category : #factory }

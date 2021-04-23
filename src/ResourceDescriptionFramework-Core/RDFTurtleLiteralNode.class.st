@@ -24,13 +24,15 @@ RDFTurtleLiteralNode >> literal [
 ]
 
 { #category : #generated }
-RDFTurtleLiteralNode >> literal: anObject [
-	self setParent: self literal to: nil.
-	literal := anObject.
-	self setParent: self literal to: self
+RDFTurtleLiteralNode >> literal: aRDFTurtleDocumentNode [
+	self literal notNil
+		ifTrue: [ self literal parent: nil ].
+	literal := aRDFTurtleDocumentNode.
+	self literal notNil
+		ifTrue: [ self literal parent: self ]
 ]
 
 { #category : #generated }
-RDFTurtleLiteralNode >> otherVariables [
+RDFTurtleLiteralNode >> nodeVariables [
 	^ #(#literal)
 ]

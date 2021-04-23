@@ -113,6 +113,7 @@ RDFJenaStore >> initialize [
 	super initialize.
 	maxBufferSize := 0.
 	triples := OrderedCollection new: (maxBufferSize * 1.5) rounded.
+	telemetry := BlNullTelemetry new.
 ]
 
 { #category : #accessing }
@@ -170,6 +171,12 @@ RDFJenaStore >> saveTriples: aCollection [
 		timeSync: [ 'Perform insert query of size ', cmdString size asString ]
 		during: [ 
 			sparqlClient update: cmdString. ] 
+]
+
+{ #category : #accessing }
+RDFJenaStore >> sparqlClient [
+
+	^ sparqlClient
 ]
 
 { #category : #ui }

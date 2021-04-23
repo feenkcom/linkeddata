@@ -7,7 +7,7 @@ Class {
 { #category : #'generated-initialization' }
 RDFTurtleScanner class >> initializeKeywordMap [
 	keywordMap := Dictionary new.
-	#(#(22 '@base' 6) #(22 '@prefix' 7))
+	#(#(21 '@base' 6) #(21 '@prefix' 7))
 		do: [ :each | 
 			(keywordMap at: each first ifAbsentPut: [ Dictionary new ])
 				at: (each at: 2)
@@ -17,19 +17,19 @@ RDFTurtleScanner class >> initializeKeywordMap [
 
 { #category : #generated }
 RDFTurtleScanner >> emptySymbolTokenId [
-	^ 49
+	^ 57
 ]
 
 { #category : #generated }
 RDFTurtleScanner >> errorTokenId [
-	^ 50
+	^ 58
 ]
 
 { #category : #generated }
 RDFTurtleScanner >> scan1 [
 	[ self step.
 	currentCharacter == $"
-		ifTrue: [ ^ self recordAndReportMatch: #(17) ].
+		ifTrue: [ ^ self recordAndReportMatch: #(24) ].
 	currentCharacter == $\
 		ifTrue: [ ^ self scan2 ].
 	currentCharacter <= Character tab
@@ -42,22 +42,33 @@ RDFTurtleScanner >> scan1 [
 
 { #category : #generated }
 RDFTurtleScanner >> scan10 [
-	(self scanForString: '''''')
-		ifTrue: [ [ self recordMatch: #(17).
-			self step.
-			currentCharacter == $' ] whileTrue ].
-	currentCharacter == $\
+	[ self step.
+	currentCharacter == $'
 		ifTrue: [ ^ self scan11 ].
-	('"^' includes: currentCharacter)
-		ifTrue: [ ^ self scan9 ].
+	currentCharacter == $\
+		ifTrue: [ ^ self scan12 ].
+	'"^' includes: currentCharacter ] whileTrue.
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
 RDFTurtleScanner >> scan11 [
+	(self scanForString: '''''')
+		ifTrue: [ [ self recordMatch: #(22).
+			self step.
+			currentCharacter == $' ] whileTrue ].
+	currentCharacter == $\
+		ifTrue: [ ^ self scan12 ].
+	('"^' includes: currentCharacter)
+		ifTrue: [ ^ self scan10 ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan12 [
 	[ self step.
 	currentCharacter == $'
-		ifTrue: [ ^ self scan10 ].
+		ifTrue: [ ^ self scan11 ].
 	currentCharacter == $U
 		ifTrue: [ self step.
 			(currentCharacter isDigit
@@ -75,18 +86,18 @@ RDFTurtleScanner >> scan11 [
 									(currentCharacter isDigit
 										or: [ (currentCharacter between: $A and: $F)
 												or: [ currentCharacter between: $a and: $f ] ])
-										ifTrue: [ ^ self scan12 ] ] ] ].
+										ifTrue: [ ^ self scan13 ] ] ] ].
 			^ self reportLastMatch ].
 	currentCharacter == $\ ] whileTrue.
 	currentCharacter == $u
-		ifTrue: [ ^ self scan12 ].
+		ifTrue: [ ^ self scan13 ].
 	('"^bfnrt' includes: currentCharacter)
-		ifTrue: [ ^ self scan9 ].
+		ifTrue: [ ^ self scan10 ].
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
-RDFTurtleScanner >> scan12 [
+RDFTurtleScanner >> scan13 [
 	self step.
 	(currentCharacter isDigit
 		or: [ (currentCharacter between: $A and: $F)
@@ -103,22 +114,22 @@ RDFTurtleScanner >> scan12 [
 							(currentCharacter isDigit
 								or: [ (currentCharacter between: $A and: $F)
 										or: [ currentCharacter between: $a and: $f ] ])
-								ifTrue: [ ^ self scan9 ] ] ] ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-RDFTurtleScanner >> scan13 [
-	[ self recordMatch: #(15).
-	self step.
-	currentCharacter isDigit ] whileTrue.
-	('Ee' includes: currentCharacter)
-		ifTrue: [ ^ self scan14 ].
+								ifTrue: [ ^ self scan10 ] ] ] ].
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
 RDFTurtleScanner >> scan14 [
+	[ self recordMatch: #(15).
+	self step.
+	currentCharacter isDigit ] whileTrue.
+	('Ee' includes: currentCharacter)
+		ifTrue: [ ^ self scan15 ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan15 [
 	self step.
 	currentCharacter isDigit
 		ifTrue: [ [ self recordMatch: #(15).
@@ -135,39 +146,39 @@ RDFTurtleScanner >> scan14 [
 ]
 
 { #category : #generated }
-RDFTurtleScanner >> scan15 [
+RDFTurtleScanner >> scan16 [
 	[ self recordMatch: #(15).
 	self step.
 	currentCharacter == $.
 		ifTrue: [ self step.
 			currentCharacter isDigit
-				ifTrue: [ ^ self scan13 ].
-			('Ee' includes: currentCharacter)
 				ifTrue: [ ^ self scan14 ].
+			('Ee' includes: currentCharacter)
+				ifTrue: [ ^ self scan15 ].
 			^ self reportLastMatch ].
 	currentCharacter isDigit ] whileTrue.
 	('Ee' includes: currentCharacter)
-		ifTrue: [ ^ self scan14 ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-RDFTurtleScanner >> scan16 [
-	self recordMatch: #(20 21).
-	self step.
-	currentCharacter == $%
-		ifTrue: [ ^ self scan17 ].
-	currentCharacter == $\
-		ifTrue: [ ^ self scan19 ].
-	((currentCharacter between: $0 and: $:)
-		or: [ (currentCharacter between: $A and: $Z)
-				or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ])
-		ifTrue: [ ^ self scan18 ].
+		ifTrue: [ ^ self scan15 ].
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
 RDFTurtleScanner >> scan17 [
+	self recordMatch: #(19 20).
+	self step.
+	currentCharacter == $%
+		ifTrue: [ ^ self scan18 ].
+	currentCharacter == $\
+		ifTrue: [ ^ self scan20 ].
+	((currentCharacter between: $0 and: $:)
+		or: [ (currentCharacter between: $A and: $Z)
+				or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ])
+		ifTrue: [ ^ self scan19 ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan18 [
 	self step.
 	(currentCharacter isDigit
 		or: [ (currentCharacter between: $A and: $F)
@@ -176,31 +187,31 @@ RDFTurtleScanner >> scan17 [
 			(currentCharacter isDigit
 				or: [ (currentCharacter between: $A and: $F)
 						or: [ currentCharacter between: $a and: $f ] ])
-				ifTrue: [ ^ self scan18 ] ].
+				ifTrue: [ ^ self scan19 ] ].
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
-RDFTurtleScanner >> scan18 [
-	[ self recordMatch: #(21).
+RDFTurtleScanner >> scan19 [
+	[ self recordMatch: #(20).
 	self step.
 	currentCharacter == $%
-		ifTrue: [ ^ self scan17 ].
+		ifTrue: [ ^ self scan18 ].
 	currentCharacter == $.
 		ifTrue: [ [ self step.
 			currentCharacter == $%
-				ifTrue: [ ^ self scan17 ].
+				ifTrue: [ ^ self scan18 ].
 			currentCharacter == $. ] whileTrue.
 			currentCharacter == $\
-				ifTrue: [ ^ self scan19 ].
+				ifTrue: [ ^ self scan20 ].
 			(currentCharacter == $-
 				or: [ (currentCharacter between: $0 and: $:)
 						or: [ (currentCharacter between: $A and: $Z)
 								or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
-				ifTrue: [ ^ self scan18 ].
+				ifTrue: [ ^ self scan19 ].
 			^ self reportLastMatch ].
 	currentCharacter == $\
-		ifTrue: [ ^ self scan19 ].
+		ifTrue: [ ^ self scan20 ].
 	currentCharacter == $-
 		or: [ (currentCharacter between: $0 and: $:)
 				or: [ (currentCharacter between: $A and: $Z)
@@ -210,135 +221,7 @@ RDFTurtleScanner >> scan18 [
 ]
 
 { #category : #generated }
-RDFTurtleScanner >> scan19 [
-	self step.
-	(currentCharacter == $!
-		or: [ (currentCharacter between: $# and: $/)
-				or: [ (';=' includes: currentCharacter)
-						or: [ (currentCharacter between: $? and: $@)
-								or: [ '_~' includes: currentCharacter ] ] ] ])
-		ifTrue: [ ^ self scan18 ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
 RDFTurtleScanner >> scan2 [
-	self step.
-	currentCharacter == $"
-		ifTrue: [ ^ self scan1 ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-RDFTurtleScanner >> scan20 [
-	self step.
-	((currentCharacter between: $0 and: $9)
-		or: [ (currentCharacter between: $A and: $Z)
-				or: [ currentCharacter between: $a and: $z ] ])
-		ifTrue: [ [ self recordMatch: #(22).
-			self step.
-			currentCharacter == $-
-				ifTrue: [ ^ self scan20 ].
-			(currentCharacter between: $0 and: $9)
-				or: [ (currentCharacter between: $A and: $Z)
-						or: [ currentCharacter between: $a and: $z ] ] ] whileTrue ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-RDFTurtleScanner >> scan21 [
-	[ self step.
-	currentCharacter == $.
-		ifTrue: [ ^ self scan22 ].
-	currentCharacter == $:
-		ifTrue: [ ^ self scan16 ].
-	currentCharacter == $-
-		or: [ (currentCharacter between: $0 and: $9)
-				or: [ (currentCharacter between: $A and: $Z)
-						or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ] ]
-		whileTrue.
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-RDFTurtleScanner >> scan22 [
-	[ self step.
-	currentCharacter == $. ] whileTrue.
-	(currentCharacter == $-
-		or: [ (currentCharacter between: $0 and: $9)
-				or: [ (currentCharacter between: $A and: $Z)
-						or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
-		ifTrue: [ ^ self scan21 ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-RDFTurtleScanner >> scan23 [
-	[ self recordMatch: #(18).
-	self step.
-	currentCharacter == $.
-		ifTrue: [ [ self step.
-			currentCharacter == $. ] whileTrue.
-			(currentCharacter == $-
-				or: [ (currentCharacter between: $0 and: $9)
-						or: [ (currentCharacter between: $A and: $Z)
-								or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
-				ifTrue: [ ^ self scan23 ].
-			^ self reportLastMatch ].
-	currentCharacter == $-
-		or: [ (currentCharacter between: $0 and: $9)
-				or: [ (currentCharacter between: $A and: $Z)
-						or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ] ]
-		whileTrue.
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-RDFTurtleScanner >> scan24 [
-	self step.
-	currentCharacter == $.
-		ifTrue: [ ^ self scan22 ].
-	currentCharacter == $:
-		ifTrue: [ ^ self scan16 ].
-	currentCharacter == $e
-		ifTrue: [ self recordMatch: #(16).
-			self step.
-			currentCharacter == $.
-				ifTrue: [ ^ self scan22 ].
-			currentCharacter == $:
-				ifTrue: [ ^ self scan16 ].
-			(currentCharacter == $-
-				or: [ (currentCharacter between: $0 and: $9)
-						or: [ (currentCharacter between: $A and: $Z)
-								or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
-				ifTrue: [ ^ self scan21 ].
-			^ self reportLastMatch ].
-	(currentCharacter == $-
-		or: [ (currentCharacter between: $0 and: $9)
-				or: [ (currentCharacter between: $A and: $Z)
-						or: [ currentCharacter == $_
-								or: [ (currentCharacter between: $a and: $d)
-										or: [ currentCharacter between: $f and: $z ] ] ] ] ])
-		ifTrue: [ ^ self scan21 ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-RDFTurtleScanner >> scan3 [
-	[ self step.
-	currentCharacter == $"
-		ifTrue: [ (self scanForString: '""')
-				ifTrue: [ ^ self recordAndReportMatch: #(17) ].
-			currentCharacter == $\
-				ifTrue: [ ^ self scan4 ].
-			^ self scan3 ].
-	currentCharacter == $\
-		ifTrue: [ ^ self scan4 ].
-	true ] whileTrue
-]
-
-{ #category : #generated }
-RDFTurtleScanner >> scan4 [
 	self step.
 	currentCharacter == $U
 		ifTrue: [ self step.
@@ -357,17 +240,123 @@ RDFTurtleScanner >> scan4 [
 									(currentCharacter isDigit
 										or: [ (currentCharacter between: $A and: $F)
 												or: [ currentCharacter between: $a and: $f ] ])
-										ifTrue: [ ^ self scan5 ] ] ] ].
+										ifTrue: [ ^ self scan3 ] ] ] ].
 			^ self reportLastMatch ].
 	currentCharacter == $u
-		ifTrue: [ ^ self scan5 ].
-	('"''\bfnrt' includes: currentCharacter)
 		ifTrue: [ ^ self scan3 ].
+	('"''\bfnrt' includes: currentCharacter)
+		ifTrue: [ ^ self scan1 ].
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
-RDFTurtleScanner >> scan5 [
+RDFTurtleScanner >> scan20 [
+	self step.
+	(currentCharacter == $!
+		or: [ (currentCharacter between: $# and: $/)
+				or: [ (';=' includes: currentCharacter)
+						or: [ (currentCharacter between: $? and: $@)
+								or: [ '_~' includes: currentCharacter ] ] ] ])
+		ifTrue: [ ^ self scan19 ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan21 [
+	self step.
+	((currentCharacter between: $0 and: $9)
+		or: [ (currentCharacter between: $A and: $Z)
+				or: [ currentCharacter between: $a and: $z ] ])
+		ifTrue: [ [ self recordMatch: #(21).
+			self step.
+			currentCharacter == $-
+				ifTrue: [ ^ self scan21 ].
+			(currentCharacter between: $0 and: $9)
+				or: [ (currentCharacter between: $A and: $Z)
+						or: [ currentCharacter between: $a and: $z ] ] ] whileTrue ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan22 [
+	[ self step.
+	currentCharacter == $.
+		ifTrue: [ ^ self scan23 ].
+	currentCharacter == $:
+		ifTrue: [ ^ self scan17 ].
+	currentCharacter == $-
+		or: [ (currentCharacter between: $0 and: $9)
+				or: [ (currentCharacter between: $A and: $Z)
+						or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ] ]
+		whileTrue.
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan23 [
+	[ self step.
+	currentCharacter == $. ] whileTrue.
+	(currentCharacter == $-
+		or: [ (currentCharacter between: $0 and: $9)
+				or: [ (currentCharacter between: $A and: $Z)
+						or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
+		ifTrue: [ ^ self scan22 ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan24 [
+	[ self recordMatch: #(17).
+	self step.
+	currentCharacter == $.
+		ifTrue: [ [ self step.
+			currentCharacter == $. ] whileTrue.
+			(currentCharacter == $-
+				or: [ (currentCharacter between: $0 and: $9)
+						or: [ (currentCharacter between: $A and: $Z)
+								or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
+				ifTrue: [ ^ self scan24 ].
+			^ self reportLastMatch ].
+	currentCharacter == $-
+		or: [ (currentCharacter between: $0 and: $9)
+				or: [ (currentCharacter between: $A and: $Z)
+						or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ] ]
+		whileTrue.
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan25 [
+	self step.
+	currentCharacter == $.
+		ifTrue: [ ^ self scan23 ].
+	currentCharacter == $:
+		ifTrue: [ ^ self scan17 ].
+	currentCharacter == $e
+		ifTrue: [ self recordMatch: #(16).
+			self step.
+			currentCharacter == $.
+				ifTrue: [ ^ self scan23 ].
+			currentCharacter == $:
+				ifTrue: [ ^ self scan17 ].
+			(currentCharacter == $-
+				or: [ (currentCharacter between: $0 and: $9)
+						or: [ (currentCharacter between: $A and: $Z)
+								or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
+				ifTrue: [ ^ self scan22 ].
+			^ self reportLastMatch ].
+	(currentCharacter == $-
+		or: [ (currentCharacter between: $0 and: $9)
+				or: [ (currentCharacter between: $A and: $Z)
+						or: [ currentCharacter == $_
+								or: [ (currentCharacter between: $a and: $d)
+										or: [ currentCharacter between: $f and: $z ] ] ] ] ])
+		ifTrue: [ ^ self scan22 ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan3 [
 	self step.
 	(currentCharacter isDigit
 		or: [ (currentCharacter between: $A and: $F)
@@ -384,17 +373,82 @@ RDFTurtleScanner >> scan5 [
 							(currentCharacter isDigit
 								or: [ (currentCharacter between: $A and: $F)
 										or: [ currentCharacter between: $a and: $f ] ])
-								ifTrue: [ ^ self scan3 ] ] ] ].
+								ifTrue: [ ^ self scan1 ] ] ] ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan4 [
+	[ self step.
+	currentCharacter == $"
+		ifTrue: [ (self scanForString: '""')
+				ifTrue: [ ^ self recordAndReportMatch: #(23) ].
+			currentCharacter == $\
+				ifTrue: [ ^ self scan5 ].
+			^ self scan4 ].
+	currentCharacter == $\
+		ifTrue: [ ^ self scan5 ].
+	true ] whileTrue
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan5 [
+	self step.
+	currentCharacter == $U
+		ifTrue: [ self step.
+			(currentCharacter isDigit
+				or: [ (currentCharacter between: $A and: $F)
+						or: [ currentCharacter between: $a and: $f ] ])
+				ifTrue: [ self step.
+					(currentCharacter isDigit
+						or: [ (currentCharacter between: $A and: $F)
+								or: [ currentCharacter between: $a and: $f ] ])
+						ifTrue: [ self step.
+							(currentCharacter isDigit
+								or: [ (currentCharacter between: $A and: $F)
+										or: [ currentCharacter between: $a and: $f ] ])
+								ifTrue: [ self step.
+									(currentCharacter isDigit
+										or: [ (currentCharacter between: $A and: $F)
+												or: [ currentCharacter between: $a and: $f ] ])
+										ifTrue: [ ^ self scan6 ] ] ] ].
+			^ self reportLastMatch ].
+	currentCharacter == $u
+		ifTrue: [ ^ self scan6 ].
+	('"''\bfnrt' includes: currentCharacter)
+		ifTrue: [ ^ self scan4 ].
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
 RDFTurtleScanner >> scan6 [
+	self step.
+	(currentCharacter isDigit
+		or: [ (currentCharacter between: $A and: $F)
+				or: [ currentCharacter between: $a and: $f ] ])
+		ifTrue: [ self step.
+			(currentCharacter isDigit
+				or: [ (currentCharacter between: $A and: $F)
+						or: [ currentCharacter between: $a and: $f ] ])
+				ifTrue: [ self step.
+					(currentCharacter isDigit
+						or: [ (currentCharacter between: $A and: $F)
+								or: [ currentCharacter between: $a and: $f ] ])
+						ifTrue: [ self step.
+							(currentCharacter isDigit
+								or: [ (currentCharacter between: $A and: $F)
+										or: [ currentCharacter between: $a and: $f ] ])
+								ifTrue: [ ^ self scan4 ] ] ] ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scan7 [
 	[ self step.
 	currentCharacter == $'
-		ifTrue: [ ^ self recordAndReportMatch: #(17) ].
+		ifTrue: [ ^ self recordAndReportMatch: #(25) ].
 	currentCharacter == $\
-		ifTrue: [ ^ self scan7 ].
+		ifTrue: [ ^ self scan8 ].
 	currentCharacter <= Character tab
 		or: [ (currentCharacter between: Character pageUp and: Character newPage)
 				or: [ (currentCharacter between: (Character value: 14) and: $&)
@@ -404,7 +458,7 @@ RDFTurtleScanner >> scan6 [
 ]
 
 { #category : #generated }
-RDFTurtleScanner >> scan7 [
+RDFTurtleScanner >> scan8 [
 	self step.
 	currentCharacter == $U
 		ifTrue: [ self step.
@@ -423,17 +477,17 @@ RDFTurtleScanner >> scan7 [
 									(currentCharacter isDigit
 										or: [ (currentCharacter between: $A and: $F)
 												or: [ currentCharacter between: $a and: $f ] ])
-										ifTrue: [ ^ self scan8 ] ] ] ].
+										ifTrue: [ ^ self scan9 ] ] ] ].
 			^ self reportLastMatch ].
 	currentCharacter == $u
-		ifTrue: [ ^ self scan8 ].
+		ifTrue: [ ^ self scan9 ].
 	('"''\bfnrt' includes: currentCharacter)
-		ifTrue: [ ^ self scan6 ].
+		ifTrue: [ ^ self scan7 ].
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
-RDFTurtleScanner >> scan8 [
+RDFTurtleScanner >> scan9 [
 	self step.
 	(currentCharacter isDigit
 		or: [ (currentCharacter between: $A and: $F)
@@ -450,18 +504,7 @@ RDFTurtleScanner >> scan8 [
 							(currentCharacter isDigit
 								or: [ (currentCharacter between: $A and: $F)
 										or: [ currentCharacter between: $a and: $f ] ])
-								ifTrue: [ ^ self scan6 ] ] ] ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-RDFTurtleScanner >> scan9 [
-	[ self step.
-	currentCharacter == $'
-		ifTrue: [ ^ self scan10 ].
-	currentCharacter == $\
-		ifTrue: [ ^ self scan11 ].
-	'"^' includes: currentCharacter ] whileTrue.
+								ifTrue: [ ^ self scan7 ] ] ] ].
 	^ self reportLastMatch
 ]
 
@@ -487,9 +530,9 @@ RDFTurtleScanner >> scanForToken [
 RDFTurtleScanner >> scanForTokenX1 [
 	self step.
 	currentCharacter == $.
-		ifTrue: [ ^ self scan22 ].
+		ifTrue: [ ^ self scan23 ].
 	currentCharacter == $:
-		ifTrue: [ ^ self scan16 ].
+		ifTrue: [ ^ self scan17 ].
 	currentCharacter == $R
 		ifTrue:
 			[ ^ self scanForTokenX1X1 ].
@@ -498,7 +541,7 @@ RDFTurtleScanner >> scanForTokenX1 [
 				or: [ (currentCharacter between: $A and: $Q)
 						or: [ (currentCharacter between: $S and: $Z)
 								or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ] ])
-		ifTrue: [ ^ self scan21 ].
+		ifTrue: [ ^ self scan22 ].
 	^ self reportLastMatch
 ]
 
@@ -510,7 +553,7 @@ RDFTurtleScanner >> scanForTokenX10 [
 			((currentCharacter between: $0 and: $9)
 				or: [ (currentCharacter between: $A and: $Z)
 						or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ])
-				ifTrue: [ ^ self scan23 ] ].
+				ifTrue: [ ^ self scan24 ] ].
 	^ self reportLastMatch
 ]
 
@@ -519,10 +562,10 @@ RDFTurtleScanner >> scanForTokenX11 [
 	self step.
 	((currentCharacter between: $A and: $Z)
 		or: [ currentCharacter between: $a and: $z ])
-		ifTrue: [ [ self recordMatch: #(22).
+		ifTrue: [ [ self recordMatch: #(21).
 			self step.
 			currentCharacter == $-
-				ifTrue: [ ^ self scan20 ].
+				ifTrue: [ ^ self scan21 ].
 			(currentCharacter between: $A and: $Z)
 				or: [ currentCharacter between: $a and: $z ] ] whileTrue ].
 	^ self reportLastMatch
@@ -543,10 +586,10 @@ RDFTurtleScanner >> scanForTokenX13 [
 	currentCharacter == $.
 		ifTrue: [ self step.
 			currentCharacter isDigit
-				ifTrue: [ ^ self scan13 ].
+				ifTrue: [ ^ self scan14 ].
 			^ self reportLastMatch ].
 	currentCharacter isDigit
-		ifTrue: [ ^ self scan15 ].
+		ifTrue: [ ^ self scan16 ].
 	^ self reportLastMatch
 ]
 
@@ -563,7 +606,7 @@ RDFTurtleScanner >> scanForTokenX15 [
 	self recordMatch: #(4).
 	self step.
 	currentCharacter isDigit
-		ifTrue: [ ^ self scan13 ].
+		ifTrue: [ ^ self scan14 ].
 	^ self reportLastMatch
 ]
 
@@ -576,7 +619,7 @@ RDFTurtleScanner >> scanForTokenX16 [
 		ifTrue:
 			[ ^ self scanForTokenX4 ].
 	currentCharacter isDigit
-		ifTrue: [ ^ self scan15 ].
+		ifTrue: [ ^ self scan16 ].
 	('+-' includes: currentCharacter)
 		ifTrue:
 			[ ^ self scanForTokenX13 ].
@@ -590,7 +633,7 @@ RDFTurtleScanner >> scanForTokenX16 [
 						or: [ (currentCharacter between: $b and: $e)
 								or: [ (currentCharacter between: $g and: $s)
 										or: [ currentCharacter between: $u and: $z ] ] ] ] ])
-		ifTrue: [ ^ self scan21 ].
+		ifTrue: [ ^ self scan22 ].
 	^ self reportLastMatch
 ]
 
@@ -600,12 +643,12 @@ RDFTurtleScanner >> scanForTokenX17 [
 		ifTrue:
 			[ ^ self scanForTokenX15 ].
 	currentCharacter == $:
-		ifTrue: [ ^ self scan16 ].
+		ifTrue: [ ^ self scan17 ].
 	currentCharacter == $;
 		ifTrue: [ ^ self recordAndReportMatch: #(5) ].
 	currentCharacter == $<
 		ifTrue:
-			[ ^ self scanForTokenX8 ].
+			[ ^ self scanForTokenX7 ].
 	currentCharacter == $@
 		ifTrue:
 			[ ^ self scanForTokenX11 ].
@@ -628,7 +671,7 @@ RDFTurtleScanner >> scanForTokenX17 [
 			[ ^ self scanForTokenX10 ].
 	currentCharacter == $a
 		ifTrue:
-			[ ^ self scanForTokenX7 ].
+			[ ^ self scanForTokenX8 ].
 	^ self scanForTokenX16
 ]
 
@@ -636,9 +679,9 @@ RDFTurtleScanner >> scanForTokenX17 [
 RDFTurtleScanner >> scanForTokenX1X1 [
 	self step.
 	currentCharacter == $.
-		ifTrue: [ ^ self scan22 ].
+		ifTrue: [ ^ self scan23 ].
 	currentCharacter == $:
-		ifTrue: [ ^ self scan16 ].
+		ifTrue: [ ^ self scan17 ].
 	currentCharacter == $E
 		ifTrue:
 			[ ^ self scanForTokenX1X1X1 ].
@@ -647,7 +690,7 @@ RDFTurtleScanner >> scanForTokenX1X1 [
 				or: [ (currentCharacter between: $A and: $D)
 						or: [ (currentCharacter between: $F and: $Z)
 								or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ] ])
-		ifTrue: [ ^ self scan21 ].
+		ifTrue: [ ^ self scan22 ].
 	^ self reportLastMatch
 ]
 
@@ -655,54 +698,54 @@ RDFTurtleScanner >> scanForTokenX1X1 [
 RDFTurtleScanner >> scanForTokenX1X1X1 [
 	self step.
 	currentCharacter == $.
-		ifTrue: [ ^ self scan22 ].
+		ifTrue: [ ^ self scan23 ].
 	currentCharacter == $:
-		ifTrue: [ ^ self scan16 ].
+		ifTrue: [ ^ self scan17 ].
 	currentCharacter == $F
 		ifTrue: [ self step.
 			currentCharacter == $.
-				ifTrue: [ ^ self scan22 ].
+				ifTrue: [ ^ self scan23 ].
 			currentCharacter == $:
-				ifTrue: [ ^ self scan16 ].
+				ifTrue: [ ^ self scan17 ].
 			currentCharacter == $I
 				ifTrue: [ self step.
 					currentCharacter == $.
-						ifTrue: [ ^ self scan22 ].
+						ifTrue: [ ^ self scan23 ].
 					currentCharacter == $:
-						ifTrue: [ ^ self scan16 ].
+						ifTrue: [ ^ self scan17 ].
 					currentCharacter == $X
 						ifTrue: [ self recordMatch: #(9).
 							self step.
 							currentCharacter == $.
-								ifTrue: [ ^ self scan22 ].
+								ifTrue: [ ^ self scan23 ].
 							currentCharacter == $:
-								ifTrue: [ ^ self scan16 ].
+								ifTrue: [ ^ self scan17 ].
 							(currentCharacter == $-
 								or: [ (currentCharacter between: $0 and: $9)
 										or: [ (currentCharacter between: $A and: $Z)
 												or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
-								ifTrue: [ ^ self scan21 ].
+								ifTrue: [ ^ self scan22 ].
 							^ self reportLastMatch ].
 					(currentCharacter == $-
 						or: [ (currentCharacter between: $0 and: $9)
 								or: [ (currentCharacter between: $A and: $W)
 										or: [ (currentCharacter between: $Y and: $Z)
 												or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ] ])
-						ifTrue: [ ^ self scan21 ].
+						ifTrue: [ ^ self scan22 ].
 					^ self reportLastMatch ].
 			(currentCharacter == $-
 				or: [ (currentCharacter between: $0 and: $9)
 						or: [ (currentCharacter between: $A and: $H)
 								or: [ (currentCharacter between: $J and: $Z)
 										or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ] ])
-				ifTrue: [ ^ self scan21 ].
+				ifTrue: [ ^ self scan22 ].
 			^ self reportLastMatch ].
 	(currentCharacter == $-
 		or: [ (currentCharacter between: $0 and: $9)
 				or: [ (currentCharacter between: $A and: $E)
 						or: [ (currentCharacter between: $G and: $Z)
 								or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ] ])
-		ifTrue: [ ^ self scan21 ].
+		ifTrue: [ ^ self scan22 ].
 	^ self reportLastMatch
 ]
 
@@ -710,53 +753,53 @@ RDFTurtleScanner >> scanForTokenX1X1X1 [
 RDFTurtleScanner >> scanForTokenX2 [
 	self step.
 	currentCharacter == $.
-		ifTrue: [ ^ self scan22 ].
+		ifTrue: [ ^ self scan23 ].
 	currentCharacter == $:
-		ifTrue: [ ^ self scan16 ].
+		ifTrue: [ ^ self scan17 ].
 	currentCharacter == $A
 		ifTrue: [ self step.
 			currentCharacter == $.
-				ifTrue: [ ^ self scan22 ].
+				ifTrue: [ ^ self scan23 ].
 			currentCharacter == $:
-				ifTrue: [ ^ self scan16 ].
+				ifTrue: [ ^ self scan17 ].
 			currentCharacter == $S
 				ifTrue: [ self step.
 					currentCharacter == $.
-						ifTrue: [ ^ self scan22 ].
+						ifTrue: [ ^ self scan23 ].
 					currentCharacter == $:
-						ifTrue: [ ^ self scan16 ].
+						ifTrue: [ ^ self scan17 ].
 					currentCharacter == $E
 						ifTrue: [ self recordMatch: #(8).
 							self step.
 							currentCharacter == $.
-								ifTrue: [ ^ self scan22 ].
+								ifTrue: [ ^ self scan23 ].
 							currentCharacter == $:
-								ifTrue: [ ^ self scan16 ].
+								ifTrue: [ ^ self scan17 ].
 							(currentCharacter == $-
 								or: [ (currentCharacter between: $0 and: $9)
 										or: [ (currentCharacter between: $A and: $Z)
 												or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
-								ifTrue: [ ^ self scan21 ].
+								ifTrue: [ ^ self scan22 ].
 							^ self reportLastMatch ].
 					(currentCharacter == $-
 						or: [ (currentCharacter between: $0 and: $9)
 								or: [ (currentCharacter between: $A and: $D)
 										or: [ (currentCharacter between: $F and: $Z)
 												or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ] ])
-						ifTrue: [ ^ self scan21 ].
+						ifTrue: [ ^ self scan22 ].
 					^ self reportLastMatch ].
 			(currentCharacter == $-
 				or: [ (currentCharacter between: $0 and: $9)
 						or: [ (currentCharacter between: $A and: $R)
 								or: [ (currentCharacter between: $T and: $Z)
 										or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ] ])
-				ifTrue: [ ^ self scan21 ].
+				ifTrue: [ ^ self scan22 ].
 			^ self reportLastMatch ].
 	(currentCharacter == $-
 		or: [ (currentCharacter between: $0 and: $9)
 				or: [ (currentCharacter between: $B and: $Z)
 						or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
-		ifTrue: [ ^ self scan21 ].
+		ifTrue: [ ^ self scan22 ].
 	^ self reportLastMatch
 ]
 
@@ -764,30 +807,30 @@ RDFTurtleScanner >> scanForTokenX2 [
 RDFTurtleScanner >> scanForTokenX3 [
 	self step.
 	currentCharacter == $.
-		ifTrue: [ ^ self scan22 ].
+		ifTrue: [ ^ self scan23 ].
 	currentCharacter == $:
-		ifTrue: [ ^ self scan16 ].
+		ifTrue: [ ^ self scan17 ].
 	currentCharacter == $a
 		ifTrue: [ self step.
 			currentCharacter == $.
-				ifTrue: [ ^ self scan22 ].
+				ifTrue: [ ^ self scan23 ].
 			currentCharacter == $:
-				ifTrue: [ ^ self scan16 ].
+				ifTrue: [ ^ self scan17 ].
 			currentCharacter == $l
 				ifTrue: [ self step.
 					currentCharacter == $.
-						ifTrue: [ ^ self scan22 ].
+						ifTrue: [ ^ self scan23 ].
 					currentCharacter == $:
-						ifTrue: [ ^ self scan16 ].
+						ifTrue: [ ^ self scan17 ].
 					currentCharacter == $s
-						ifTrue: [ ^ self scan24 ].
+						ifTrue: [ ^ self scan25 ].
 					(currentCharacter == $-
 						or: [ (currentCharacter between: $0 and: $9)
 								or: [ (currentCharacter between: $A and: $Z)
 										or: [ currentCharacter == $_
 												or: [ (currentCharacter between: $a and: $r)
 														or: [ currentCharacter between: $t and: $z ] ] ] ] ])
-						ifTrue: [ ^ self scan21 ].
+						ifTrue: [ ^ self scan22 ].
 					^ self reportLastMatch ].
 			(currentCharacter == $-
 				or: [ (currentCharacter between: $0 and: $9)
@@ -795,13 +838,13 @@ RDFTurtleScanner >> scanForTokenX3 [
 								or: [ currentCharacter == $_
 										or: [ (currentCharacter between: $a and: $k)
 												or: [ currentCharacter between: $m and: $z ] ] ] ] ])
-				ifTrue: [ ^ self scan21 ].
+				ifTrue: [ ^ self scan22 ].
 			^ self reportLastMatch ].
 	(currentCharacter == $-
 		or: [ (currentCharacter between: $0 and: $9)
 				or: [ (currentCharacter between: $A and: $Z)
 						or: [ currentCharacter == $_ or: [ currentCharacter between: $b and: $z ] ] ] ])
-		ifTrue: [ ^ self scan21 ].
+		ifTrue: [ ^ self scan22 ].
 	^ self reportLastMatch
 ]
 
@@ -809,24 +852,24 @@ RDFTurtleScanner >> scanForTokenX3 [
 RDFTurtleScanner >> scanForTokenX4 [
 	self step.
 	currentCharacter == $.
-		ifTrue: [ ^ self scan22 ].
+		ifTrue: [ ^ self scan23 ].
 	currentCharacter == $:
-		ifTrue: [ ^ self scan16 ].
+		ifTrue: [ ^ self scan17 ].
 	currentCharacter == $r
 		ifTrue: [ self step.
 			currentCharacter == $.
-				ifTrue: [ ^ self scan22 ].
+				ifTrue: [ ^ self scan23 ].
 			currentCharacter == $:
-				ifTrue: [ ^ self scan16 ].
+				ifTrue: [ ^ self scan17 ].
 			currentCharacter == $u
-				ifTrue: [ ^ self scan24 ].
+				ifTrue: [ ^ self scan25 ].
 			(currentCharacter == $-
 				or: [ (currentCharacter between: $0 and: $9)
 						or: [ (currentCharacter between: $A and: $Z)
 								or: [ currentCharacter == $_
 										or: [ (currentCharacter between: $a and: $t)
 												or: [ currentCharacter between: $v and: $z ] ] ] ] ])
-				ifTrue: [ ^ self scan21 ].
+				ifTrue: [ ^ self scan22 ].
 			^ self reportLastMatch ].
 	(currentCharacter == $-
 		or: [ (currentCharacter between: $0 and: $9)
@@ -834,7 +877,7 @@ RDFTurtleScanner >> scanForTokenX4 [
 						or: [ currentCharacter == $_
 								or: [ (currentCharacter between: $a and: $q)
 										or: [ currentCharacter between: $s and: $z ] ] ] ] ])
-		ifTrue: [ ^ self scan21 ].
+		ifTrue: [ ^ self scan22 ].
 	^ self reportLastMatch
 ]
 
@@ -842,19 +885,19 @@ RDFTurtleScanner >> scanForTokenX4 [
 RDFTurtleScanner >> scanForTokenX5 [
 	self step.
 	currentCharacter == $'
-		ifTrue: [ self recordMatch: #(17).
+		ifTrue: [ self recordMatch: #(25).
 			self step.
 			currentCharacter == $'
-				ifTrue: [ ^ self scan9 ].
+				ifTrue: [ ^ self scan10 ].
 			^ self reportLastMatch ].
 	currentCharacter == $\
-		ifTrue: [ ^ self scan7 ].
+		ifTrue: [ ^ self scan8 ].
 	(currentCharacter <= Character tab
 		or: [ (currentCharacter between: Character pageUp and: Character newPage)
 				or: [ (currentCharacter between: (Character value: 14) and: $&)
 						or: [ (currentCharacter between: $( and: $[)
 								or: [ currentCharacter >= $] ] ] ] ])
-		ifTrue: [ ^ self scan6 ].
+		ifTrue: [ ^ self scan7 ].
 	^ self reportLastMatch
 ]
 
@@ -862,10 +905,10 @@ RDFTurtleScanner >> scanForTokenX5 [
 RDFTurtleScanner >> scanForTokenX6 [
 	self step.
 	currentCharacter == $"
-		ifTrue: [ self recordMatch: #(17).
+		ifTrue: [ self recordMatch: #(24).
 			self step.
 			currentCharacter == $"
-				ifTrue: [ ^ self scan3 ].
+				ifTrue: [ ^ self scan4 ].
 			^ self reportLastMatch ].
 	currentCharacter == $\
 		ifTrue: [ ^ self scan2 ].
@@ -880,32 +923,33 @@ RDFTurtleScanner >> scanForTokenX6 [
 
 { #category : #generated }
 RDFTurtleScanner >> scanForTokenX7 [
-	self recordMatch: #(13).
-	self step.
-	currentCharacter == $.
-		ifTrue: [ ^ self scan22 ].
-	currentCharacter == $:
-		ifTrue: [ ^ self scan16 ].
-	(currentCharacter == $-
-		or: [ (currentCharacter between: $0 and: $9)
-				or: [ (currentCharacter between: $A and: $Z)
-						or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
-		ifTrue: [ ^ self scan21 ].
+	[ self step.
+	currentCharacter == $>
+		ifTrue: [ ^ self recordAndReportMatch: #(18) ].
+	currentCharacter == $#
+		or: [ (currentCharacter between: $% and: $&)
+				or: [ (currentCharacter between: $- and: $:)
+						or: [ currentCharacter == $=
+								or: [ (currentCharacter between: $? and: $Z)
+										or: [ ('\_' includes: currentCharacter)
+												or: [ currentCharacter between: $a and: $z ] ] ] ] ] ] ]
+		whileTrue.
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
 RDFTurtleScanner >> scanForTokenX8 [
-	[ self step.
-	currentCharacter == $>
-		ifTrue: [ ^ self recordAndReportMatch: #(19) ].
-	currentCharacter == $#
-		or: [ (currentCharacter between: $% and: $&)
-				or: [ (currentCharacter between: $- and: $:)
-						or: [ (currentCharacter between: $@ and: $Z)
-								or: [ ('\_' includes: currentCharacter)
-										or: [ currentCharacter between: $a and: $z ] ] ] ] ] ]
-		whileTrue.
+	self recordMatch: #(13).
+	self step.
+	currentCharacter == $.
+		ifTrue: [ ^ self scan23 ].
+	currentCharacter == $:
+		ifTrue: [ ^ self scan17 ].
+	(currentCharacter == $-
+		or: [ (currentCharacter between: $0 and: $9)
+				or: [ (currentCharacter between: $A and: $Z)
+						or: [ currentCharacter == $_ or: [ currentCharacter between: $a and: $z ] ] ] ])
+		ifTrue: [ ^ self scan22 ].
 	^ self reportLastMatch
 ]
 
@@ -914,13 +958,13 @@ RDFTurtleScanner >> scanForTokenX9 [
 	self recordMatch: #(10).
 	self step.
 	currentCharacter == $]
-		ifTrue: [ ^ self recordAndReportMatch: #(18) ].
+		ifTrue: [ ^ self recordAndReportMatch: #(17) ].
 	((currentCharacter between: Character tab and: Character lf)
 		or: [ currentCharacter == Character cr
 				or: [ currentCharacter == Character space ] ])
 		ifTrue: [ [ self step.
 			currentCharacter == $]
-				ifTrue: [ ^ self recordAndReportMatch: #(18) ].
+				ifTrue: [ ^ self recordAndReportMatch: #(17) ].
 			(currentCharacter between: Character tab and: Character lf)
 				or: [ currentCharacter == Character cr
 						or: [ currentCharacter == Character space ] ] ] whileTrue ].

@@ -146,13 +146,9 @@ RDFLiteral >> value: anObject dataType: aRDFNamedNode [
 	"Set the receiver's type and value, decoding the supplied string for common types"
 
 	dataType := aRDFNamedNode.
-	value := anObject.
-	aRDFNamedNode = XSD integer ifTrue: 
-		[ value := anObject asNumber ]
-	ifFalse: [ aRDFNamedNode = XSD decimal ifTrue:
-		[ value := anObject asNumber ]
-	ifFalse: [ aRDFNamedNode = XSD boolean ifTrue: 
-		[ value := anObject = #true ]
-	ifFalse: [ aRDFNamedNode = XSD dateTime ifTrue: 
-		[ value := DateAndTime readFrom: anObject readStream ] ] ] ]
+	value := dataType
+		ifNil: [ anObject ]
+		ifNotNil: [ dataType parser
+			ifNil: [ anObject ]
+			ifNotNil: [ :parser | parser value: anObject ] ].
 ]

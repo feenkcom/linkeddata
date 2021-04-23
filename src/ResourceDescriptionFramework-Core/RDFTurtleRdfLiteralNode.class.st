@@ -17,8 +17,9 @@ RDFTurtleRdfLiteralNode >> acceptVisitor: aDocumentVisitor [
 { #category : #converting }
 RDFTurtleRdfLiteralNode >> asRDFTerm [
 
-	^ RDFLiteral new
-		value: string value dataType: iri asRDFTerm	
+	^ iri
+		ifNil: [ RDFLiteral new value: string value ]
+		ifNotNil: [ RDFLiteral new value: string value dataType: iri asRDFTerm ]
 ]
 
 { #category : #generated }
@@ -37,7 +38,7 @@ RDFTurtleRdfLiteralNode >> iri: aRDFTurtleIriNode [
 
 { #category : #generated }
 RDFTurtleRdfLiteralNode >> nodeVariables [
-	^ #(#iri)
+	^ #(#string #iri)
 ]
 
 { #category : #generated }
@@ -46,8 +47,12 @@ RDFTurtleRdfLiteralNode >> string [
 ]
 
 { #category : #generated }
-RDFTurtleRdfLiteralNode >> string: aSmaCCToken [
-	string := aSmaCCToken
+RDFTurtleRdfLiteralNode >> string: aRDFTurtleDocumentNode [
+	self string notNil
+		ifTrue: [ self string parent: nil ].
+	string := aRDFTurtleDocumentNode.
+	self string notNil
+		ifTrue: [ self string parent: self ]
 ]
 
 { #category : #generated }
@@ -62,5 +67,5 @@ RDFTurtleRdfLiteralNode >> tag: aSmaCCToken [
 
 { #category : #generated }
 RDFTurtleRdfLiteralNode >> tokenVariables [
-	^ #(#string #tag)
+	^ #(#tag)
 ]

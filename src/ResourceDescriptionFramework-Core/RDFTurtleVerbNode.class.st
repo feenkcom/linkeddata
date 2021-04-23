@@ -19,7 +19,7 @@ RDFTurtleVerbNode >> asRDFTerm [
 ]
 
 { #category : #generated }
-RDFTurtleVerbNode >> otherVariables [
+RDFTurtleVerbNode >> nodeVariables [
 	^ #(#verb)
 ]
 
@@ -29,8 +29,10 @@ RDFTurtleVerbNode >> verb [
 ]
 
 { #category : #generated }
-RDFTurtleVerbNode >> verb: anObject [
-	self setParent: self verb to: nil.
-	verb := anObject.
-	self setParent: self verb to: self
+RDFTurtleVerbNode >> verb: aRDFTurtleDocumentNode [
+	self verb notNil
+		ifTrue: [ self verb parent: nil ].
+	verb := aRDFTurtleDocumentNode.
+	self verb notNil
+		ifTrue: [ self verb parent: self ]
 ]

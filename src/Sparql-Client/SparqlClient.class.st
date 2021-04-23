@@ -41,6 +41,20 @@ SparqlClient >> checkPostException: anException [
 	^ anException pass
 ]
 
+{ #category : #querying }
+SparqlClient >> construct: aString [
+	"Send the supplied sparql CONSTRUCT string to be evaluated by the remote server.
+	The result is assumed to be a TURTLE encoded graph."
+	| response contentType |
+
+	response := self send: aString type: #query.
+	contentType := response contentType.
+	(self isTurtleResult: contentType)ifFalse:
+		[ self error: 'Unexpected result type: ', contentType asString ].
+	^ RDFTurtleTripleVisitor parse: response contents.
+
+]
+
 { #category : #accessing }
 SparqlClient >> count [
 	"Answer the total number of records in the supplied DB"
@@ -104,6 +118,12 @@ SparqlClient >> isPlainText: aZnMimeType [
 SparqlClient >> isSparqlResult: aZnMimeType [
 
 	^ aZnMimeType main = #application and: [ aZnMimeType sub beginsWith: 'sparql-results+json' ]
+]
+
+{ #category : #testing }
+SparqlClient >> isTurtleResult: aZnMimeType [
+
+	^ aZnMimeType main = #text and: [ aZnMimeType sub = #turtle ]
 ]
 
 { #category : #private }
@@ -183,7 +203,7 @@ SparqlClient >> triplesWithSubject: aRDFSubject [
 	^ queryResult triplesWithSubject: aRDFSubject
 ]
 
-{ #category : #querying }
+{ #category : #updating }
 SparqlClient >> update: aString [
 	"Send the supplied sparql update string (e.g. INSERT) to be evaluated by the remote server"
 	| entity response contentType |

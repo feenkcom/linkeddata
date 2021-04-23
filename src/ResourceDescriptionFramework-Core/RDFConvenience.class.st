@@ -30,11 +30,16 @@ RDFConvenience class >> findUniquePredicateFor: aPredicateFullname [
 ]
 
 { #category : #private }
-RDFConvenience class >> getUniquePredicateFor: aPredicateFullname [
+RDFConvenience class >> getUniquePredicateFor: aPredicateFullnameString [
+	| prefix |
 
-	^ (aPredicateFullname beginsWith: self factory prefix) 
-		ifTrue: [ RDF predicate: (self factory namedNodeSuffix: aPredicateFullname asZnUrl lastPathSegment) ]
-		ifFalse: [ nil ]
+	prefix := self factory prefix.
+	^ (aPredicateFullnameString beginsWith: prefix) ifTrue: 
+		[ RDF predicate: (self factory namedNodeSuffix: 
+			(aPredicateFullnameString 
+				copyFrom: prefix size + 1
+				to: aPredicateFullnameString size)) ]
+	ifFalse: [ nil ]
 ]
 
 { #category : #accessing }
@@ -45,6 +50,7 @@ RDFConvenience class >> knownPredicates [
 
 { #category : #initialization }
 RDFConvenience class >> reset [ 
-	
+	<script>
+
 	KnownPredicates := nil.
 ]

@@ -1,6 +1,9 @@
 Class {
 	#name : #RDFNamedNode,
 	#superclass : #RDFTerm,
+	#instVars : [
+		'parser'
+	],
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
@@ -50,6 +53,21 @@ RDFNamedNode >> hash [
 { #category : #accessing }
 RDFNamedNode >> name [
 	^ self value
+]
+
+{ #category : #accessing }
+RDFNamedNode >> parser [
+	"Answer an optional BlockClosure that parses the receiver's string representation, or nil"
+	<return: #BlockClosure>
+
+	^ parser
+]
+
+{ #category : #accessing }
+RDFNamedNode >> parser: aBlockClosure [
+	"Set the block closure that knows how to parse the receiver's string representation"
+
+	parser := aBlockClosure
 ]
 
 { #category : #printing }

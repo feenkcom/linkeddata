@@ -6,6 +6,11 @@ Trait {
 }
 
 { #category : #generated }
+TRDFTurtleDocumentNodeVisitor >> visitAPredicate: anAPredicate [
+	^ self visitDocument: anAPredicate
+]
+
+{ #category : #generated }
 TRDFTurtleDocumentNodeVisitor >> visitBase: aBase [
 	^ self visitDocument: aBase
 ]
@@ -13,6 +18,11 @@ TRDFTurtleDocumentNodeVisitor >> visitBase: aBase [
 { #category : #generated }
 TRDFTurtleDocumentNodeVisitor >> visitBlankNodePropertyList: aBlankNodePropertyList [
 	^ self visitDocument: aBlankNodePropertyList
+]
+
+{ #category : #generated }
+TRDFTurtleDocumentNodeVisitor >> visitBooleanLiteral: aBooleanLiteral [
+	^ self visitDocument: aBooleanLiteral
 ]
 
 { #category : #generated }
@@ -38,6 +48,11 @@ TRDFTurtleDocumentNodeVisitor >> visitIri: anIri [
 { #category : #generated }
 TRDFTurtleDocumentNodeVisitor >> visitLiteral: aLiteral [
 	^ self visitDocument: aLiteral
+]
+
+{ #category : #generated }
+TRDFTurtleDocumentNodeVisitor >> visitNumericLiteral: aNumericLiteral [
+	^ self visitDocument: aNumericLiteral
 ]
 
 { #category : #generated }
@@ -83,6 +98,21 @@ TRDFTurtleDocumentNodeVisitor >> visitSparqlPrefix: aSparqlPrefix [
 { #category : #generated }
 TRDFTurtleDocumentNodeVisitor >> visitStatement: aStatement [
 	^ self visitDocument: aStatement
+]
+
+{ #category : #generated }
+TRDFTurtleDocumentNodeVisitor >> visitStringDouble: aStringDouble [
+	^ self visitDocument: aStringDouble
+]
+
+{ #category : #generated }
+TRDFTurtleDocumentNodeVisitor >> visitStringSingle: aStringSingle [
+	^ self visitDocument: aStringSingle
+]
+
+{ #category : #generated }
+TRDFTurtleDocumentNodeVisitor >> visitStringTriple: aStringTriple [
+	^ self visitDocument: aStringTriple
 ]
 
 { #category : #generated }
