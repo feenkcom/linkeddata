@@ -8,3 +8,9 @@ Class {
 RDFS class >> factory [
 	^ RDFSFactory default
 ]
+
+{ #category : #accessing }
+RDFS class >> iriNames [
+
+	^ #()
+]

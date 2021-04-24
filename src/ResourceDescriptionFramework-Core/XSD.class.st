@@ -39,6 +39,12 @@ XSD class >> integer [
 	^ self factory integer
 ]
 
+{ #category : #accessing }
+XSD class >> iriNames [
+
+	^ #(boolean date dateTime decimal double integer string)
+]
+
 { #category : #factory }
 XSD class >> namedNode: aString [
 	^ self factory namedNode: aString

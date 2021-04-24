@@ -17,7 +17,7 @@ RDFLiteral class >> fromJsonDictionary: aDictionary [
 		language: (aDictionary at: #'xml:lang' ifAbsent: []);
 		value: (aDictionary at: #value)
 			dataType: (aDictionary at: #datatype 
-				ifPresent: [ :datatype | RDFNamedNode new value: datatype ]
+				ifPresent: [ :datatype | RDFConvenience iriAt: datatype ]
 				ifAbsent: []);
 		yourself
 ]

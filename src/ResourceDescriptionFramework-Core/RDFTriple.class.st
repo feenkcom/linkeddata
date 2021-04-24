@@ -83,23 +83,8 @@ RDFTriple >> predicate [
 RDFTriple >> predicate: aPredicate [
 	"Set the receiver's predicate.
 	There's only a limited set of predicates, however they are used many times each.  Try and use a single instance."
-	| uniquePredicate fullName |
 
-	predicate := aPredicate.
-	fullName := aPredicate fullName.
-	RDFConvenience knownPredicates
-		at: fullName
-		ifPresent: [ :thePredicate | 
-			predicate := thePredicate.
-			^self ].
-
-	uniquePredicate := RDFConvenience findUniquePredicateFor: fullName.
-	uniquePredicate ifNil: [ ^self ].
-
-	RDFConvenience knownPredicates
-		at: fullName 
-		put: uniquePredicate.
-	predicate := uniquePredicate.
+	predicate := RDFConvenience predicateAt: aPredicate fullName.
 
 ]
 
