@@ -13,9 +13,9 @@ RDFTurtleLiteralNode >> acceptVisitor: aDocumentVisitor [
 ]
 
 { #category : #converting }
-RDFTurtleLiteralNode >> asRDFTerm [ 
+RDFTurtleLiteralNode >> asRDFTermFor: aVisitor [
 
-	^ literal asRDFTerm
+	^ literal asRDFTermFor: aVisitor
 ]
 
 { #category : #generated }

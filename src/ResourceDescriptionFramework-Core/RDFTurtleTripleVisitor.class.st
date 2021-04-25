@@ -5,6 +5,7 @@ Class {
 	#name : #RDFTurtleTripleVisitor,
 	#superclass : #RDFTurtleDocumentNodeVisitor,
 	#instVars : [
+		'prefixes',
 		'triples',
 		'subject'
 	],
@@ -26,6 +27,12 @@ RDFTurtleTripleVisitor >> initialize [
 
 	super initialize.
 	triples := OrderedCollection new.
+	prefixes := Dictionary new.
+]
+
+{ #category : #accessing }
+RDFTurtleTripleVisitor >> prefixes [
+	^ prefixes
 ]
 
 { #category : #accessing }
@@ -42,15 +49,25 @@ RDFTurtleTripleVisitor >> visitPredicateObjectList: aPredicateObjectList [
 		objectList objects do: [ :listObject |
 			triples add: (RDFTripleBuilder new 
 				subject: subject;
-				predicateTerm: (aPredicateObjectList verbs at: index) asRDFTerm;
-				objectTerm: listObject asRDFTerm;
+				predicateTerm: ((aPredicateObjectList verbs at: index) asRDFTermFor: self);
+				objectTerm: (listObject asRDFTermFor: self);
 				build) ] ].
 	^ self visitDocument: aPredicateObjectList
 ]
 
 { #category : #generated }
+RDFTurtleTripleVisitor >> visitPrefixID: aPrefixID [
+	| iri url |
+
+	iri := aPrefixID iri value.
+	url := iri copyFrom: 2 to: iri size - 1.
+	prefixes at: aPrefixID name value put: url.
+	^ self visitDocument: aPrefixID
+]
+
+{ #category : #generated }
 RDFTurtleTripleVisitor >> visitSubject: aSubject [
 
-	subject := (RDFSubject term: aSubject asRDFTerm).
+	subject := (RDFSubject term: (aSubject asRDFTermFor: self)).
 	^ self visitDocument: aSubject
 ]

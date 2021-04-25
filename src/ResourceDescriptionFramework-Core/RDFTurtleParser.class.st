@@ -16,7 +16,7 @@ Class {
 
 { #category : #'generated-accessing' }
 RDFTurtleParser class >> cacheId [
-	^'2021-04-24T15:54:53.163178+02:00'
+	^'2021-04-25T10:43:36.604141+02:00'
 ]
 
 { #category : #generated }
@@ -152,7 +152,7 @@ iri
 #IRIREF	        :	'<' (~(['\u0000'..'\u0020']|'<'|'>'|'""'|'{'|'}'|'|'|'^'|'`'|'\\') | UCHAR)* '>'; /* \u00=NULL #01-\u1F=control codes \u20=space */
 
 <IRIREF>
-   : \< (<PN_CHARS> | \. | \: | \/ | \\ | \# | \@ | \% | \& | \? | \= | <UCHAR>)* \>
+   : \< (<PN_CHARS> | \. | \, | \: | \/ | \\ | \# | \@ | \% | \& | \? | \= | \( | \) | <UCHAR>)* \>
    ;
 
 <PNAME_NS>
@@ -299,13 +299,13 @@ RDFTurtleParser class >> reduceTable [
 	#(35 2 #reduceActionFortriples1: 608257 false ) 
 	#(35 2 #reduceActionFortriples1: 608259 false ) 
 	#(49 3 #reduceActionForcollection1: 1558529 false ) 
-	#(55 1 #reduceActionFornumericLiteral1: 4236289 false ) 
-	#(56 1 #reduceActionForbooleanLiteral1: 4294657 false ) 
+	#(55 1 #reduceActionFornumericLiteral1: 4251649 false ) 
+	#(56 1 #reduceActionForbooleanLiteral1: 4310017 false ) 
 	#(46 1 #reduceActionForobject2: 1197058 false ) 
-	#(54 1 #reduceActionForstringTriple1: 4113409 false ) 
-	#(54 1 #reduceActionForstringTriple1: 4113410 false ) 
-	#(53 1 #reduceActionForstringSingle2: 4006914 false ) 
-	#(53 1 #reduceActionForstringSingle2: 4006913 false ) 
+	#(54 1 #reduceActionForstringTriple1: 4128769 false ) 
+	#(54 1 #reduceActionForstringTriple1: 4128770 false ) 
+	#(53 1 #reduceActionForstringSingle2: 4022274 false ) 
+	#(53 1 #reduceActionForstringSingle2: 4022273 false ) 
 	#(50 2 #liftFirstValue: 1579010 false ) 
 	#(46 1 #reduceActionForobject2: 1197061 false ) 
 	#(46 1 #reduceActionForobject2: 1197060 false ) 

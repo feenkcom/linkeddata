@@ -13,9 +13,9 @@ RDFTurtlePredicateNode >> acceptVisitor: aDocumentVisitor [
 ]
 
 { #category : #converting }
-RDFTurtlePredicateNode >> asRDFTerm [
+RDFTurtlePredicateNode >> asRDFTermFor: aVisitor [
 
-	^ iri asRDFTerm
+	^ iri asRDFTermFor: aVisitor
 ]
 
 { #category : #generated }

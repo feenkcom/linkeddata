@@ -10,7 +10,7 @@ RDFTurtleAPredicateNode >> acceptVisitor: aDocumentVisitor [
 ]
 
 { #category : #converting }
-RDFTurtleAPredicateNode >> asRDFTerm [
+RDFTurtleAPredicateNode >> asRDFTermFor: aVisitor [
 
 	^ RDF type
 ]

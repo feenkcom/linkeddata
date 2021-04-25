@@ -13,9 +13,9 @@ RDFTurtleObjectNode >> acceptVisitor: aDocumentVisitor [
 ]
 
 { #category : #converting }
-RDFTurtleObjectNode >> asRDFTerm [
+RDFTurtleObjectNode >> asRDFTermFor: aVisitor [
 
-	^ object asRDFTerm
+	^ object asRDFTermFor: aVisitor
 ]
 
 { #category : #generated }

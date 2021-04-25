@@ -37,7 +37,7 @@ RDFConvenience class >> iriAt: aString [
 
 	^ self knownIRIs at: aString ifAbsent: [ 
 		(self shortNamedNodeFor: aString)
-			ifNil: [ 	RDFNamedNode new value: aString ]
+			ifNil: [ RDFNamedNode new value: aString ]
 			ifNotNil: [ :node | self knownIRIs at: node fullName put: node ] ]
 ]
 
@@ -84,6 +84,6 @@ RDFConvenience class >> shortNamedNodeFor: aString [
 		prefix := cls factory prefix.
 		(aString beginsWith: prefix) ifTrue: 
 			[ ^ (cls factory namedNodeSuffix: 
-				(aString copyFrom: prefix size + 1 to: aString size)) ] ]
-
+				(aString copyFrom: prefix size + 1 to: aString size)) ] ].
+	^ nil
 ]

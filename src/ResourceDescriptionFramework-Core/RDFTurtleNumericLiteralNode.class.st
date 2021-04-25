@@ -13,7 +13,7 @@ RDFTurtleNumericLiteralNode >> acceptVisitor: aDocumentVisitor [
 ]
 
 { #category : #converting }
-RDFTurtleNumericLiteralNode >> asRDFTerm [
+RDFTurtleNumericLiteralNode >> asRDFTermFor: aVisitor [
 	| dataType string |
 
 	string := literal value.

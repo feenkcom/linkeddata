@@ -15,11 +15,11 @@ RDFTurtleRdfLiteralNode >> acceptVisitor: aDocumentVisitor [
 ]
 
 { #category : #converting }
-RDFTurtleRdfLiteralNode >> asRDFTerm [
+RDFTurtleRdfLiteralNode >> asRDFTermFor: aVisitor [
 
 	^ iri
 		ifNil: [ RDFLiteral new value: string value ]
-		ifNotNil: [ RDFLiteral new value: string value dataType: iri asRDFTerm ]
+		ifNotNil: [ RDFLiteral new value: string value dataType: (iri asRDFTermFor: aVisitor) ]
 ]
 
 { #category : #generated }

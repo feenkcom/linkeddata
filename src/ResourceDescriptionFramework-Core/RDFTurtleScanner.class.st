@@ -513,10 +513,10 @@ RDFTurtleScanner >> scanForToken [
 	self step.
 	currentCharacter == $"
 		ifTrue:
-			[ ^ self scanForTokenX6 ].
+			[ ^ self scanForTokenX7 ].
 	currentCharacter == $'
 		ifTrue:
-			[ ^ self scanForTokenX5 ].
+			[ ^ self scanForTokenX6 ].
 	currentCharacter == $(
 		ifTrue: [ ^ self recordAndReportMatch: #(1) ].
 	currentCharacter == $)
@@ -648,7 +648,7 @@ RDFTurtleScanner >> scanForTokenX17 [
 		ifTrue: [ ^ self recordAndReportMatch: #(5) ].
 	currentCharacter == $<
 		ifTrue:
-			[ ^ self scanForTokenX7 ].
+			[ ^ self scanForTokenX5 ].
 	currentCharacter == $@
 		ifTrue:
 			[ ^ self scanForTokenX11 ].
@@ -883,6 +883,23 @@ RDFTurtleScanner >> scanForTokenX4 [
 
 { #category : #generated }
 RDFTurtleScanner >> scanForTokenX5 [
+	[ self step.
+	currentCharacter == $>
+		ifTrue: [ ^ self recordAndReportMatch: #(18) ].
+	currentCharacter == $#
+		or: [ (currentCharacter between: $% and: $&)
+				or: [ (currentCharacter between: $( and: $))
+						or: [ (currentCharacter between: $, and: $:)
+								or: [ currentCharacter == $=
+										or: [ (currentCharacter between: $? and: $Z)
+												or: [ ('\_' includes: currentCharacter)
+														or: [ currentCharacter between: $a and: $z ] ] ] ] ] ] ] ]
+		whileTrue.
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+RDFTurtleScanner >> scanForTokenX6 [
 	self step.
 	currentCharacter == $'
 		ifTrue: [ self recordMatch: #(25).
@@ -902,7 +919,7 @@ RDFTurtleScanner >> scanForTokenX5 [
 ]
 
 { #category : #generated }
-RDFTurtleScanner >> scanForTokenX6 [
+RDFTurtleScanner >> scanForTokenX7 [
 	self step.
 	currentCharacter == $"
 		ifTrue: [ self recordMatch: #(24).
@@ -918,22 +935,6 @@ RDFTurtleScanner >> scanForTokenX6 [
 						or: [ (currentCharacter between: $# and: $[)
 								or: [ currentCharacter >= $] ] ] ] ])
 		ifTrue: [ ^ self scan1 ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-RDFTurtleScanner >> scanForTokenX7 [
-	[ self step.
-	currentCharacter == $>
-		ifTrue: [ ^ self recordAndReportMatch: #(18) ].
-	currentCharacter == $#
-		or: [ (currentCharacter between: $% and: $&)
-				or: [ (currentCharacter between: $- and: $:)
-						or: [ currentCharacter == $=
-								or: [ (currentCharacter between: $? and: $Z)
-										or: [ ('\_' includes: currentCharacter)
-												or: [ currentCharacter between: $a and: $z ] ] ] ] ] ] ]
-		whileTrue.
 	^ self reportLastMatch
 ]
 

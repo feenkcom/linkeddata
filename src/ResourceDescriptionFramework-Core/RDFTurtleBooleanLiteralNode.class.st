@@ -13,7 +13,7 @@ RDFTurtleBooleanLiteralNode >> acceptVisitor: aDocumentVisitor [
 ]
 
 { #category : #converting }
-RDFTurtleBooleanLiteralNode >> asRDFTerm [
+RDFTurtleBooleanLiteralNode >> asRDFTermFor: aVisitor [
 
 	^ RDFLiteral new value: literal value dataType: XSD boolean
 ]
