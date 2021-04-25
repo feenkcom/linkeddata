@@ -60,6 +60,12 @@ XSD class >> parseBoolean: aString [
 ]
 
 { #category : #parsing }
+XSD class >> parseDate: aString [ 
+
+	^ Date readFrom: aString readStream
+]
+
+{ #category : #parsing }
 XSD class >> parseDateTime: aString [ 
 
 	^ DateAndTime readFrom: aString readStream

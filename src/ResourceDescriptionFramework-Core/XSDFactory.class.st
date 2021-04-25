@@ -16,7 +16,9 @@ XSDFactory >> boolean [
 { #category : #factory }
 XSDFactory >> date [
 	<return: #RDFNamedNode>
-	^ self namedNodeSuffix: 'date'
+	^ self 
+		namedNodeSuffix: 'date'
+		parser: [ :aString | XSD parseDate: aString ]
 ]
 
 { #category : #factory }
