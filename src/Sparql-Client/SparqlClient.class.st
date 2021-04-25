@@ -102,6 +102,30 @@ SparqlClient >> fieldNameFor: aString [
 		ifFalse: [ #update ].
 ]
 
+{ #category : #private }
+SparqlClient >> get: aString type: type [
+	"Send the supplied sparql string and type to the server for evaluation.
+	Raise an exception of the response is a failure."
+	| query response contentType accept |
+
+	query := datasetUrl asZnUrl copy.
+	query queryAt: type add: aString.
+	accept := ZnMimeType main: 'application' sub: 'sparql-results+json'.
+	response := ZnClient new
+		beOneShot;
+		url: query;
+		accept: accept;
+		get;
+		response.
+	contentType := response contentType.
+	response isSuccess ifFalse:
+		[ (self isPlainText: contentType) ifTrue: 
+			[ self error: response contents ]
+		ifFalse:
+			[ self error: 'Unable to complete sparql query' ] ].
+	^ response
+]
+
 { #category : #testing }
 SparqlClient >> isHTML: aZnMimeType [
 
@@ -136,13 +160,37 @@ SparqlClient >> post: znEntity [
 		do: [ :ex | self checkPostException: ex ]
 ]
 
+{ #category : #private }
+SparqlClient >> post: aString type: type [
+	"Send the supplied sparql string and type to the server for evaluation.
+	Raise an exception of the response is a failure."
+	| entity response contentType accept |
+
+	entity := ZnApplicationFormUrlEncodedEntity withAll: { 	type -> aString } asDictionary.
+	accept := ZnMimeType main: 'application' sub: 'sparql-results+json'.
+	response := ZnClient new
+		beOneShot;
+		url: datasetUrl;
+		entity: entity;
+		accept: accept;
+		post;
+		response.
+	contentType := response contentType.
+	response isSuccess ifFalse:
+		[ (self isPlainText: contentType) ifTrue: 
+			[ self error: response contents ]
+		ifFalse:
+			[ self error: 'Unable to complete sparql query' ] ].
+	^ response
+]
+
 { #category : #querying }
 SparqlClient >> read: aString [
 	"Send the supplied sparql string to be evaluated by the remote server.
 	The result is assumed to be a JSON encoded table."
 	| response contentType |
 
-	response := self send: aString type: #query.
+	response := self get: aString type: #query.
 	contentType := response contentType.
 	(self isSparqlResult: contentType)ifFalse:
 		[ self error: 'Unexpected result type: ', contentType asString ].
@@ -154,10 +202,17 @@ SparqlClient >> read: aString [
 SparqlClient >> send: aString type: type [
 	"Send the supplied sparql string and type to the server for evaluation.
 	Raise an exception of the response is a failure."
-	| entity response contentType |
+	| entity response contentType accept |
 
 	entity := ZnApplicationFormUrlEncodedEntity withAll: { 	type -> aString } asDictionary.
-	response := ZnEasy post: datasetUrl data: entity.
+	accept := ZnMimeType main: 'application' sub: 'sparql-results+json'.
+	response := ZnClient new
+		beOneShot;
+		url: datasetUrl;
+		entity: entity;
+		accept: accept;
+		post;
+		response.
 	contentType := response contentType.
 	response isSuccess ifFalse:
 		[ (self isPlainText: contentType) ifTrue: 
