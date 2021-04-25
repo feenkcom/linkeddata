@@ -201,7 +201,7 @@ RDFJenaStore >> telemetry: anObject [
 	telemetry := anObject
 ]
 
-{ #category : #enumerating }
+{ #category : #querying }
 RDFJenaStore >> triplesForObject: aRDFObject [
 	<return: #RDFList>
 
@@ -209,7 +209,7 @@ RDFJenaStore >> triplesForObject: aRDFObject [
 
 ]
 
-{ #category : #enumerating }
+{ #category : #querying }
 RDFJenaStore >> triplesForPredicate: aRDFPredicate [
 	<return: #RDFList>
 
@@ -217,10 +217,16 @@ RDFJenaStore >> triplesForPredicate: aRDFPredicate [
 
 ]
 
-{ #category : #enumerating }
+{ #category : #querying }
 RDFJenaStore >> triplesForSubject: aRDFSubject [
 	<return: #RDFList>
 
 	^ RDFList new collection: (sparqlClient triplesWithSubject: aRDFSubject)
 
+]
+
+{ #category : #querying }
+RDFJenaStore >> triplesWhere: aString [ 
+
+	^ sparqlClient triplesWhere: aString
 ]

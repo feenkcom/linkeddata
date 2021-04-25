@@ -113,31 +113,6 @@ SparqlClient >> fieldNameFor: aString [
 
 ]
 
-{ #category : #private }
-SparqlClient >> get: aString type: type [
-	"Send the supplied sparql string and type to the server for evaluation.
-	Raise an exception of the response is a failure."
-	| query response contentType accept |
-
-	query := datasetUrl asZnUrl copy.
-	query queryAt: type add: aString.
-	accept := ZnMimeType main: 'application' sub: 'sparql-results+json'.
-	response := ZnClient new
-		beOneShot;
-		url: query;
-		accept: accept;
-		timeout: 240;
-		get;
-		response.
-	contentType := response contentType.
-	response isSuccess ifFalse:
-		[ (self isPlainText: contentType) ifTrue: 
-			[ self error: response contents ]
-		ifFalse:
-			[ self error: 'Unable to complete sparql query' ] ].
-	^ response
-]
-
 { #category : #testing }
 SparqlClient >> isHTML: aZnMimeType [
 
@@ -200,30 +175,17 @@ SparqlClient >> post: aString type: type [
 SparqlClient >> read: aString [
 	"Send the supplied sparql string to be evaluated by the remote server.
 	The result is assumed to be a JSON encoded table."
-	| response contentType |
+	| response contentType query accept |
 
-	response := self get: aString type: #query.
-	contentType := response contentType.
-	(self isSparqlResult: contentType)ifFalse:
-		[ self error: 'Unexpected result type: ', contentType asString ].
-	^ SparqlQueryResult sourceString: response contents.
-
-]
-
-{ #category : #private }
-SparqlClient >> send: aString type: type [
-	"Send the supplied sparql string and type to the server for evaluation.
-	Raise an exception of the response is a failure."
-	| entity response contentType accept |
-
-	entity := ZnApplicationFormUrlEncodedEntity withAll: { 	type -> aString } asDictionary.
+	query := datasetUrl asZnUrl copy.
+	query queryAt: #query add: aString.
 	accept := ZnMimeType main: 'application' sub: 'sparql-results+json'.
 	response := ZnClient new
 		beOneShot;
-		url: datasetUrl;
-		entity: entity;
+		url: query;
 		accept: accept;
-		post;
+		timeout: 240;
+		get;
 		response.
 	contentType := response contentType.
 	response isSuccess ifFalse:
@@ -231,7 +193,24 @@ SparqlClient >> send: aString type: type [
 			[ self error: response contents ]
 		ifFalse:
 			[ self error: 'Unable to complete sparql query' ] ].
-	^ response
+	(self isSparqlResult: contentType)ifFalse:
+		[ self error: 'Unexpected result type: ', contentType asString ].
+	^ SparqlQueryResult sourceString: response contents.
+
+]
+
+{ #category : #querying }
+SparqlClient >> triplesWhere: aString [
+	"Answer the collection of triples that match the supplied criteria.
+	No security checks are made."
+	| constructQuery |
+
+	constructQuery := String streamContents: [ :stream |
+		stream 
+			<< 'CONSTRUCT WHERE { ';
+			<< aString;
+			<< ' }' ].
+	^ self construct: constructQuery.
 ]
 
 { #category : #querying }

@@ -73,6 +73,7 @@ RDFNamedNode >> parser: aBlockClosure [
 { #category : #printing }
 RDFNamedNode >> print: anObject onSparqlStream: aStream [
 
+anObject class = ScaledDecimal ifTrue: [ self halt ].
 	value = #string ifTrue: 
 		[ aStream 
 			<< '"""';
@@ -83,8 +84,10 @@ RDFNamedNode >> print: anObject onSparqlStream: aStream [
 			nextPut: $";
 			print: anObject;
 			<< '"^^xsd:dateTime' ]
+	ifFalse: [ value = #decimal ifTrue:
+		[ anObject printOn: aStream showingDecimalPlaces: anObject scale ]
 	ifFalse:
-		[ aStream print: anObject ] ]
+		[ aStream print: anObject ] ] ]
 ]
 
 { #category : #printing }

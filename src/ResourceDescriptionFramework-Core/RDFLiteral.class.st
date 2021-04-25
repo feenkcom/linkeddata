@@ -133,7 +133,9 @@ RDFLiteral >> printSparqlOn: aStream [
 	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
 	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
 
-	dataType print: value onSparqlStream: aStream
+	dataType
+		ifNil: [ (RDFNamedNode new value: #string) print: value onSparqlStream: aStream ]
+		ifNotNil: [ dataType print: value onSparqlStream: aStream ]
 ]
 
 { #category : #convenient }
