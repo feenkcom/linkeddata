@@ -73,7 +73,6 @@ RDFNamedNode >> parser: aBlockClosure [
 { #category : #printing }
 RDFNamedNode >> print: anObject onSparqlStream: aStream [
 
-anObject class = ScaledDecimal ifTrue: [ self halt ].
 	value = #string ifTrue: 
 		[ aStream 
 			<< '"""';
