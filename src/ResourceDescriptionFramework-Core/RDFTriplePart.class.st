@@ -7,6 +7,12 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #'instance creation' }
+RDFTriplePart class >> term: aRDFTerm [
+
+	^ self new term: aRDFTerm
+]
+
 { #category : #comparing }
 RDFTriplePart >> = aTriplePart [
 	^ self class = aTriplePart class and: [ 
@@ -43,6 +49,12 @@ RDFTriplePart >> name [
 RDFTriplePart >> printOn: aStream [
 	self term ifNil: [ ^ super printOn: aStream ].
 	self term printShortNameOn: aStream.
+]
+
+{ #category : #printing }
+RDFTriplePart >> printSparqlOn: aStream [
+
+	term printSparqlOn: aStream
 ]
 
 { #category : #accessing }

@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #accessing }
+RDFShortNamedNode >> name [ 
+
+	^ namespace value, value
+]
+
+{ #category : #accessing }
 RDFShortNamedNode >> namespace [
 	<return: #RDFNamespaceNamedNode>
 	^ namespace

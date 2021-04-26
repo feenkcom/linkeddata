@@ -10,6 +10,11 @@ SCHEMA class >> author [
 ]
 
 { #category : #factory }
+SCHEMA class >> contentUrl [
+	^ self factory contentUrl
+]
+
+{ #category : #factory }
 SCHEMA class >> dateCreated [
 	^ self factory dateCreated
 ]
@@ -22,6 +27,32 @@ SCHEMA class >> datePublished [
 { #category : #factory }
 SCHEMA class >> factory [
 	^ SCHEMAFactory default
+]
+
+{ #category : #factory }
+SCHEMA class >> identifier [
+	^ self factory identifier
+]
+
+{ #category : #factory }
+SCHEMA class >> image [
+	^ self factory image
+]
+
+{ #category : #factory }
+SCHEMA class >> imageObject [
+	^ self factory imageObject
+]
+
+{ #category : #accessing }
+SCHEMA class >> iriNames [
+
+	^ #(author contentUrl dateCreated datePublished identifier image imageObject mentions person socialMediaPosting text)
+]
+
+{ #category : #factory }
+SCHEMA class >> mentions [
+	^ self factory mentions
 ]
 
 { #category : #factory }

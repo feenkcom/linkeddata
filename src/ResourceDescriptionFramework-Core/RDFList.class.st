@@ -18,13 +18,19 @@ RDFList >> collection: aCollection [
 	collection := aCollection
 ]
 
+{ #category : #enumerating }
+RDFList >> do: aBlock [ 
+
+	collection do: aBlock
+]
+
 { #category : #accessing }
 RDFList >> gtItemsFor: aView [
 	<gtView>
 	^ aView list
 		title: 'Triples';
 		items: [ self collection ];
-		itemFormat: [ :aTriple | aTriple sentence ]
+		itemText: [ :aTriple | aTriple sentence ]
 ]
 
 { #category : #initialization }

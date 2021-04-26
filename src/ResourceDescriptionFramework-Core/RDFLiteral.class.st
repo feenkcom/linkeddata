@@ -8,6 +8,27 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #'instance creation' }
+RDFLiteral class >> fromJsonDictionary: aDictionary [
+	"Answer an instance of the appropriate subclass.
+	aDictionary follows the structure defined at https://www.w3.org/TR/sparql11-results-json/"
+
+	^ self new 
+		language: (aDictionary at: #'xml:lang' ifAbsent: []);
+		value: (aDictionary at: #value)
+			dataType: (aDictionary at: #datatype 
+				ifPresent: [ :datatype | RDFConvenience iriAt: datatype ]
+				ifAbsent: []);
+		yourself
+]
+
+{ #category : #accessing }
+RDFLiteral class >> typeName [ 
+	"Answer the type the receiver represents."
+
+	^ #literal
+]
+
 { #category : #convenient }
 RDFLiteral >> boolean: aBoolean [
 	self 
@@ -37,15 +58,24 @@ RDFLiteral >> equals: aRDFTerm [
 ]
 
 { #category : #'gt-extension' }
-RDFLiteral >> gtValueFor: aView [
+RDFLiteral >> gtAttributesFor: aView [
 	<gtView>
 	self value ifNil: [ ^ aView empty ].
 	^ aView columnedList
-		title: 'Value';
+		title: 'Attributes';
 		items: [ { 'Value' -> self value. 'Language' -> self language. 'Data type' -> self dataType } ];
 		column: 'Description' item: [ :anAssoc | anAssoc key ] width: 80;
 		column: 'Value' item: [ :anAssoc | anAssoc value ];
 		send: [ :anAssoc | anAssoc value ]
+]
+
+{ #category : #'gt-extension' }
+RDFLiteral >> gtValueFor: aView [
+	<gtView>
+	self value ifNil: [ ^ aView empty ].
+	^ aView textEditor
+		title: 'Value';
+		text: [ self value asString ]
 ]
 
 { #category : #accessing }
@@ -98,6 +128,16 @@ RDFLiteral >> printShortNameOn: aStream [
 	aStream nextPutAll: self value asString.
 ]
 
+{ #category : #printing }
+RDFLiteral >> printSparqlOn: aStream [
+	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
+	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
+
+	dataType
+		ifNil: [ (RDFNamedNode new value: #string) print: value onSparqlStream: aStream ]
+		ifNotNil: [ dataType print: value onSparqlStream: aStream ]
+]
+
 { #category : #convenient }
 RDFLiteral >> string: aString [
 	self 
@@ -110,4 +150,16 @@ RDFLiteral >> string: aString [
 { #category : #accessing }
 RDFLiteral >> termType [
 	^ RDFTermType literal
+]
+
+{ #category : #accessing }
+RDFLiteral >> value: anObject dataType: aRDFNamedNode [
+	"Set the receiver's type and value, decoding the supplied string for common types"
+
+	dataType := aRDFNamedNode.
+	value := dataType
+		ifNil: [ anObject ]
+		ifNotNil: [ dataType parser
+			ifNil: [ anObject ]
+			ifNotNil: [ :parser | parser value: anObject ] ].
 ]

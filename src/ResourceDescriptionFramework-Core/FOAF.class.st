@@ -13,3 +13,9 @@ FOAF class >> factory [
 FOAF class >> givenName [
 	^ self factory givenName
 ]
+
+{ #category : #accessing }
+FOAF class >> iriNames [
+
+	^ #(givenName)
+]
