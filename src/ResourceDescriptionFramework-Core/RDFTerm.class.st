@@ -11,7 +11,7 @@ Class {
 RDFTerm class >> classForType: aString [
 	"Answer the subclass that represents the supplied type name"
 
-	^ self subclasses detect: [ :cls | cls typeName = aString ]
+	^ self allSubclasses detect: [ :cls | cls typeName = aString ]
 ]
 
 { #category : #'instance creation' }

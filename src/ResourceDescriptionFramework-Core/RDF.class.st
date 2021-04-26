@@ -10,6 +10,12 @@ RDF class >> factory [
 ]
 
 { #category : #accessing }
+RDF class >> iriNames [
+
+	^ #(type)
+]
+
+{ #category : #accessing }
 RDF class >> language [
 	^ RDFLanguageFactory default
 ]

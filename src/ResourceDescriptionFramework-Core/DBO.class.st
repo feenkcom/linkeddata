@@ -8,3 +8,9 @@ Class {
 DBO class >> factory [
 	^ DBOFactory default
 ]
+
+{ #category : #accessing }
+DBO class >> iriNames [
+
+	^ #()
+]

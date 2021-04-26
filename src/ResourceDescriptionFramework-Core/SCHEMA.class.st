@@ -44,6 +44,12 @@ SCHEMA class >> imageObject [
 	^ self factory imageObject
 ]
 
+{ #category : #accessing }
+SCHEMA class >> iriNames [
+
+	^ #(author contentUrl dateCreated datePublished identifier image imageObject mentions person socialMediaPosting text)
+]
+
 { #category : #factory }
 SCHEMA class >> mentions [
 	^ self factory mentions

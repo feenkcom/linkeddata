@@ -9,6 +9,12 @@ DBR class >> factory [
 	^ DBRFactory default
 ]
 
+{ #category : #accessing }
+DBR class >> iriNames [
+
+	^ #()
+]
+
 { #category : #factory }
 DBR class >> resource: aString [
 	<return: #DBRNamedNode>

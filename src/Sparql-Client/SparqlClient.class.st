@@ -41,6 +41,34 @@ SparqlClient >> checkPostException: anException [
 	^ anException pass
 ]
 
+{ #category : #querying }
+SparqlClient >> construct: aString [
+	"Send the supplied sparql CONSTRUCT string to be evaluated by the remote server.
+	The result is assumed to be a TURTLE encoded graph."
+	| response contentType query accept |
+
+	query := datasetUrl asZnUrl copy.
+	query queryAt: #query add: aString.
+	accept := ZnMimeType main: 'text' sub: 'turtle'.
+	response := ZnClient new
+		beOneShot;
+		url: query;
+		accept: accept;
+		timeout: 240;
+		get;
+		response.
+	contentType := response contentType.
+	response isSuccess ifFalse:
+		[ (self isPlainText: contentType) ifTrue: 
+			[ self error: response contents ]
+		ifFalse:
+			[ self error: 'Unable to complete sparql query' ] ].
+	(self isTurtleResult: contentType)ifFalse:
+		[ self error: 'Unexpected result type: ', contentType asString ].
+	^ RDFTurtleTripleVisitor parse: response contents.
+
+]
+
 { #category : #accessing }
 SparqlClient >> count [
 	"Answer the total number of records in the supplied DB"
@@ -65,6 +93,7 @@ SparqlClient >> evaluate: aString [
 
 	fieldName := self fieldNameFor: aString.
 	fieldName = #query ifTrue: [ ^ self read: aString ].
+	fieldName = #construct ifTrue: [ ^ self construct: aString ].
 	^ self update: aString.
 
 ]
@@ -72,20 +101,16 @@ SparqlClient >> evaluate: aString [
 { #category : #private }
 SparqlClient >> fieldNameFor: aString [
 	"Answer the form field name to be used for the supplied sparql command.
-	This should parse the command and use the AST, but that doesn't exist yet..."
-	| sparql update query |
+	This should parse the command and use the AST, but that doesn't exist yet...
+	Use the first match instead (which will get it wrong sometimes"
+	| sparql |
 
 	sparql := aString asLowercase.
-	update := '(insert|delete)' asRegex search: sparql.
-	query := 'select' asRegex search:sparql.
-	"We can't do both in the same command"
-	(update and: [ query ]) ifTrue: 
-		[ self error: 'Unable to update and query in single command' ].
-	(update or: [ query ]) ifFalse: 
-		[ self error: 'Unrecognised sparql command' ].
-	^ query
-		ifTrue: [ #query ]
-		ifFalse: [ #update ].
+	('select' asRegex search: sparql) ifTrue: [ ^ #query ].
+	('construct' asRegex search: sparql) ifTrue: [ ^ #construct ].
+	('(insert|delete)' asRegex search: sparql) ifTrue: [ ^ #update ].
+	self error: 'Unrecognised command'.
+
 ]
 
 { #category : #testing }
@@ -106,6 +131,12 @@ SparqlClient >> isSparqlResult: aZnMimeType [
 	^ aZnMimeType main = #application and: [ aZnMimeType sub beginsWith: 'sparql-results+json' ]
 ]
 
+{ #category : #testing }
+SparqlClient >> isTurtleResult: aZnMimeType [
+
+	^ aZnMimeType main = #text and: [ aZnMimeType sub = #turtle ]
+]
+
 { #category : #private }
 SparqlClient >> post: znEntity [
 	"Post the supplied Zn entity and catch spurious errors triggered by Jena's encoding.
@@ -116,28 +147,21 @@ SparqlClient >> post: znEntity [
 		do: [ :ex | self checkPostException: ex ]
 ]
 
-{ #category : #querying }
-SparqlClient >> read: aString [
-	"Send the supplied sparql string to be evaluated by the remote server.
-	The result is assumed to be a JSON encoded table."
-	| response contentType |
-
-	response := self send: aString type: #query.
-	contentType := response contentType.
-	(self isSparqlResult: contentType)ifFalse:
-		[ self error: 'Unexpected result type: ', contentType asString ].
-	^ SparqlQueryResult sourceString: response contents.
-
-]
-
 { #category : #private }
-SparqlClient >> send: aString type: type [
+SparqlClient >> post: aString type: type [
 	"Send the supplied sparql string and type to the server for evaluation.
 	Raise an exception of the response is a failure."
-	| entity response contentType |
+	| entity response contentType accept |
 
 	entity := ZnApplicationFormUrlEncodedEntity withAll: { 	type -> aString } asDictionary.
-	response := ZnEasy post: datasetUrl data: entity.
+	accept := ZnMimeType main: 'application' sub: 'sparql-results+json'.
+	response := ZnClient new
+		beOneShot;
+		url: datasetUrl;
+		entity: entity;
+		accept: accept;
+		post;
+		response.
 	contentType := response contentType.
 	response isSuccess ifFalse:
 		[ (self isPlainText: contentType) ifTrue: 
@@ -145,6 +169,48 @@ SparqlClient >> send: aString type: type [
 		ifFalse:
 			[ self error: 'Unable to complete sparql query' ] ].
 	^ response
+]
+
+{ #category : #querying }
+SparqlClient >> read: aString [
+	"Send the supplied sparql string to be evaluated by the remote server.
+	The result is assumed to be a JSON encoded table."
+	| response contentType query accept |
+
+	query := datasetUrl asZnUrl copy.
+	query queryAt: #query add: aString.
+	accept := ZnMimeType main: 'application' sub: 'sparql-results+json'.
+	response := ZnClient new
+		beOneShot;
+		url: query;
+		accept: accept;
+		timeout: 240;
+		get;
+		response.
+	contentType := response contentType.
+	response isSuccess ifFalse:
+		[ (self isPlainText: contentType) ifTrue: 
+			[ self error: response contents ]
+		ifFalse:
+			[ self error: 'Unable to complete sparql query' ] ].
+	(self isSparqlResult: contentType)ifFalse:
+		[ self error: 'Unexpected result type: ', contentType asString ].
+	^ SparqlQueryResult sourceString: response contents.
+
+]
+
+{ #category : #querying }
+SparqlClient >> triplesWhere: aString [
+	"Answer the collection of triples that match the supplied criteria.
+	No security checks are made."
+	| constructQuery |
+
+	constructQuery := String streamContents: [ :stream |
+		stream 
+			<< 'CONSTRUCT WHERE { ';
+			<< aString;
+			<< ' }' ].
+	^ self construct: constructQuery.
 ]
 
 { #category : #querying }
@@ -183,7 +249,7 @@ SparqlClient >> triplesWithSubject: aRDFSubject [
 	^ queryResult triplesWithSubject: aRDFSubject
 ]
 
-{ #category : #querying }
+{ #category : #updating }
 SparqlClient >> update: aString [
 	"Send the supplied sparql update string (e.g. INSERT) to be evaluated by the remote server"
 	| entity response contentType |

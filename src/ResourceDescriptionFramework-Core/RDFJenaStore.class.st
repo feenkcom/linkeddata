@@ -113,6 +113,7 @@ RDFJenaStore >> initialize [
 	super initialize.
 	maxBufferSize := 0.
 	triples := OrderedCollection new: (maxBufferSize * 1.5) rounded.
+	telemetry := BlNullTelemetry new.
 ]
 
 { #category : #accessing }
@@ -172,6 +173,12 @@ RDFJenaStore >> saveTriples: aCollection [
 			sparqlClient update: cmdString. ] 
 ]
 
+{ #category : #accessing }
+RDFJenaStore >> sparqlClient [
+
+	^ sparqlClient
+]
+
 { #category : #ui }
 RDFJenaStore >> statusString [ 
 
@@ -194,7 +201,7 @@ RDFJenaStore >> telemetry: anObject [
 	telemetry := anObject
 ]
 
-{ #category : #enumerating }
+{ #category : #querying }
 RDFJenaStore >> triplesForObject: aRDFObject [
 	<return: #RDFList>
 
@@ -202,7 +209,7 @@ RDFJenaStore >> triplesForObject: aRDFObject [
 
 ]
 
-{ #category : #enumerating }
+{ #category : #querying }
 RDFJenaStore >> triplesForPredicate: aRDFPredicate [
 	<return: #RDFList>
 
@@ -210,10 +217,16 @@ RDFJenaStore >> triplesForPredicate: aRDFPredicate [
 
 ]
 
-{ #category : #enumerating }
+{ #category : #querying }
 RDFJenaStore >> triplesForSubject: aRDFSubject [
 	<return: #RDFList>
 
 	^ RDFList new collection: (sparqlClient triplesWithSubject: aRDFSubject)
 
+]
+
+{ #category : #querying }
+RDFJenaStore >> triplesWhere: aString [ 
+
+	^ sparqlClient triplesWhere: aString
 ]
