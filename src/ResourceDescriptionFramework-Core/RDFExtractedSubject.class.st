@@ -15,18 +15,23 @@ RDFExtractedSubject >> children [
 
 { #category : #'gt-extensions' }
 RDFExtractedSubject >> gtViewSpheresFor: aView [
-	"<gtView>"
+	<gtView>
 	^ aView list
 		title: 'Spheres';
 		priority: 20;
 		items: [ self sphereTriples ];
 		itemText: #object;
-		send: [ RDFSphereResourcesGroup
-			withAll: (self sphereTriples
-				collect: [ :aSphereTypeTriple | 
-					self
-						resourceForSubject: aSphereTypeTriple subject
-						withSphere: (RDFSphere ofName: aSphereTypeTriple object term value) ]) ]
+		send: [ :aSphereTriplet | 
+			| targetSphere |
+			
+			targetSphere := RDFSphere ofName: aSphereTriplet object term value.
+			RDFResourceWithSphere new 
+				subject: aSphereTriplet subject;
+				sphere: targetSphere;
+				triples: (self store 
+					triplesForSubject: aSphereTriplet subject
+					forSphere: targetSphere);
+				yourself  ]
 ]
 
 { #category : #'gt-extensions' }
