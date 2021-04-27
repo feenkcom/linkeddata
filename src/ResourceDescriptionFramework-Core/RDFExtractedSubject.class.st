@@ -10,14 +10,47 @@ Class {
 RDFExtractedSubject >> children [
 	^ OrderedCollection
 		streamContents: [ :aStream | 
-			self triplesWithSameSubjectInto: aStream.
-			self triplesReferingToSubjectInto: aStream. ]
+			self triplesWithSameSubjectInto: aStream ]
+]
+
+{ #category : #'gt-extensions' }
+RDFExtractedSubject >> gtViewSpheresFor: aView [
+	"<gtView>"
+	^ aView list
+		title: 'Spheres';
+		priority: 20;
+		items: [ self sphereTriples ];
+		itemText: #object;
+		send: [ RDFSphereResourcesGroup
+			withAll: (self sphereTriples
+				collect: [ :aSphereTypeTriple | 
+					self
+						resourceForSubject: aSphereTypeTriple subject
+						withSphere: (RDFSphere ofName: aSphereTypeTriple object term value) ]) ]
+]
+
+{ #category : #'gt-extensions' }
+RDFExtractedSubject >> gtViewTriplesFor: aView [ 
+	<gtView>
+	^ aView columnedList
+		title: 'Triples';
+		priority: -10;
+		items: [ self children ];
+		column: 'Subject' item: #subject;
+		column: 'Predicate' item: #predicate;
+		column: 'Object' item: #object
 ]
 
 { #category : #printing }
 RDFExtractedSubject >> printOn: aStream [
 	self realObject ifNil: [ ^ super printOn: aStream ].
 	aStream print: self realObject
+]
+
+{ #category : #accessing }
+RDFExtractedSubject >> sphereTriples [
+	^ self children select: [ :aTriple |
+		aTriple predicate term = POLY sphere ]
 ]
 
 { #category : #accessing }
