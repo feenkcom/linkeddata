@@ -11,7 +11,7 @@ RDFTripleWithSameSubject >> children [
 	^ OrderedCollection
 		streamContents: [ :aStream | 
 			"self triplesWithSameSubjectInto: aStream."
-			self subjectsMentionedInTripleObjectInto: aStream.
+			"self subjectsMentionedInTripleObjectInto: aStream."
 			"self triplesReferingToSubjectInto: aStream." ]
 ]
 
