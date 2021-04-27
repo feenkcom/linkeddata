@@ -106,6 +106,22 @@ SparqlQueryResult >> gtLiveFor: aView [
 		view: selector.
 ]
 
+{ #category : #'gt-inspector-extension' }
+SparqlQueryResult >> gtTableFor: aView [
+	<gtView>
+
+	(fieldNames isNil or: 
+	[ self isSingle or: 
+	[ self value numberOfRows isZero or: 
+	[ self value numberOfColumns isZero ] ] ]) 
+		ifTrue: [ ^ aView empty ].
+	^ aView forward
+		title: 'Table';
+		priority: 10;
+		object: [ self value ];
+		view: #gtTableFor:
+]
+
 { #category : #testing }
 SparqlQueryResult >> isSingle [ 
 	"Answer a boolean indicating whether the receiver's result is a single value"

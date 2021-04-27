@@ -19,10 +19,19 @@ RDFTermFactory >> namedNode: aString [
 { #category : #factory }
 RDFTermFactory >> namedNodeSuffix: aString [
 	<return: #RDFNamedNode>
+
+	^ self namedNodeSuffix: aString parser: nil
+]
+
+{ #category : #factory }
+RDFTermFactory >> namedNodeSuffix: aString parser: aBlockClosure [
+	<return: #RDFNamedNode>
 	self 
 		assert: [ aString isString and: [ aString isNotEmpty ] ] 
 		description: [ 'Named node value must be non-empty string' ].
-	^ self shortNamedNode value: aString
+	^ self shortNamedNode 
+		value: aString;
+		parser: aBlockClosure
 ]
 
 { #category : #factory }

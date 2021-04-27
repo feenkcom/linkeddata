@@ -44,6 +44,12 @@ POLY class >> inReplyTo [
 	^ self factory inReplyTo
 ]
 
+{ #category : #'as yet unclassified' }
+POLY class >> iriNames [
+
+	^#(baseDomain endIndex favouriteCount fileName follows hasUserMention inReplyTo isFavourited isFollowedBy isRetweet possibleSensitive referencer reply retweetCount sphere startIndex userMention)
+]
+
 { #category : #factory }
 POLY class >> isFavourited [
 	^ self factory isFavourited

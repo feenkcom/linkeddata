@@ -8,3 +8,9 @@ Class {
 OWL class >> factory [
 	^ OWLFactory default
 ]
+
+{ #category : #accessing }
+OWL class >> iriNames [
+
+	^ #()
+]

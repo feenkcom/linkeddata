@@ -1,6 +1,9 @@
 Class {
 	#name : #RDFNamedNode,
 	#superclass : #RDFTerm,
+	#instVars : [
+		'parser'
+	],
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
@@ -52,6 +55,21 @@ RDFNamedNode >> name [
 	^ self value
 ]
 
+{ #category : #accessing }
+RDFNamedNode >> parser [
+	"Answer an optional BlockClosure that parses the receiver's string representation, or nil"
+	<return: #BlockClosure>
+
+	^ parser
+]
+
+{ #category : #accessing }
+RDFNamedNode >> parser: aBlockClosure [
+	"Set the block closure that knows how to parse the receiver's string representation"
+
+	parser := aBlockClosure
+]
+
 { #category : #printing }
 RDFNamedNode >> print: anObject onSparqlStream: aStream [
 
@@ -65,8 +83,10 @@ RDFNamedNode >> print: anObject onSparqlStream: aStream [
 			nextPut: $";
 			print: anObject;
 			<< '"^^xsd:dateTime' ]
+	ifFalse: [ value = #decimal ifTrue:
+		[ anObject printOn: aStream showingDecimalPlaces: anObject scale ]
 	ifFalse:
-		[ aStream print: anObject ] ]
+		[ aStream print: anObject ] ] ]
 ]
 
 { #category : #printing }
