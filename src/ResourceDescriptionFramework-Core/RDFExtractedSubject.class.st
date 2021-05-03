@@ -13,6 +13,34 @@ RDFExtractedSubject >> children [
 			self triplesWithSameSubjectInto: aStream ]
 ]
 
+{ #category : #accessing }
+RDFExtractedSubject >> childrenGroupedByPredicate [
+	^ (self children groupedBy: #predicate) collect: [ :aCollection |
+		RDFTriplesGroup new 
+			collection: aCollection ]
+]
+
+{ #category : #'gt-extensions' }
+RDFExtractedSubject >> gtTriplesByPredicateGroupingFor: aView [
+	<gtView>
+	self realObject ifNil: [ ^ aView empty ].
+	^ aView tree
+		title: 'Predicates';
+		items: [ {self} ];
+		children: [ :eachExtractedItem | 
+			eachExtractedItem class = RDFExtractedSubject
+				ifTrue: [ eachExtractedItem childrenGroupedByPredicate values ]
+				ifFalse: [ eachExtractedItem class = RDFTriplesGroup
+						ifTrue: [ eachExtractedItem ]
+						ifFalse: [ #() ] ] ];
+		itemText: [ :anItem | 
+			anItem class = RDFExtractedSubject
+				ifTrue: [ anItem gtDisplayString ]
+				ifFalse: [ anItem class = RDFTriplesGroup
+						ifTrue: [ anItem first predicate gtDisplayString ]
+						ifFalse: [ anItem object gtDisplayString ] ] ]
+]
+
 { #category : #'gt-extensions' }
 RDFExtractedSubject >> gtViewSpheresFor: aView [
 	<gtView>

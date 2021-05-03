@@ -15,7 +15,7 @@ RDFPreviewObject >> children [
 
 { #category : #'gt-extension' }
 RDFPreviewObject >> gtTriplesSubjectFor: aView [
-	<gtView>
+	"<gtView>"
 	self realObject ifNil: [ ^ aView empty ].
 	^ aView tree
 		title: 'Subjects';
