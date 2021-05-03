@@ -31,13 +31,18 @@ RDFTriples >> gtCollectionFor: aView [
 	^ aView list
 		title: 'Collection';
 		items: [ self collection ];
-		itemFormat: [ :aTriple | aTriple sentence ]
+		itemText: [ :aTriple | aTriple sentence ]
 ]
 
 { #category : #initialization }
 RDFTriples >> initialize [
 	super initialize.
 	collection := self defaultCollection.
+]
+
+{ #category : #testing }
+RDFTriples >> isNotEmpty [
+	^ self collection isNotEmpty
 ]
 
 { #category : #accessing }
