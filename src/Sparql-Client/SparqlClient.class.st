@@ -137,6 +137,21 @@ SparqlClient >> isTurtleResult: aZnMimeType [
 	^ aZnMimeType main = #text and: [ aZnMimeType sub = #turtle ]
 ]
 
+{ #category : #querying }
+SparqlClient >> objectsWithSubject: aRDFSubject predicate: aRdfPredicate [
+	"Answer the receiver's triples that match aRDFSubject"
+	<return: #Array of: #RDFLiteral>
+	| queryResult |
+
+	queryResult := self read: (String streamContents: [ :stream |
+		stream << 'SELECT ?o WHERE { '.
+		aRDFSubject printSparqlOn: stream.
+		stream space.
+		aRdfPredicate printSparqlOn: stream.
+		stream << ' ?o. }' ]).
+	^ queryResult value.
+]
+
 { #category : #private }
 SparqlClient >> post: znEntity [
 	"Post the supplied Zn entity and catch spurious errors triggered by Jena's encoding.
@@ -247,6 +262,20 @@ SparqlClient >> triplesWithSubject: aRDFSubject [
 		aRDFSubject printSparqlOn: stream.
 		stream << ' ?p ?o. }' ]).
 	^ queryResult triplesWithSubject: aRDFSubject
+]
+
+{ #category : #querying }
+SparqlClient >> triplesWithSubject: aRDFSubject predicate: aRdfPredicate [
+	"Answer the receiver's triples that match aRDFSubject"
+	| queryResult |
+
+	queryResult := self read: (String streamContents: [ :stream |
+		stream << 'SELECT ?o WHERE { '.
+		aRDFSubject printSparqlOn: stream.
+		stream space.
+		aRdfPredicate printSparqlOn: stream.
+		stream << ' ?o. }' ]).
+	^ queryResult triplesWithSubject: aRDFSubject predicate: aRdfPredicate
 ]
 
 { #category : #updating }

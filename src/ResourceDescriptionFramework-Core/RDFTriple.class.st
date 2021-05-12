@@ -81,10 +81,9 @@ RDFTriple >> predicate [
 
 { #category : #accessing }
 RDFTriple >> predicate: aPredicate [
-	"Set the receiver's predicate.
-	There's only a limited set of predicates, however they are used many times each.  Try and use a single instance."
+	"Set the receiver's predicate"
 
-	predicate := RDFConvenience predicateAt: aPredicate fullName.
+	predicate := aPredicate.
 
 ]
 

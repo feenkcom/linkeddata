@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #'instance creation' }
+RDFTriplePart class >> iri: aString [ 
+
+	^ self term: (RDFNamedNode new value: aString)
+]
+
+{ #category : #'instance creation' }
 RDFTriplePart class >> term: aRDFTerm [
 
 	^ self new term: aRDFTerm
@@ -37,6 +43,24 @@ RDFTriplePart >> gtTermFor: aView [
 { #category : #comparing }
 RDFTriplePart >> hash [
 	^ self class hash bitXor: self term hash
+]
+
+{ #category : #testing }
+RDFTriplePart >> isObject [
+
+	^ false
+]
+
+{ #category : #testing }
+RDFTriplePart >> isPredicate [
+
+	^ false
+]
+
+{ #category : #testing }
+RDFTriplePart >> isSubject [
+
+	^ false
 ]
 
 { #category : #accessing }

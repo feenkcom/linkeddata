@@ -15,6 +15,13 @@ RDF class >> iriNames [
 	^ #(type)
 ]
 
+{ #category : #testing }
+RDF class >> isDeprecated [ 
+	"RDF is deprecated, RdfVocabularies should be used instead"
+	
+	^ true
+]
+
 { #category : #accessing }
 RDF class >> language [
 	^ RDFLanguageFactory default

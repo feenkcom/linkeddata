@@ -29,14 +29,15 @@ RDFJenaStore >> addKnownPrefixesTo: stream [
 	| factory |
 
 	RDFTermFactory subclassesDo: [ :cls |
-		factory := cls new.
-		stream 
-			<< 'PREFIX ';
-			<< factory shortName;
-			<< ': <';
-			<< factory prefix;
-			<< '>';
-			cr ].
+		cls isDynamic ifFalse:
+			[  factory := cls new.
+			stream 
+				<< 'PREFIX ';
+				<< factory shortName;
+				<< ': <';
+				<< factory prefix;
+				<< '>';
+				cr ] ].
 ]
 
 { #category : #adding }
@@ -66,6 +67,13 @@ RDFJenaStore >> datasetURL: aUrl [
 	E.g. 'http://localhost:3030/mydataset' asZnURL"
 
 	sparqlClient := SparqlClient datasetUrl: aUrl
+]
+
+{ #category : #querying }
+RDFJenaStore >> evaluate: aString [
+	"This shouldn't really be here, there should be a higher level api, but it's useful for now"
+
+	^ sparqlClient evaluate: aString
 ]
 
 { #category : #accessing }
@@ -124,6 +132,21 @@ RDFJenaStore >> maxBufferSize [
 { #category : #accessing }
 RDFJenaStore >> maxBufferSize: anObject [
 	maxBufferSize := anObject
+]
+
+{ #category : #querying }
+RDFJenaStore >> objectsWithSubject: aRDFSubject predicate: aRdfPredicate [
+	<return: #Collection of: #RDFLiteral>
+
+	^ sparqlClient objectsWithSubject: aRDFSubject predicate: aRdfPredicate
+
+]
+
+{ #category : #querying }
+RDFJenaStore >> read: aString [
+	"This shouldn't really be here, there should be a higher level api, but it's useful for now"
+
+	^ sparqlClient read: aString
 ]
 
 { #category : #private }
@@ -226,7 +249,23 @@ RDFJenaStore >> triplesForSubject: aRDFSubject [
 ]
 
 { #category : #querying }
+RDFJenaStore >> triplesForSubject: aRDFSubject predicate: aRdfPredicate [
+	<return: #RDFList>
+
+	^ RDFList new collection: 
+		(sparqlClient triplesWithSubject: aRDFSubject predicate: aRdfPredicate)
+
+]
+
+{ #category : #querying }
 RDFJenaStore >> triplesWhere: aString [ 
 
 	^ sparqlClient triplesWhere: aString
+]
+
+{ #category : #querying }
+RDFJenaStore >> update: aString [
+	"This shouldn't really be here, there should be a higher level api, but it's useful for now"
+
+	^ sparqlClient update: aString
 ]

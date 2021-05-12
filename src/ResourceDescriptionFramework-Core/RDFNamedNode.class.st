@@ -1,3 +1,6 @@
+"
+RDFNamedNode holds an unnamed IRI.
+"
 Class {
 	#name : #RDFNamedNode,
 	#superclass : #RDFTerm,
@@ -76,7 +79,7 @@ RDFNamedNode >> print: anObject onSparqlStream: aStream [
 	value = #string ifTrue: 
 		[ aStream 
 			<< '"""';
-			<< anObject;
+			<< (anObject copyReplaceAll: '"' with: '\"');
 			<< '"""' ]
 	ifFalse: [ value = #date ifTrue: 
 		[ aStream
