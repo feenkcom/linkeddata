@@ -4,6 +4,30 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Examples'
 }
 
+{ #category : #'as yet unclassified' }
+RDFTurtleParserExamples >> documentNamed: basenameString [
+
+	^ ((IceRepository registeredRepositoryIncludingPackage: self class package) / basenameString) contents
+]
+
+{ #category : #parsing }
+RDFTurtleParserExamples >> parseBlankNodeDocument [
+	<gtExample>
+	| document triples triple |
+
+	document := self documentNamed: 'blanknodes.turtle'.
+	triples := RDFTurtleTripleVisitor parse: document.
+
+	self assert: triples size equals: 2.
+	"The first triple is tested in #parseSingleTriple"
+	triple := triples second.
+	self assert: triple subject term value 
+		equals: 'http://a/2'.
+	self assert: triple predicate term value equals: 'integer'.
+	self assert: triple object term value equals: 42.
+	^ triple
+]
+
 { #category : #parsing }
 RDFTurtleParserExamples >> parseSingleTriple [
 	<gtExample>
@@ -18,7 +42,7 @@ RDFTurtleParserExamples >> parseSingleTriple [
 	triple := triples first.
 	self assert: triple subject term value 
 		equals: 'http://a/b'.
-	self assert: triple predicate term value equals: 'datePublished'.
+	self assert: triple predicate term value equals: 'http://schema.org/datePublished'.
 	self assert: triple object term value
 		equals: (DateAndTime readFrom: '2017-01-11T02:27:34+02:00' readStream).
 	^ triple
@@ -43,5 +67,5 @@ RDFTurtleParserExamples >> parseTwoTriples [
 		equals: 'http://a/2'.
 	self assert: triple predicate term value equals: 'integer'.
 	self assert: triple object term value equals: 42.
-	^ triple
+	^ triples
 ]

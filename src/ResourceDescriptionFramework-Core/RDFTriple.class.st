@@ -109,6 +109,17 @@ RDFTriple >> printSentenceOn: aStream [
 		aStream nextPutAll: ' whose value is '; print: anObject; nextPut: $. ].
 ]
 
+{ #category : #printing }
+RDFTriple >> printSparqlOn: aStream [
+
+	subject printSparqlOn: aStream.
+	aStream space.
+	predicate printSparqlOn: aStream.
+	aStream space.
+	object printSparqlOn: aStream.
+	aStream << ' .'.
+]
+
 { #category : #accessing }
 RDFTriple >> sentence [
 	<return: #String>

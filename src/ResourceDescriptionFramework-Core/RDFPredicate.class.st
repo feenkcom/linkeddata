@@ -4,6 +4,12 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #converting }
+RDFPredicate >> asPredicate [
+
+	^ self
+]
+
 { #category : #testing }
 RDFPredicate >> isPredicate [ 
 

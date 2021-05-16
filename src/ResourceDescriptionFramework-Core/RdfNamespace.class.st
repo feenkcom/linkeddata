@@ -14,6 +14,19 @@ RdfNamespace class >> name: nameString iri: iriString [
 ]
 
 { #category : #accessing }
+RdfNamespace >> gtPropertiesFor: aView [
+	<gtView>
+
+	name ifNil: [ ^ aView empty ].
+	^ aView columnedList 
+		title: 'Properties';
+		priority: 20;
+		items: [ self properties sorted: [ :a :b | a name < b name ] ];
+		column: 'Name' text: [ :item | item name ];
+		column: 'Comment' text: [ :item | item comment ]
+]
+
+{ #category : #accessing }
 RdfNamespace >> iri [
 	^ iri
 ]
@@ -46,6 +59,24 @@ RdfNamespace >> printOn: aStream [
 		<< name;
 		<< ': ';
 		<< iri
+]
+
+{ #category : #printing }
+RdfNamespace >> printSparqlOn: aStream [
+	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
+	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
+
+	aStream
+		<< name;
+		nextPut: $:
+]
+
+{ #category : #accessing }
+RdfNamespace >> properties [ 
+	"Answer the receiver's properties"
+
+	^ RdfResources uniqueInstance resources
+		select: [ :each | each isRdfProperty and: [ each namespace name = name ] ]
 ]
 
 { #category : #accessing }

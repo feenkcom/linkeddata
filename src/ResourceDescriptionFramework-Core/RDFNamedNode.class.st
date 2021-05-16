@@ -5,7 +5,8 @@ Class {
 	#name : #RDFNamedNode,
 	#superclass : #RDFTerm,
 	#instVars : [
-		'parser'
+		'parser',
+		'printer'
 	],
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
@@ -15,7 +16,7 @@ RDFNamedNode class >> fromJsonDictionary: aDictionary [
 	"Answer an instance of the appropriate subclass.
 	aDictionary follows the structure defined at https://www.w3.org/TR/sparql11-results-json/"
 
-	^ self new value: (aDictionary at: #value)
+	^ self new value: (aDictionary at: #value) urlDecoded
 ]
 
 { #category : #accessing }
@@ -23,6 +24,12 @@ RDFNamedNode class >> typeName [
 	"Answer the type the receiver represents."
 
 	^ #uri
+]
+
+{ #category : #converting }
+RDFNamedNode >> asPredicate [
+
+	^ RDFPredicate term: self
 ]
 
 { #category : #comparing }
@@ -54,6 +61,12 @@ RDFNamedNode >> hash [
 ]
 
 { #category : #accessing }
+RDFNamedNode >> iri [
+
+	^ value
+]
+
+{ #category : #accessing }
 RDFNamedNode >> name [
 	^ self value
 ]
@@ -61,7 +74,7 @@ RDFNamedNode >> name [
 { #category : #accessing }
 RDFNamedNode >> parser [
 	"Answer an optional BlockClosure that parses the receiver's string representation, or nil"
-	<return: #BlockClosure>
+	<return: #BlockClosure or: nil>
 
 	^ parser
 ]
@@ -76,20 +89,10 @@ RDFNamedNode >> parser: aBlockClosure [
 { #category : #printing }
 RDFNamedNode >> print: anObject onSparqlStream: aStream [
 
-	value = #string ifTrue: 
-		[ aStream 
-			<< '"""';
-			<< (anObject copyReplaceAll: '"' with: '\"');
-			<< '"""' ]
-	ifFalse: [ value = #date ifTrue: 
-		[ aStream
-			nextPut: $";
-			print: anObject;
-			<< '"^^xsd:dateTime' ]
-	ifFalse: [ value = #decimal ifTrue:
-		[ anObject printOn: aStream showingDecimalPlaces: anObject scale ]
-	ifFalse:
-		[ aStream print: anObject ] ] ]
+	printer
+		ifNil: [ anObject printSparqlOn: aStream ]
+		ifNotNil: [ aStream << (printer value: anObject) ].
+
 ]
 
 { #category : #printing }
@@ -106,8 +109,23 @@ RDFNamedNode >> printFullNameWithDataTypeOn: aStream [
 
 { #category : #printing }
 RDFNamedNode >> printOn: aStream [
+
 	self value ifNil: [ ^ super printOn: aStream ].
 	aStream nextPutAll: self value asString.
+]
+
+{ #category : #accessing }
+RDFNamedNode >> printer [
+	"Answer an optional BlockClosure that prints the receiver's string representation, or nil"
+	<return: #BlockClosure or: nil>
+
+	^ printer
+]
+
+{ #category : #accessing }
+RDFNamedNode >> printer: aBlockClosure [
+
+	printer := aBlockClosure
 ]
 
 { #category : #accessing }

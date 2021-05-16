@@ -58,7 +58,7 @@ SparqlQueryResult >> fieldNames [
 ]
 
 { #category : #private }
-SparqlQueryResult >> getArrayValueFromSource [
+SparqlQueryResult >> getValueFromSource [
 	"Answer the Array2D value of the receiver"
 	| result rowCount columnCount |
 
@@ -70,24 +70,6 @@ SparqlQueryResult >> getArrayValueFromSource [
 			result at: row at: column put: 
 				(RDFTerm fromJsonDictionary: ((self bindings at: row) at: (self fieldNames at: column) ifAbsent: [ nil ])) ] ].
 	^ result
-]
-
-{ #category : #private }
-SparqlQueryResult >> getSingleValueFromSource [
-	"Answer the single value of the receiver.
-	This method assumes that only a single value is encoded"
-
-	^ RDFTerm fromJsonDictionary: (self bindings first at: self fieldNames first)
-]
-
-{ #category : #private }
-SparqlQueryResult >> getValueFromSource [
-	"Answer the value encoded in the source.
-	This will either be a single value or an Array2D of values (#isSingle indicates which)"
-
-	^ self isSingle
-		ifTrue: [ self getSingleValueFromSource ]
-		ifFalse: [ self getArrayValueFromSource ]
 ]
 
 { #category : #'gt-extension' }
@@ -110,10 +92,7 @@ SparqlQueryResult >> gtLiveFor: aView [
 SparqlQueryResult >> gtTableFor: aView [
 	<gtView>
 
-	(fieldNames isNil or: 
-	[ self isSingle or: 
-	[ self value numberOfRows isZero or: 
-	[ self value numberOfColumns isZero ] ] ]) 
+	(fieldNames isNil or: [ value isNil ]) 
 		ifTrue: [ ^ aView empty ].
 	^ aView forward
 		title: 'Table';
@@ -127,6 +106,15 @@ SparqlQueryResult >> isSingle [
 	"Answer a boolean indicating whether the receiver's result is a single value"
 
 	^ isSingle ifNil: [ isSingle := self fieldNames size = 1 and: [ self bindings size = 1 ] ]
+]
+
+{ #category : #evaluating }
+SparqlQueryResult >> oneValue [
+	"Answer the single value of the receiver.
+	This method assumes that only a single value is encoded"
+
+	self isSingle ifFalse: [ self error: 'Result is multi-value' ].
+	^ RDFTerm fromJsonDictionary: (self bindings first at: self fieldNames first)
 ]
 
 { #category : #printing }
@@ -145,6 +133,12 @@ SparqlQueryResult >> printOn: aStream [
 			<< '@';
 			print: self value rowCount ].
 	aStream << ')'.
+]
+
+{ #category : #API }
+SparqlQueryResult >> rows [
+
+	^ self value rowsCollect: #yourself
 ]
 
 { #category : #accessing }

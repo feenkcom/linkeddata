@@ -74,6 +74,12 @@ RDFTerm >> hash [
 			bitXor: self value hash
 ]
 
+{ #category : #accessing }
+RDFTerm >> iri [ 
+
+	^ self subclassResponsibility
+]
+
 { #category : #printing }
 RDFTerm >> printDescriptionOn: aStream [
 	self printFullNameOn: aStream
@@ -94,9 +100,10 @@ RDFTerm >> printSparqlOn: aStream [
 	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
 	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
 
-	aStream nextPut: $<.
-	self printFullNameOn: aStream.
-	aStream nextPut: $>.
+	aStream 
+		nextPut: $<;
+		<< self iri;
+		nextPut: $>
 ]
 
 { #category : #accessing }

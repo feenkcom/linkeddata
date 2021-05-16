@@ -1,3 +1,8 @@
+"
+RdfVocabularyImporter assists with importing vocabularies that are specified in XML format.
+
+Unfortunately the format is rather loose, so a subclass is added for each known vocabulary.
+"
 Class {
 	#name : #RdfVocabularyImporter,
 	#superclass : #Object,
@@ -19,14 +24,14 @@ RdfVocabularyImporter class >> fromFile: aFileReference shortName: aString [
 		shortName: aString
 ]
 
-{ #category : #adding }
+{ #category : #private }
 RdfVocabularyImporter >> addClass: aXMLElement [
 	"Add a RdfClass based on the supplied element"
 
 	self subclassResponsibility 
 ]
 
-{ #category : #adding }
+{ #category : #private }
 RdfVocabularyImporter >> addProperty: aXMLElement [
 	"Add a RdfClass based on the supplied element"
 

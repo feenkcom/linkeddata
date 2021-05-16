@@ -19,8 +19,11 @@ RDFNamespaceNamedNode >> printFullNameOn: aStream [
 { #category : #printing }
 RDFNamespaceNamedNode >> printOn: aStream [
 	self value ifNil: [ ^ super printOn: aStream ].
-	aStream nextPutAll: self shortName asString; nextPutAll: ' = '.
-	super printOn: aStream. 
+	aStream 
+		<< self shortName asString; 
+		<< ': ';
+		<< value.
+
 ]
 
 { #category : #accessing }

@@ -10,7 +10,7 @@ RDFTurtleNodeExamples >> booleanLiteralFalse [
 	| node term |
 
 	node := RDFTurtleBooleanLiteralNode new literal: 'false'.
-	term := node asRDFTerm.
+	term := node asRDFTermFor: RDFTurtleTripleVisitor new.
 	self assert: term value.
 	self assert: term dataType equals: XSD boolean.
 	^ term

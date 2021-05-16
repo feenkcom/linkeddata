@@ -39,9 +39,27 @@ RdfProperty >> printOn: aStream [
 		[ super printOn: aStream ]
 ]
 
+{ #category : #printing }
+RdfProperty >> printSparqlOn: aStream [
+	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
+	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
+
+	aStream
+		<< namespace name;
+		nextPut: $:;
+		<< name
+]
+
 { #category : #accessing }
 RdfProperty >> qualifiedName [
 	"Answer the receiver's qualified name, i.e. <namespace>:<name>."
 
 	^ namespace name, ':', name
+]
+
+{ #category : #accessing }
+RdfProperty >> termType [
+	"Compatibility with RDFNamedNode"
+
+	^ RDFTermType namedNode
 ]

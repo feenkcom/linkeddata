@@ -23,6 +23,11 @@ RDFTripleBuilder >> build [
 		object: object
 ]
 
+{ #category : #accessing }
+RDFTripleBuilder >> object [
+	^ object
+]
+
 { #category : #'building - object' }
 RDFTripleBuilder >> object: aRdfObject [
 	self 
@@ -62,14 +67,14 @@ RDFTripleBuilder >> objectLiteral: aString [
 		assert: [ aString isString and: [ aString isNotEmpty ] ] 
 		description: [ 'Object literal must be non-empty string' ].
 	aTerm := RDF literal: aString.
-	self objectTerm: aTerm.
+	^ self objectTerm: aTerm.
 ]
 
 { #category : #'building - object' }
 RDFTripleBuilder >> objectLiteral: aValue type: aType [
 	| aTerm |
 	aTerm := RDF literal: aValue type: aType.
-	self objectTerm: aTerm.
+	^ self objectTerm: aTerm.
 ]
 
 { #category : #'building - object' }
@@ -118,7 +123,7 @@ RDFTripleBuilder >> objectTerm: aTerm [
 	self 
 		assert: [ aTerm isNotNil ] 
 		description: [ 'Object term must be non-nil' ].
-	object := RDF object: aTerm.
+	^ object := RDF object: aTerm.
 
 ]
 
@@ -131,15 +136,23 @@ RDFTripleBuilder >> objectValue: anObject [
 	- Float, ScaledDecimal, Fraction -> number
 	- String -> string"
 
-	(anObject isKindOf: DateAndTime) ifTrue: 
-		[ ^ self objectLiteral: anObject asUTC type: XSD date ].
+	anObject isString ifTrue:
+		[ ^ self objectLiteral: anObject type: XSD string ].
 	anObject isBoolean ifTrue: 
 		[ ^ self objectLiteral: anObject type: XSD boolean ].
 	anObject isInteger ifTrue: 
-		[ self objectLiteral: anObject type: XSD integer ].
+		[ ^ self objectLiteral: anObject type: XSD integer ].
 	anObject isNumber ifTrue:
-		[ self objectLiteral: anObject asFloat type: XSD decimal ].
+		[ ^ self objectLiteral: anObject asFloat type: XSD decimal ].
+	(anObject isKindOf: DateAndTime) ifTrue: 
+		[ ^ self objectLiteral: anObject asUTC type: XSD date ].
+
 	self error: 'Unknown object type'.
+]
+
+{ #category : #accessing }
+RDFTripleBuilder >> predicate [
+	^ predicate
 ]
 
 { #category : #'building - predicate' }
@@ -184,12 +197,17 @@ RDFTripleBuilder >> predicateTerm: aTerm [
 	self predicate: aPredicate.
 ]
 
+{ #category : #accessing }
+RDFTripleBuilder >> subject [
+	^ subject
+]
+
 { #category : #'building - subject' }
 RDFTripleBuilder >> subject: aSubject [
 	self 
 		assert: [ aSubject isNotNil ] 
 		description: [ 'Subject must be non-nil' ].
-	subject := aSubject.
+	^ subject := aSubject.
 ]
 
 { #category : #'building - subject' }
@@ -199,7 +217,7 @@ RDFTripleBuilder >> subjectIRI: aString [
 		assert: [ aString isString and: [ aString isNotEmpty ] ] 
 		description: [ 'Subject IRI must be non-empty string' ].
 	aTerm := RDF namedNode: aString.
-	self subjectTerm: aTerm.
+	^ self subjectTerm: aTerm.
 ]
 
 { #category : #'building - subject' }
@@ -216,7 +234,7 @@ RDFTripleBuilder >> subjectTerm: aTerm [
 		assert: [ aTerm isNotNil ] 
 		description: [ 'Subject term must be non-nil' ].
 	aSubject := RDF subject: aTerm.
-	self subject: aSubject.
+	^ self subject: aSubject.
 ]
 
 { #category : #accessing }

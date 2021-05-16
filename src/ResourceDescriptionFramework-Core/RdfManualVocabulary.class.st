@@ -7,3 +7,16 @@ Class {
 	],
 	#category : #'ResourceDescriptionFramework-Core-Importers'
 }
+
+{ #category : #adding }
+RdfManualVocabulary class >> add [ 
+	<script>
+
+	self new addToRdfResources
+]
+
+{ #category : #adding }
+RdfManualVocabulary >> addToRdfResources [
+
+	self subclassResponsibility 
+]

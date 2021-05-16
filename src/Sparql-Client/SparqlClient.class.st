@@ -41,6 +41,29 @@ SparqlClient >> checkPostException: anException [
 	^ anException pass
 ]
 
+{ #category : #private }
+SparqlClient >> checkReadException: anException [
+	| sender string response |
+
+	anException messageText = 'Incomplete input for character decoding' ifFalse:
+		[ ^ anException pass ].
+
+	sender := anException signalerContext sender.
+	[ sender isNotNil and: [ sender method selector ~= #readInto:startingAt:count:fromStream: ] ] whileTrue:
+		[ sender := sender sender ].
+	sender ifNil: [ ^ anException pass ].
+	string := sender tempNamed: #string.
+	(string includesSubstring: #head) ifTrue: [ 
+		"The string looks OK, simulate a response"
+		response := (ZnResponse statusCode: 200)
+			headers: ZnHeaders defaultResponseHeaders;
+			entity: (ZnStringEntity json: (string copyFrom: 1 to: (string indexOf: Character null)-1)).
+		response headers contentType: 'application/sparql-results+json'.
+		response entity contentType: 'application/sparql-results+json'.
+		^ response ].
+	^ anException pass
+]
+
 { #category : #querying }
 SparqlClient >> construct: aString [
 	"Send the supplied sparql CONSTRUCT string to be evaluated by the remote server.
@@ -137,21 +160,6 @@ SparqlClient >> isTurtleResult: aZnMimeType [
 	^ aZnMimeType main = #text and: [ aZnMimeType sub = #turtle ]
 ]
 
-{ #category : #querying }
-SparqlClient >> objectsWithSubject: aRDFSubject predicate: aRdfPredicate [
-	"Answer the receiver's triples that match aRDFSubject"
-	<return: #Array of: #RDFLiteral>
-	| queryResult |
-
-	queryResult := self read: (String streamContents: [ :stream |
-		stream << 'SELECT ?o WHERE { '.
-		aRDFSubject printSparqlOn: stream.
-		stream space.
-		aRdfPredicate printSparqlOn: stream.
-		stream << ' ?o. }' ]).
-	^ queryResult value.
-]
-
 { #category : #private }
 SparqlClient >> post: znEntity [
 	"Post the supplied Zn entity and catch spurious errors triggered by Jena's encoding.
@@ -186,22 +194,32 @@ SparqlClient >> post: aString type: type [
 	^ response
 ]
 
+{ #category : #printing }
+SparqlClient >> printOn: aStream [
+
+	datasetUrl ifNil: [ ^ super printOn: aStream ].
+	aStream
+		<< 'Sparql @ ';
+		<< datasetUrl
+]
+
 { #category : #querying }
 SparqlClient >> read: aString [
 	"Send the supplied sparql string to be evaluated by the remote server.
 	The result is assumed to be a JSON encoded table."
-	| response contentType query accept |
+	| client response contentType query accept |
 
 	query := datasetUrl asZnUrl copy.
 	query queryAt: #query add: aString.
 	accept := ZnMimeType main: 'application' sub: 'sparql-results+json'.
-	response := ZnClient new
+	client := ZnClient new
 		beOneShot;
 		url: query;
 		accept: accept;
-		timeout: 240;
-		get;
-		response.
+		timeout: 240.
+	response := [ client get; response ]
+		on: Error
+		do: [ :ex | self checkReadException: ex ].
 	contentType := response contentType.
 	response isSuccess ifFalse:
 		[ (self isPlainText: contentType) ifTrue: 
@@ -212,70 +230,6 @@ SparqlClient >> read: aString [
 		[ self error: 'Unexpected result type: ', contentType asString ].
 	^ SparqlQueryResult sourceString: response contents.
 
-]
-
-{ #category : #querying }
-SparqlClient >> triplesWhere: aString [
-	"Answer the collection of triples that match the supplied criteria.
-	No security checks are made."
-	| constructQuery |
-
-	constructQuery := String streamContents: [ :stream |
-		stream 
-			<< 'CONSTRUCT WHERE { ';
-			<< aString;
-			<< ' }' ].
-	^ self construct: constructQuery.
-]
-
-{ #category : #querying }
-SparqlClient >> triplesWithObject: aRDFObject [
-	"Answer the receiver's triples that match aRDFObject"
-	| queryResult |
-
-	queryResult := self read: (String streamContents: [ :stream |
-		stream << 'SELECT ?s ?p WHERE { ?s ?p '.
-		aRDFObject printSparqlOn: stream.
-		stream << ' }' ]).
-	^ queryResult triplesWithObject: aRDFObject
-]
-
-{ #category : #querying }
-SparqlClient >> triplesWithPredicate: aRDFPredicate [
-	"Answer the receiver's triples that match aRDFPredicate"
-	| queryResult |
-
-	queryResult := self read: (String streamContents: [ :stream |
-		stream << 'SELECT ?s ?o WHERE { ?s '.
-		aRDFPredicate printSparqlOn: stream.
-		stream << ' ?o. }' ]).
-	^ queryResult triplesWithPredicate: aRDFPredicate
-]
-
-{ #category : #querying }
-SparqlClient >> triplesWithSubject: aRDFSubject [
-	"Answer the receiver's triples that match aRDFSubject"
-	| queryResult |
-
-	queryResult := self read: (String streamContents: [ :stream |
-		stream << 'SELECT ?p ?o WHERE { '.
-		aRDFSubject printSparqlOn: stream.
-		stream << ' ?p ?o. }' ]).
-	^ queryResult triplesWithSubject: aRDFSubject
-]
-
-{ #category : #querying }
-SparqlClient >> triplesWithSubject: aRDFSubject predicate: aRdfPredicate [
-	"Answer the receiver's triples that match aRDFSubject"
-	| queryResult |
-
-	queryResult := self read: (String streamContents: [ :stream |
-		stream << 'SELECT ?o WHERE { '.
-		aRDFSubject printSparqlOn: stream.
-		stream space.
-		aRdfPredicate printSparqlOn: stream.
-		stream << ' ?o. }' ]).
-	^ queryResult triplesWithSubject: aRDFSubject predicate: aRdfPredicate
 ]
 
 { #category : #updating }
