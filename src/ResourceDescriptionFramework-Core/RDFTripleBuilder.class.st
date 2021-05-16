@@ -2,33 +2,33 @@ Class {
 	#name : #RDFTripleBuilder,
 	#superclass : #RDFProtoBuilder,
 	#instVars : [
-		'triple'
+		'triple',
+		'subject',
+		'predicate',
+		'object'
 	],
 	#category : #'ResourceDescriptionFramework-Core-Builders'
 }
 
 { #category : #'building - object' }
 RDFTripleBuilder >> build [
-	^ self triple
-]
 
-{ #category : #initialization }
-RDFTripleBuilder >> defaultTriple [
-	^ RDF triple
-]
+	self assert: subject isSubject.
+	self assert: predicate isPredicate.
+	self assert: object isObject.
 
-{ #category : #initialization }
-RDFTripleBuilder >> initialize [
-	super initialize.
-	triple := self defaultTriple.
+	^ RDFTriple new
+		subject: subject;
+		predicate: predicate;
+		object: object
 ]
 
 { #category : #'building - object' }
-RDFTripleBuilder >> object: anObject [
+RDFTripleBuilder >> object: aRdfObject [
 	self 
-		assert: [ anObject isNotNil ] 
+		assert: [ aRdfObject isNotNil ] 
 		description: [ 'Object must be non-nil' ].
-	self triple object: anObject.
+	object := aRdfObject.
 ]
 
 { #category : #'building - object' }
@@ -114,12 +114,32 @@ RDFTripleBuilder >> objectNamespaceIRI: aNamespaceString as: aShortNameString su
 
 { #category : #'building - object' }
 RDFTripleBuilder >> objectTerm: aTerm [
-	| anObject |
+
 	self 
 		assert: [ aTerm isNotNil ] 
 		description: [ 'Object term must be non-nil' ].
-	anObject := RDF object: aTerm.
-	self object: anObject.
+	object := RDF object: aTerm.
+
+]
+
+{ #category : #'building - object' }
+RDFTripleBuilder >> objectValue: anObject [
+	"Build the object based on the objects class.  Note that IRI's should be added with objectIRI:
+	Assume type based on first character:
+	- DateAndTime -> date
+	- Boolean -> boolean
+	- Float, ScaledDecimal, Fraction -> number
+	- String -> string"
+
+	(anObject isKindOf: DateAndTime) ifTrue: 
+		[ ^ self objectLiteral: anObject asUTC type: XSD date ].
+	anObject isBoolean ifTrue: 
+		[ ^ self objectLiteral: anObject type: XSD boolean ].
+	anObject isInteger ifTrue: 
+		[ self objectLiteral: anObject type: XSD integer ].
+	anObject isNumber ifTrue:
+		[ self objectLiteral: anObject asFloat type: XSD decimal ].
+	self error: 'Unknown object type'.
 ]
 
 { #category : #'building - predicate' }
@@ -127,7 +147,7 @@ RDFTripleBuilder >> predicate: aPredicate [
 	self 
 		assert: [ aPredicate isNotNil ] 
 		description: [ 'Predicate must be non-nil' ].
-	self triple predicate: aPredicate.
+	predicate := aPredicate.
 ]
 
 { #category : #'building - predicate' }
@@ -169,7 +189,7 @@ RDFTripleBuilder >> subject: aSubject [
 	self 
 		assert: [ aSubject isNotNil ] 
 		description: [ 'Subject must be non-nil' ].
-	self triple subject: aSubject.
+	subject := aSubject.
 ]
 
 { #category : #'building - subject' }
@@ -201,10 +221,6 @@ RDFTripleBuilder >> subjectTerm: aTerm [
 
 { #category : #accessing }
 RDFTripleBuilder >> triple [
-	^ triple
-]
 
-{ #category : #accessing }
-RDFTripleBuilder >> triple: anObject [
-	triple := anObject
+	^ self build
 ]
