@@ -11,6 +11,30 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Collections'
 }
 
+{ #category : #'xsd datatypes' }
+RdfResources class >> boolean [ 
+
+	^ self uniqueInstance atName: #xsd:boolean
+]
+
+{ #category : #'xsd datatypes' }
+RdfResources class >> decimal [ 
+
+	^ self uniqueInstance atName: #xsd:decimal
+]
+
+{ #category : #'xsd datatypes' }
+RdfResources class >> double [ 
+
+	^ self uniqueInstance atName: #xsd:double
+]
+
+{ #category : #'xsd datatypes' }
+RdfResources class >> integer [ 
+
+	^ self uniqueInstance atName: #xsd:integer
+]
+
 { #category : #'instance creation' }
 RdfResources class >> newLoaded [
 	"Answer an instance of the receiver loaded with the known vocabularies"
@@ -61,6 +85,12 @@ RdfResources >> addAll: aCollection [
 RdfResources >> atIRI: aString [ 
 
 	^ resourcesByIRI at: aString
+]
+
+{ #category : #accessing }
+RdfResources >> atIRI: aString ifAbsent: absentBlock [
+
+	^ resourcesByIRI at: aString ifAbsent: absentBlock
 ]
 
 { #category : #accessing }

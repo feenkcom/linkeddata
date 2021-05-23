@@ -18,11 +18,11 @@ RDFTurtleNumericLiteralNode >> asRDFTermFor: aVisitor [
 
 	string := literal value.
 	(string allSatisfy: #isDigit) ifTrue: 
-		[ dataType := XSD integer ]
+		[ dataType := RdfResources integer ]
 	ifFalse: [ ('\d+(\.\d*)?' asRegex matches: string) ifTrue:
-		[ dataType := XSD decimal ]
+		[ dataType := RdfResources decimal ]
 	ifFalse: [ ('\d+\.\d+[eE]\d+' asRegex matches: string) ifTrue:
-		[ dataType := XSD double ]
+		[ dataType := RdfResources double ]
 	ifFalse:
 		[ self error: 'Unknown numeric type' ] ] ].
 	^ RDFLiteral new value: string dataType: dataType

@@ -15,7 +15,7 @@ RDFTurtleBooleanLiteralNode >> acceptVisitor: aDocumentVisitor [
 { #category : #converting }
 RDFTurtleBooleanLiteralNode >> asRDFTermFor: aVisitor [
 
-	^ RDFLiteral new value: literal value dataType: XSD boolean
+	^ RDFLiteral new value: literal value dataType: RdfResources boolean
 ]
 
 { #category : #generated }

@@ -1,6 +1,8 @@
 Class {
 	#name : #RDFTurtleNodeExamples,
 	#superclass : #Object,
+	#traits : 'TAssertable',
+	#classTraits : 'TAssertable classTrait',
 	#category : #'ResourceDescriptionFramework-Core-Examples'
 }
 
@@ -11,8 +13,8 @@ RDFTurtleNodeExamples >> booleanLiteralFalse [
 
 	node := RDFTurtleBooleanLiteralNode new literal: 'false'.
 	term := node asRDFTermFor: RDFTurtleTripleVisitor new.
-	self assert: term value.
-	self assert: term dataType equals: XSD boolean.
+	self deny: term value.
+	self assert: term dataType equals: RdfResources boolean.
 	^ term
 	
 ]
@@ -23,9 +25,9 @@ RDFTurtleNodeExamples >> booleanLiteralTrue [
 	| node term |
 
 	node := RDFTurtleBooleanLiteralNode new literal: 'true'.
-	term := node asRDFTerm.
+	term := node asRDFTermFor: RDFTurtleTripleVisitor new.
 	self assert: term value.
-	self assert: term dataType equals: XSD boolean.
+	self assert: term dataType equals: RdfResources boolean.
 	^ term
 	
 ]
@@ -36,9 +38,9 @@ RDFTurtleNodeExamples >> numericLiteralDecimal [
 	| node term |
 
 	node := RDFTurtleNumericLiteralNode new literal: '4.2'.
-	term := node asRDFTerm.
+	term := node asRDFTermFor: RDFTurtleTripleVisitor new.
 	self assert: term value equals: 4.2s2.
-	self assert: term dataType equals: XSD decimal.
+	self assert: term dataType equals: RdfResources decimal.
 	^ term
 	
 ]
@@ -49,9 +51,9 @@ RDFTurtleNodeExamples >> numericLiteralDouble [
 	| node term |
 
 	node := RDFTurtleNumericLiteralNode new literal: '4.2E1'.
-	term := node asRDFTerm.
+	term := node asRDFTermFor: RDFTurtleTripleVisitor new.
 	self assert: term value equals: 4.2e1.
-	self assert: term dataType equals: XSD double.
+	self assert: term dataType equals: RdfResources double.
 	^ term
 	
 ]
@@ -62,9 +64,9 @@ RDFTurtleNodeExamples >> numericLiteralInteger [
 	| node term |
 
 	node := RDFTurtleNumericLiteralNode new literal: '42'.
-	term := node asRDFTerm.
+	term := node asRDFTermFor: RDFTurtleTripleVisitor new.
 	self assert: term value equals: 42.
-	self assert: term dataType equals: XSD integer.
+	self assert: term dataType equals: RdfResources integer.
 	^ term
 	
 ]

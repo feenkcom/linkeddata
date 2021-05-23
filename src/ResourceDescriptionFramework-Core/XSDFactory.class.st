@@ -4,6 +4,13 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 
+{ #category : #testing }
+XSDFactory class >> isDeprecated [ 
+	"XSDFactory is deprecated, RdfVocabularies should be used instead"
+	
+	^ true
+]
+
 { #category : #factory }
 XSDFactory >> boolean [
 	<return: #RDFNamedNode>

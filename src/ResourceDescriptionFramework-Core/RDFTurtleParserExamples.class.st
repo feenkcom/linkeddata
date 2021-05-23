@@ -4,28 +4,28 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Examples'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #private }
 RDFTurtleParserExamples >> documentNamed: basenameString [
 
-	^ ((IceRepository registeredRepositoryIncludingPackage: self class package) / basenameString) contents
+	^ ((IceRepository registeredRepositoryIncludingPackage: self class package) location / 'test-data' / basenameString) contents
 ]
 
 { #category : #parsing }
 RDFTurtleParserExamples >> parseBlankNodeDocument [
 	<gtExample>
-	| document triples triple |
+	| document triples |
 
 	document := self documentNamed: 'blanknodes.turtle'.
 	triples := RDFTurtleTripleVisitor parse: document.
 
-	self assert: triples size equals: 2.
-	"The first triple is tested in #parseSingleTriple"
-	triple := triples second.
-	self assert: triple subject term value 
-		equals: 'http://a/2'.
-	self assert: triple predicate term value equals: 'integer'.
-	self assert: triple object term value equals: 42.
-	^ triple
+	self assert: triples size equals: 29.
+
+	"The triples should be stored in the same order as the document"
+	self assert: (triples at: 3) object term label equals: 0.
+	self assert: (triples at: 12) object term value equals: 207.5557s4.
+	self assert: (triples at: 23) object term value equals: '2021-05-04T13:27:19+00:00' asDateAndTime.
+
+	^ triples
 ]
 
 { #category : #parsing }
@@ -65,7 +65,7 @@ RDFTurtleParserExamples >> parseTwoTriples [
 	triple := triples second.
 	self assert: triple subject term value 
 		equals: 'http://a/2'.
-	self assert: triple predicate term value equals: 'integer'.
+	self assert: triple predicate term name equals: 'integer'.
 	self assert: triple object term value equals: 42.
 	^ triples
 ]
