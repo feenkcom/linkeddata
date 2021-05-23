@@ -9,6 +9,13 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
+{ #category : #comparing }
+RdfResource >> = anObject [ 
+
+	^ (anObject isKindOf: RdfResource) and:
+		[ self iri = anObject iri ]
+]
+
 { #category : #accessing }
 RdfResource >> comment [
 	^ comment
@@ -54,6 +61,12 @@ RdfResource >> gtDescriptionFor: aView [
 RdfResource >> gtValueFor: aView [
 
 	^ self gtDescriptionFor: aView
+]
+
+{ #category : #comparing }
+RdfResource >> hash [ 
+
+	^ self iri hash
 ]
 
 { #category : #accessing }

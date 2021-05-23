@@ -46,8 +46,7 @@ RDFTerm >> description [
 RDFTerm >> equals: aRDFTerm [
 	<return: #Boolean>
 	^ self class = aRDFTerm class and: [ 
-		self termType = aRDFTerm termType and: [ 
-			self value = aRDFTerm value ] ]
+		self value = aRDFTerm value ]
 ]
 
 { #category : #accessing }
@@ -69,15 +68,7 @@ RDFTerm >> gtValueFor: aView [
 
 { #category : #comparing }
 RDFTerm >> hash [
-	^ (self class hash 
-		bitXor: self termType hash)
-			bitXor: self value hash
-]
-
-{ #category : #accessing }
-RDFTerm >> iri [ 
-
-	^ self subclassResponsibility
+	^ self class hash bitXor: self value hash
 ]
 
 { #category : #printing }
@@ -100,10 +91,7 @@ RDFTerm >> printSparqlOn: aStream [
 	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
 	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
 
-	aStream 
-		nextPut: $<;
-		<< self iri;
-		nextPut: $>
+	self subclassResponsibility 
 ]
 
 { #category : #accessing }

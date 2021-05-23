@@ -114,6 +114,17 @@ RDFNamedNode >> printOn: aStream [
 	aStream nextPutAll: self value asString.
 ]
 
+{ #category : #printing }
+RDFNamedNode >> printSparqlOn: aStream [
+	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
+	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
+
+	aStream 
+		nextPut: $<;
+		<< self iri;
+		nextPut: $>
+]
+
 { #category : #accessing }
 RDFNamedNode >> printer [
 	"Answer an optional BlockClosure that prints the receiver's string representation, or nil"
