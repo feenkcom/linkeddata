@@ -1,0 +1,36 @@
+@prefix akgMetadata: <http://akg.com/metadata/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix gpx:   <http://www.w3.org/ns/pim/gpx#> .
+@prefix akgMedia: <http://akg.com/media/> .
+
+<file://GpxFiles/2021/2021-05-04_15-25_Tue.gpx>
+        akgMedia:mimeType  "application/gpx+xml" ;
+        gpx:name           "2021-05-04_15-25_Tue" ;
+        gpx:trk            [ gpx:trkseg  [ gpx:trkpt  [ gpx:ele   215.3525 ;
+                                                        gpx:hdop  16.528236 ;
+                                                        gpx:lat   50.351512 ;
+                                                        gpx:lon   13.803321 ;
+                                                        gpx:time  "2021-05-04T13:42:44Z"^^xsd:dateTime
+                                                      ] ;
+                                           gpx:trkpt  [ gpx:ele   207.5557 ;
+                                                        gpx:hdop  48.559444 ;
+                                                        gpx:lat   50.35141 ;
+                                                        gpx:lon   13.8033 ;
+                                                        gpx:time  "2021-05-04T13:43:02Z"^^xsd:dateTime
+                                                      ]
+                                         ] ;
+                             gpx:trkseg  [ gpx:trkpt  [ gpx:ele   210.3266 ;
+                                                        gpx:hdop  4.732641 ;
+                                                        gpx:lat   50.352404 ;
+                                                        gpx:lon   13.805856 ;
+                                                        gpx:time  "2021-05-04T13:27:19Z"^^xsd:dateTime
+                                                      ] ;
+                                           gpx:trkpt  [ gpx:ele   215.2898 ;
+                                                        gpx:hdop  4.774007 ;
+                                                        gpx:lat   50.352362 ;
+                                                        gpx:lon   13.806583 ;
+                                                        gpx:time  "2021-05-04T13:28:23Z"^^xsd:dateTime
+                                                      ] ;
+                                         ]
+                           ] .
+
