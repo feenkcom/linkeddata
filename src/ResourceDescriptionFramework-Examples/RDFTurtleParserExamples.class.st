@@ -1,7 +1,7 @@
 Class {
 	#name : #RDFTurtleParserExamples,
 	#superclass : #Object,
-	#category : #'ResourceDescriptionFramework-Core-Examples'
+	#category : #'ResourceDescriptionFramework-Examples'
 }
 
 { #category : #private }

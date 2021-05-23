@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
-	#category : #'ResourceDescriptionFramework-Core-Examples'
+	#category : #'ResourceDescriptionFramework-Examples'
 }
 
 { #category : #'examples - NumericLiteral' }
