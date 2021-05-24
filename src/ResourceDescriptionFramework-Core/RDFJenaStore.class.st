@@ -99,7 +99,7 @@ RDFJenaStore >> datasetUrl: aUrl [
 RDFJenaStore >> deleteWithSubject: aRdfSubject [
 	"Delete all the receiver's triples with the supplied subject"
 
-	sparqlClient update: (String streamContents: [ :stream |
+	self tsUpdate: (String streamContents: [ :stream |
 		stream << 'DELETE { '.
 		aRdfSubject printSparqlOn: stream.
 		stream << ' ?p ?o } WHERE { '.
