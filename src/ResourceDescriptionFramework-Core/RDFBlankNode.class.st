@@ -20,17 +20,46 @@ RDFBlankNode class >> typeName [
 ]
 
 { #category : #accessing }
-RDFBlankNode >> label [
-	"Answer the receiver's (optional) label"
-	<return: #String>
+RDFBlankNode >> iri [ 
+	"The printString is currently the same as the iri"
+
+	^ String streamContents: [ :stream |
+		self printOn: stream ]
+]
+
+{ #category : #accessing }
+RDFBlankNode >> label [ 
+	"Answer the receiver's label.
+	Labels can be any simple string (no spaces), but are often sequential numbers"
+	<return: #String or: #Integer>
 
 	^ value
 ]
 
 { #category : #accessing }
-RDFBlankNode >> label: aString [
+RDFBlankNode >> label: aStringOrInteger [
 
-	value := aString
+	value := aStringOrInteger 
+]
+
+{ #category : #printing }
+RDFBlankNode >> printOn: aStream [
+
+	value ifNil: [ ^ super printOn: aStream ].
+
+	aStream
+		<< '_:';
+		<< value asString
+]
+
+{ #category : #printing }
+RDFBlankNode >> printSparqlOn: aStream [
+	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
+	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
+
+	aStream
+		<< '_:b';
+		<< value asString
 ]
 
 { #category : #accessing }

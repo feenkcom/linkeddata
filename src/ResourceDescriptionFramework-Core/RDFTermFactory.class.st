@@ -7,6 +7,14 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 
+{ #category : #testing }
+RDFTermFactory class >> isDynamic [
+	"Answer a boolean indicating whether the receiver is a dynamic factory, i.e. doesn't have a fixed prefix and shortName.
+	Most subclasses aren't dynamic, those that are should override this"
+
+	^ false.
+]
+
 { #category : #factory }
 RDFTermFactory >> namedNode: aString [
 	<return: #RDFNamedNode>

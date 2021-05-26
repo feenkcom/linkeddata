@@ -14,8 +14,12 @@ RDFTurtleIriNode >> acceptVisitor: aDocumentVisitor [
 
 { #category : #converting }
 RDFTurtleIriNode >> asRDFTermFor: aVisitor [
+	| iriString |
 
-	^ RDFNamedNode new value: (self urlWithPrefixes: aVisitor prefixes)
+	iriString := self urlWithPrefixes: aVisitor prefixes.
+	^ aVisitor resources 
+		atIRI: iriString
+		ifAbsent: [ RDFNamedNode new value: iriString ]
 ]
 
 { #category : #generated }

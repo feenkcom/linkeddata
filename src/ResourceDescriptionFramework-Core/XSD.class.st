@@ -45,6 +45,13 @@ XSD class >> iriNames [
 	^ #(boolean date dateTime decimal double integer string)
 ]
 
+{ #category : #testing }
+XSD class >> isDeprecated [ 
+	"XSD is deprecated, RdfVocabularies should be used instead"
+	
+	^ true
+]
+
 { #category : #factory }
 XSD class >> namedNode: aString [
 	^ self factory namedNode: aString

@@ -4,6 +4,13 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 
+{ #category : #testing }
+FOAFFactory class >> isDeprecated [ 
+	"RDF is deprecated, RdfVocabularies should be used instead"
+	
+	^ true
+]
+
 { #category : #factory }
 FOAFFactory >> givenName [
 	^ self namedNodeSuffix: 'givenName'

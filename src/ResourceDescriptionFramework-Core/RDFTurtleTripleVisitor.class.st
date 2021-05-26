@@ -7,7 +7,12 @@ Class {
 	#instVars : [
 		'prefixes',
 		'triples',
-		'subject'
+		'subject',
+		'predicate',
+		'object',
+		'resources',
+		'tripleBuilder',
+		'blankNodeIndex'
 	],
 	#category : #'ResourceDescriptionFramework-Core-Parsers'
 }
@@ -28,6 +33,16 @@ RDFTurtleTripleVisitor >> initialize [
 	super initialize.
 	triples := OrderedCollection new.
 	prefixes := Dictionary new.
+	resources := RdfResources uniqueInstance.
+	tripleBuilder := RDFTripleBuilder new.
+	blankNodeIndex := -1.
+]
+
+{ #category : #accessing }
+RDFTurtleTripleVisitor >> nextBlankNodeIndex [
+	"Answer the next index to be used for RdfBlankNodes"
+
+	^ blankNodeIndex := blankNodeIndex + 1
 ]
 
 { #category : #accessing }
@@ -36,23 +51,33 @@ RDFTurtleTripleVisitor >> prefixes [
 ]
 
 { #category : #accessing }
+RDFTurtleTripleVisitor >> resources [
+	^ resources
+]
+
+{ #category : #accessing }
 RDFTurtleTripleVisitor >> triples [
 	^ triples
 ]
 
 { #category : #generated }
-RDFTurtleTripleVisitor >> visitPredicateObjectList: aPredicateObjectList [
-	| objectList |
+RDFTurtleTripleVisitor >> visitBlankNodePropertyList: aBlankNodePropertyList [
+	| oldSubject |
 
-	1 to: aPredicateObjectList verbs size do: [ :index |
-		objectList := aPredicateObjectList objectLists at: index.
-		objectList objects do: [ :listObject |
-			triples add: (RDFTripleBuilder new 
-				subject: subject;
-				predicateTerm: ((aPredicateObjectList verbs at: index) asRDFTermFor: self);
-				objectTerm: (listObject asRDFTermFor: self);
-				build) ] ].
-	^ self visitDocument: aPredicateObjectList
+	oldSubject := subject.
+	subject := object.
+	self visitDocument: aBlankNodePropertyList.
+	subject := oldSubject.
+]
+
+{ #category : #generated }
+RDFTurtleTripleVisitor >> visitObject: aRdfTurtleObjectNode [
+
+	object := aRdfTurtleObjectNode asRDFTermFor: self.
+	triples add: (tripleBuilder
+		objectTerm: object;
+		build).
+	self visitDocument: aRdfTurtleObjectNode.
 ]
 
 { #category : #generated }
@@ -68,6 +93,13 @@ RDFTurtleTripleVisitor >> visitPrefixID: aPrefixID [
 { #category : #generated }
 RDFTurtleTripleVisitor >> visitSubject: aSubject [
 
-	subject := (RDFSubject term: (aSubject asRDFTermFor: self)).
+	tripleBuilder subjectTerm: (subject := aSubject asRDFTermFor: self).
 	^ self visitDocument: aSubject
+]
+
+{ #category : #generated }
+RDFTurtleTripleVisitor >> visitVerb: aVerb [
+
+	tripleBuilder predicateTerm: (predicate := aVerb asRDFTermFor: self).
+	^ self visitDocument: aVerb
 ]

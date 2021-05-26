@@ -1,6 +1,9 @@
 Class {
 	#name : #RDFStore,
 	#superclass : #Object,
+	#instVars : [
+		'dbMutex'
+	],
 	#category : #'ResourceDescriptionFramework-Core-Storage'
 }
 
@@ -20,6 +23,37 @@ RDFStore >> addTriple: aRDFTriple [
 	self subclassResponsibility
 ]
 
+{ #category : #adding }
+RDFStore >> addTriples: aCollection [
+
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
+RDFStore >> datasetUrl [ 
+
+	^ self subclassResponsibility
+]
+
+{ #category : #deleting }
+RDFStore >> deleteWithSubject: aRdfSubject predicate: aRdfPredicate [
+
+	self subclassResponsibility 
+]
+
+{ #category : #adding }
+RDFStore >> flush [ 
+	"Flush the receiver's write cache.
+	Subclasses will override this as required."
+]
+
+{ #category : #initialization }
+RDFStore >> initialize [ 
+
+	super initialize.
+	dbMutex := Semaphore forMutualExclusion.
+]
+
 { #category : #enumerating }
 RDFStore >> resourceForSubject: aSubject withSphere: aRDFSphere [
 	<return: #RDFResourceWithSphere>
@@ -31,7 +65,24 @@ RDFStore >> resourceForSubject: aSubject withSphere: aRDFSphere [
 ]
 
 { #category : #enumerating }
-RDFStore >> triplesForPredicate: aPredicate [
+RDFStore >> triplesForSubject: aSubject forSphere: aRDFSphere [
+	<return: #RDFList>
+
+	^ RDFList new collection: ((
+		self triplesWithSubject: aSubject) collection select: [ :aTriplet |
+			aRDFSphere isInterestedInTriplet: aTriplet ])
+]
+
+{ #category : #querying }
+RDFStore >> triplesForSubjectIRI: aString [ 
+	"Answer the collection of triples for the supplied subject IRI"
+	<return: #RDFList>
+
+	^ self triplesWithSubject: (RDFTripleBuilder new subjectIRI: aString)
+]
+
+{ #category : #enumerating }
+RDFStore >> triplesWithPredicate: aPredicate [
 	<return: #RDFList>
 
 	^ RDFList new collection: (self collection 
@@ -42,7 +93,7 @@ RDFStore >> triplesForPredicate: aPredicate [
 ]
 
 { #category : #enumerating }
-RDFStore >> triplesForSubject: aSubject [
+RDFStore >> triplesWithSubject: aSubject [
 	<return: #RDFList>
 
 	^ RDFList new collection: (self collection 
@@ -52,11 +103,32 @@ RDFStore >> triplesForSubject: aSubject [
 				aList add: eachTriple ]. aList ])
 ]
 
-{ #category : #enumerating }
-RDFStore >> triplesForSubject: aSubject forSphere: aRDFSphere [
-	<return: #RDFList>
+{ #category : #adding }
+RDFStore >> tsAddTriple: aRdfTriple [
+	"Add the supplied triple, allowing for multi-threading"
 
-	^ RDFList new collection: ((
-		self triplesForSubject: aSubject) collection select: [ :aTriplet |
-			aRDFSphere isInterestedInTriplet: aTriplet ])
+	dbMutex critical: 
+		[ self addTriple: aRdfTriple ]
+]
+
+{ #category : #adding }
+RDFStore >> tsAddTriples: aCollection [
+	"Add the supplied triples, allowing for multi-threading"
+
+	dbMutex critical: 
+		[ self addTriples: aCollection ]
+]
+
+{ #category : #adding }
+RDFStore >> tsFlush [
+
+	dbMutex critical: [ self flush ]
+]
+
+{ #category : #adding }
+RDFStore >> tsUpdate: aString [
+	"Evalute the supplied update string, allowing for multi-threading"
+
+	dbMutex critical: 
+		[ self update: aString ]
 ]

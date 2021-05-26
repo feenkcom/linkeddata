@@ -4,6 +4,13 @@ Class {
 	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 
+{ #category : #testing }
+RDFFactory class >> isDeprecated [ 
+	"RDF is deprecated, RdfVocabularies should be used instead"
+	
+	^ true
+]
+
 { #category : #factory }
 RDFFactory >> literal: aValue [
 	<return: #RDFLiteral>

@@ -19,3 +19,10 @@ FOAF class >> iriNames [
 
 	^ #(givenName)
 ]
+
+{ #category : #testing }
+FOAF class >> isDeprecated [ 
+	"FOAF is deprecated, RdfVocabularies should be used instead"
+	
+	^ true
+]

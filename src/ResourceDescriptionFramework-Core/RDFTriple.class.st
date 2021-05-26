@@ -81,10 +81,9 @@ RDFTriple >> predicate [
 
 { #category : #accessing }
 RDFTriple >> predicate: aPredicate [
-	"Set the receiver's predicate.
-	There's only a limited set of predicates, however they are used many times each.  Try and use a single instance."
+	"Set the receiver's predicate"
 
-	predicate := RDFConvenience predicateAt: aPredicate fullName.
+	predicate := aPredicate.
 
 ]
 
@@ -108,6 +107,17 @@ RDFTriple >> printSentenceOn: aStream [
 		aStream nextPutAll: 'has a '; print: aPredicate ].
 	self object ifNotNil: [ :anObject | 
 		aStream nextPutAll: ' whose value is '; print: anObject; nextPut: $. ].
+]
+
+{ #category : #printing }
+RDFTriple >> printSparqlOn: aStream [
+
+	subject printSparqlOn: aStream.
+	aStream space.
+	predicate printSparqlOn: aStream.
+	aStream space.
+	object printSparqlOn: aStream.
+	aStream << ' .'.
 ]
 
 { #category : #accessing }

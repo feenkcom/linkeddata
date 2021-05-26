@@ -12,6 +12,12 @@ RDFTurtleBlankNodePropertyListNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitBlankNodePropertyList: self
 ]
 
+{ #category : #converting }
+RDFTurtleBlankNodePropertyListNode >> asRDFTermFor: aVisitor [
+
+	^ RDFBlankNode new label: aVisitor nextBlankNodeIndex 
+]
+
 { #category : #generated }
 RDFTurtleBlankNodePropertyListNode >> list [
 	^ list

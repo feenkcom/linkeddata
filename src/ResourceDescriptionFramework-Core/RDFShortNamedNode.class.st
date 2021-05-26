@@ -1,3 +1,6 @@
+"
+A RDFShortNamedNode is an IRI that uses a RDFNamespaceNamedNode for the prefix and stores only the attribute name as its value.
+"
 Class {
 	#name : #RDFShortNamedNode,
 	#superclass : #RDFNamedNode,
@@ -6,6 +9,12 @@ Class {
 	],
 	#category : #'ResourceDescriptionFramework-Core-Model'
 }
+
+{ #category : #accessing }
+RDFShortNamedNode >> iri [ 
+
+	^ namespace value, value
+]
 
 { #category : #accessing }
 RDFShortNamedNode >> name [ 
@@ -63,4 +72,13 @@ RDFShortNamedNode >> printOn: aStream [
 RDFShortNamedNode >> printShortNameOn: aStream [
 	self value ifNil: [ ^ super printOn: aStream ].
 	aStream nextPutAll: self value asString.
+]
+
+{ #category : #printing }
+RDFShortNamedNode >> printSparqlOn: aStream [
+
+	aStream
+		<< namespace shortName;
+		nextPut: $:;
+		<< value
 ]

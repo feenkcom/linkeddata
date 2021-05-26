@@ -24,6 +24,19 @@ RDFSimpleCollectionStore >> collection [
 	^ collection
 ]
 
+{ #category : #accessing }
+RDFSimpleCollectionStore >> datasetUrl [ 
+
+	^ #'memory://'
+]
+
+{ #category : #deleting }
+RDFSimpleCollectionStore >> deleteWithSubject: aRdfSubject predicate: aRdfPredicate [
+
+	collection := collection reject: 
+		[ :each | each subject = aRdfSubject and: [ each predicate = aRdfPredicate ] ]
+]
+
 { #category : #enumerating }
 RDFSimpleCollectionStore >> do: doBlock [
 	^ self collection do: doBlock
@@ -98,6 +111,16 @@ RDFSimpleCollectionStore >> gtViewCollectionSimpleFor: aView [
 RDFSimpleCollectionStore >> initialize [
 	super initialize.
 	collection := OrderedCollection new.
+]
+
+{ #category : #querying }
+RDFSimpleCollectionStore >> objectValuesWithSubject: aRDFSubject predicate: aRdfPredicate [
+	<return: #Collection of: #RDFLiteral>
+
+	^ collection 
+		select: [ :triple | triple subject = aRDFSubject and: [ triple predicate = aRdfPredicate ] ]
+		thenCollect: [ :triple | triple object term ]
+
 ]
 
 { #category : #accessing }

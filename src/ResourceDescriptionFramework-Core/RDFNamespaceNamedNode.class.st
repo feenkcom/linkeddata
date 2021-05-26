@@ -1,3 +1,6 @@
+"
+RDFNamespaceNamedNode is an named namespace IRI, e.g. the value is a namespace such as 'http://xmlns.com/foaf/0.1/' (Friend of a Friend), and the shortName is how it is typically prefixed, e.g. 'foaf'.
+"
 Class {
 	#name : #RDFNamespaceNamedNode,
 	#superclass : #RDFNamedNode,
@@ -16,8 +19,11 @@ RDFNamespaceNamedNode >> printFullNameOn: aStream [
 { #category : #printing }
 RDFNamespaceNamedNode >> printOn: aStream [
 	self value ifNil: [ ^ super printOn: aStream ].
-	aStream nextPutAll: self shortName asString; nextPutAll: ' = '.
-	super printOn: aStream. 
+	aStream 
+		<< self shortName asString; 
+		<< ': ';
+		<< value.
+
 ]
 
 { #category : #accessing }
