@@ -34,11 +34,23 @@ SparqlQueryResult >> at: rowNumber at: columnNumber [
 	^ self value at: rowNumber at: columnNumber
 ]
 
+{ #category : #API }
+SparqlQueryResult >> atColumn: anInteger [
+
+	^ self value atColumn: anInteger
+]
+
 { #category : #accessing }
 SparqlQueryResult >> bindings [ 
 	"Answer the receiver's bindings"
 
 	^ (source at: #results) at: #bindings
+]
+
+{ #category : #API }
+SparqlQueryResult >> column1 [
+
+	^ self atColumn: 1
 ]
 
 { #category : #enumerating }

@@ -167,3 +167,11 @@ RdfResources >> resources [
 
 	^ resourcesByName values
 ]
+
+{ #category : #accessing }
+RdfResources >> sparqlPrefixString [
+	"Answer a string that defines all the known namespaces in sparql format"
+
+	^ String streamContents: [ :stream |
+		self printNamespacesOn: stream ]
+]
