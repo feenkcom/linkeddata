@@ -1,5 +1,6 @@
 "
 RDFNamedNode holds an unnamed IRI.
+
 "
 Class {
 	#name : #RDFNamedNode,
