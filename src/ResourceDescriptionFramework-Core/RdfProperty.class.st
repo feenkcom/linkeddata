@@ -1,7 +1,8 @@
 "
 RdfProperty represents a URI reference to a property.  RdfPropertys are used as the predicates in RDF triples.
 
-The namespace of the class is held in ==namespace==, the local name is held in ==name==.
+The namespace of the class is held in `namespace`, the local name is held in `name`.
+
 "
 Class {
 	#name : #RdfProperty,

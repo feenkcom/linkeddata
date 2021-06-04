@@ -1,5 +1,6 @@
 "
 RDFTurtleTripleVisitor extracts all the triples from a RDFTurtleTurtleDocNode.
+
 "
 Class {
 	#name : #RDFTurtleTripleVisitor,

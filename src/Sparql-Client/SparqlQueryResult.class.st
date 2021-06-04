@@ -2,6 +2,7 @@
 SparqlQueryResult holds the JSON encoded result of a SPARQL query in its source and provides convenient access to decoded values.
 
 See https://www.w3.org/TR/sparql11-results-json/
+
 "
 Class {
 	#name : #SparqlQueryResult,

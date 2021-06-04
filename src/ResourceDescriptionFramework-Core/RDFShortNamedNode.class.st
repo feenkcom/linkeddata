@@ -1,5 +1,6 @@
 "
 A RDFShortNamedNode is an IRI that uses a RDFNamespaceNamedNode for the prefix and stores only the attribute name as its value.
+
 "
 Class {
 	#name : #RDFShortNamedNode,

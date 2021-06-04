@@ -3,6 +3,7 @@ Use Apache Jena as the back-end triple store.
 
 - Tested against Apache Jena 4.0.
 - Currently assumes credentials are not required.
+
 "
 Class {
 	#name : #RDFJenaStore,

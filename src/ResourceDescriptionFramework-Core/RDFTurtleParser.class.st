@@ -5,8 +5,9 @@ This is based on the Antlr parser from <https://github.com/antlr/grammars-v4/tre
 
 - to produce a better AST for extracting strings
 - accepting ECHAR and UCHAR in STRING_LITERAL_QUOTE
-  - as Jena returns escaped characters, e.g. '\r', in single double-quote strings.
+  - as Jena returns escaped characters, e.g. 'r', in single double-quote strings.
 - Some unicode references removed.  These should probably be added back in.
+
 "
 Class {
 	#name : #RDFTurtleParser,

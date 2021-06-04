@@ -1,7 +1,8 @@
 "
 RdfClass represents a URI reference to a class.
 
-The namespace of the class is held in ==namespace==, the local name is held in ==name==.
+The namespace of the class is held in `namespace`, the local name is held in `name`.
+
 "
 Class {
 	#name : #RdfClass,

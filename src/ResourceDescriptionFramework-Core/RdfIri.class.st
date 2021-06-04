@@ -1,5 +1,6 @@
 "
 RdfIri is used to represent URI resources where the resource is not part of a defined vocabulary, i.e. there isn't a known namespace.
+
 "
 Class {
 	#name : #RdfIri,

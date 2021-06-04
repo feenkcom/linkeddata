@@ -5,6 +5,7 @@ See:
 
 - https://www.w3.org/TR/2013/REC-sparql11-http-rdf-update-20130321/
 - https://www.w3.org/TR/sparql11-protocol/
+
 "
 Class {
 	#name : #SparqlClient,

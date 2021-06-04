@@ -2,6 +2,7 @@
 RdfVocabularyImporter assists with importing vocabularies that are specified in XML format.
 
 Unfortunately the format is rather loose, so a subclass is added for each known vocabulary.
+
 "
 Class {
 	#name : #RdfVocabularyImporter,
