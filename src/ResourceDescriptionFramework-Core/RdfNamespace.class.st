@@ -14,6 +14,14 @@ RdfNamespace class >> name: nameString iri: iriString [
 ]
 
 { #category : #accessing }
+RdfNamespace >> classResources [
+	"Answer the class resouces in this namespace"
+
+	^ RdfResources uniqueInstance resources
+		select: [ :each | each isRdfClass and: [ each namespace name = name ] ]
+]
+
+{ #category : #'gt-extensions' }
 RdfNamespace >> gtPropertiesFor: aView [
 	<gtView>
 
@@ -24,6 +32,15 @@ RdfNamespace >> gtPropertiesFor: aView [
 		items: [ self properties sorted: [ :a :b | a name < b name ] ];
 		column: 'Name' text: [ :item | item name ];
 		column: 'Comment' text: [ :item | item comment ]
+]
+
+{ #category : #'gt-extensions' }
+RdfNamespace >> gtViewClassesFor: aView [
+	<gtView>
+	^ aView list
+		title: 'Classes';
+		priority: 15;
+		items: [ self classResources ]
 ]
 
 { #category : #accessing }
