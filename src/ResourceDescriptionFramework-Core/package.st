@@ -1,1 +1,1 @@
-Package { #name : #'ResourceDescriptionFramework-Core' }
+Package { #name : 'ResourceDescriptionFramework-Core' }

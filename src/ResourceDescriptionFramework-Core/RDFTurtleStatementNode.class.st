@@ -1,28 +1,28 @@
 Class {
-	#name : #RDFTurtleStatementNode,
-	#superclass : #RDFTurtleDocumentNode,
+	#name : 'RDFTurtleStatementNode',
+	#superclass : 'RDFTurtleDocumentNode',
 	#instVars : [
 		'statement'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Parsers'
+	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleStatementNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitStatement: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleStatementNode >> nodeVariables [
 	^ #(#statement)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleStatementNode >> statement [
 	^ statement
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleStatementNode >> statement: aRDFTurtleDocumentNode [
 	self statement notNil
 		ifTrue: [ self statement parent: nil ].

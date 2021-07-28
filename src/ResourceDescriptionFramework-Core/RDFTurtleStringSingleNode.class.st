@@ -1,33 +1,33 @@
 Class {
-	#name : #RDFTurtleStringSingleNode,
-	#superclass : #RDFTurtleDocumentNode,
+	#name : 'RDFTurtleStringSingleNode',
+	#superclass : 'RDFTurtleDocumentNode',
 	#instVars : [
 		'string'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Parsers'
+	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleStringSingleNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitStringSingle: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleStringSingleNode >> string [
 	^ string
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleStringSingleNode >> string: aSmaCCToken [
 	string := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleStringSingleNode >> tokenVariables [
 	^ #(#string)
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 RDFTurtleStringSingleNode >> value [ 
 
 	^ string value copyFrom: 2 to: string value size - 1

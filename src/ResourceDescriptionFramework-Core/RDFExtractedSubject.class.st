@@ -1,26 +1,26 @@
 Class {
-	#name : #RDFExtractedSubject,
-	#superclass : #RDFPreviewObject,
+	#name : 'RDFExtractedSubject',
+	#superclass : 'RDFPreviewObject',
 	#traits : 'TRDFPreviewTriplesEnumeration - {#store}',
 	#classTraits : 'TRDFPreviewTriplesEnumeration classTrait',
-	#category : #'ResourceDescriptionFramework-Core-Helpers'
+	#category : 'ResourceDescriptionFramework-Core-Helpers'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFExtractedSubject >> children [
-	^ OrderedCollection
+	^ #() "OrderedCollection
 		streamContents: [ :aStream | 
-			self triplesWithSameSubjectInto: aStream ]
+			self triplesWithSameSubjectInto: aStream ]"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFExtractedSubject >> childrenGroupedByPredicate [
 	^ (self children groupedBy: #predicate) collect: [ :aCollection |
 		RDFTriplesGroup new 
 			collection: aCollection ]
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 RDFExtractedSubject >> gtTriplesByPredicateGroupingFor: aView [
 	<gtView>
 	self realObject ifNil: [ ^ aView empty ].
@@ -41,7 +41,7 @@ RDFExtractedSubject >> gtTriplesByPredicateGroupingFor: aView [
 						ifFalse: [ anItem object gtDisplayString ] ] ]
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 RDFExtractedSubject >> gtViewSpheresFor: aView [
 	<gtView>
 	^ aView list
@@ -62,37 +62,40 @@ RDFExtractedSubject >> gtViewSpheresFor: aView [
 				yourself  ]
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 RDFExtractedSubject >> gtViewTriplesFor: aView [ 
 	<gtView>
 	^ aView columnedList
 		title: 'Triples';
 		priority: -10;
-		items: [ self children ];
+		items: [ 
+			OrderedCollection
+				streamContents: [ :aStream | 
+					self triplesWithSameSubjectInto: aStream ] ];
 		column: 'Subject' item: #subject;
 		column: 'Predicate' item: #predicate;
 		column: 'Object' item: #object
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFExtractedSubject >> printOn: aStream [
 	self realObject ifNil: [ ^ super printOn: aStream ].
 	aStream print: self realObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFExtractedSubject >> sphereTriples [
 	^ self children select: [ :aTriple |
 		aTriple predicate term = POLY sphere ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFExtractedSubject >> term [
 	<return: #RDFTerm>
 	^ self realObject term
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFExtractedSubject >> tripleSubject [
 	<return: #RDFStore>
 	^ self realObject

@@ -1,6 +1,6 @@
 Class {
-	#name : #RdfResources,
-	#superclass : #RDFProtoObject,
+	#name : 'RdfResources',
+	#superclass : 'RDFProtoObject',
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#instVars : [
@@ -8,34 +8,34 @@ Class {
 		'resourcesByIRI',
 		'namespaces'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Collections'
+	#category : 'ResourceDescriptionFramework-Core-Collections'
 }
 
-{ #category : #'xsd datatypes' }
+{ #category : 'xsd datatypes' }
 RdfResources class >> boolean [ 
 
 	^ self uniqueInstance atName: #xsd:boolean
 ]
 
-{ #category : #'xsd datatypes' }
+{ #category : 'xsd datatypes' }
 RdfResources class >> decimal [ 
 
 	^ self uniqueInstance atName: #xsd:decimal
 ]
 
-{ #category : #'xsd datatypes' }
+{ #category : 'xsd datatypes' }
 RdfResources class >> double [ 
 
 	^ self uniqueInstance atName: #xsd:double
 ]
 
-{ #category : #'xsd datatypes' }
+{ #category : 'xsd datatypes' }
 RdfResources class >> integer [ 
 
 	^ self uniqueInstance atName: #xsd:integer
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 RdfResources class >> newLoaded [
 	"Answer an instance of the receiver loaded with the known vocabularies"
 	| vocabDirectory |
@@ -62,12 +62,12 @@ RdfResources class >> newLoaded [
 	^ uniqueInstance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfResources class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := self newLoaded ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 RdfResources >> add: aRdfResource [
 
 	resourcesByName at: aRdfResource qualifiedName put: aRdfResource.
@@ -75,37 +75,37 @@ RdfResources >> add: aRdfResource [
 	aRdfResource isRdfNamespace ifTrue: [ namespaces add: aRdfResource qualifiedName ].
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 RdfResources >> addAll: aCollection [
 
 	aCollection do: [ :each | self add: each ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfResources >> atIRI: aString [ 
 
 	^ resourcesByIRI at: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfResources >> atIRI: aString ifAbsent: absentBlock [
 
 	^ resourcesByIRI at: aString ifAbsent: absentBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfResources >> atName: aString [ 
 
 	^ resourcesByName at: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfResources >> atName: aString ifAbsent: absentBlock [
 
 	^ resourcesByName at: aString ifAbsent: absentBlock
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 RdfResources >> gtNamespacesFor: aView [
 	<gtView>
 
@@ -116,7 +116,7 @@ RdfResources >> gtNamespacesFor: aView [
 		items: [ namespaces sorted collect: [ :each | self atName: each ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RdfResources >> initialize [ 
 
 	super initialize.
@@ -125,14 +125,14 @@ RdfResources >> initialize [
 	namespaces := Set new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfResources >> predicateAtName: aString [
 
 	^ RDFPredicate term: (resourcesByName at: aString)
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfResources >> predicateAtName: aString ifAbsent: absentBlock [
 
 	^ resourcesByName at: aString 
@@ -140,7 +140,7 @@ RdfResources >> predicateAtName: aString ifAbsent: absentBlock [
 		ifAbsent: absentBlock
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RdfResources >> printNamespacesOn: aStream [
 	"Print the receiver's known namespaces on the supplied stream in sparql format"
 
@@ -154,21 +154,21 @@ RdfResources >> printNamespacesOn: aStream [
 			cr ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfResources >> resourceNames [ 
 	"Answer the names of all the known resources"
 
 	^ resourcesByName keys
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfResources >> resources [
 	"Answer the known resources"
 
 	^ resourcesByName values
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfResources >> sparqlPrefixString [
 	"Answer a string that defines all the known namespaces in sparql format"
 

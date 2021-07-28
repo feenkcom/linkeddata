@@ -1,31 +1,31 @@
 Class {
-	#name : #RDFSimpleCollectionFeatureViewsStore,
-	#superclass : #RDFStore,
+	#name : 'RDFSimpleCollectionFeatureViewsStore',
+	#superclass : 'RDFStore',
 	#traits : 'TSRFFeatureRemoteViewBuilder',
 	#classTraits : 'TSRFFeatureRemoteViewBuilder classTrait',
 	#instVars : [
 		'collection'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Storage'
+	#category : 'ResourceDescriptionFramework-Core-Storage'
 }
 
-{ #category : #adding }
+{ #category : 'adding' }
 RDFSimpleCollectionFeatureViewsStore >> addTriple: aRDFTriple [
 	aRDFTriple store: self.
 	self collection add: aRDFTriple
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFSimpleCollectionFeatureViewsStore >> collection [
 	^ collection
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 RDFSimpleCollectionFeatureViewsStore >> do: doBlock [
 	^ self collection do: doBlock
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 RDFSimpleCollectionFeatureViewsStore >> extractedSubjects [
 	<return: #Array of: #RDFExtracedSubject>
 	| theSubjects |
@@ -36,13 +36,13 @@ RDFSimpleCollectionFeatureViewsStore >> extractedSubjects [
 				store: self ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RDFSimpleCollectionFeatureViewsStore >> getJsObjectCode [
 	^ 'let sopod = require(''sopod'');
 new sopod.SoGenericTriplesViewer();'
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionFeatureViewsStore >> gtCollectionFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
@@ -53,7 +53,7 @@ RDFSimpleCollectionFeatureViewsStore >> gtCollectionFor: aView [
 			asElementDo: [ :anElement | anElement ] ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionFeatureViewsStore >> gtTriplesSubjectFor: aView [
 	"<gtView>"
 	self collection ifNil: [ ^ aView empty ].
@@ -64,7 +64,7 @@ RDFSimpleCollectionFeatureViewsStore >> gtTriplesSubjectFor: aView [
 		children: [ :eachExtractedItem | eachExtractedItem children ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionFeatureViewsStore >> gtViewCollectionRawFor: aView [
 	"<gtView>"
 	self collection ifNil: [ ^ aView empty ].
@@ -83,7 +83,7 @@ RDFSimpleCollectionFeatureViewsStore >> gtViewCollectionRawFor: aView [
 			format: [ :anObject | anObject term fullNameWithDataType ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionFeatureViewsStore >> gtViewCollectionSimpleFor: aView [
 	"<gtView>"
 	self collection ifNil: [ ^ aView empty ].
@@ -96,7 +96,7 @@ RDFSimpleCollectionFeatureViewsStore >> gtViewCollectionSimpleFor: aView [
 		column: 'Object' item: #object
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesCountriesTreeMapFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
@@ -107,7 +107,7 @@ RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesCountriesTreeMapFor: aView 
 			asElementDo: [ :anElement | anElement ] ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesDataLawTreeMapFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
@@ -118,7 +118,7 @@ RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesDataLawTreeMapFor: aView [
 			asElementDo: [ :anElement | anElement ] ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesNamesViewFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
@@ -129,7 +129,7 @@ RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesNamesViewFor: aView [
 			asElementDo: [ :anElement | anElement ] ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesViewFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
@@ -140,18 +140,18 @@ RDFSimpleCollectionFeatureViewsStore >> gtViewCookiesViewFor: aView [
 			asElementDo: [ :anElement | anElement ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RDFSimpleCollectionFeatureViewsStore >> initialize [
 	super initialize.
 	collection := OrderedCollection new.
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 RDFSimpleCollectionFeatureViewsStore >> select: selectBlock thenCollect: collectBlock [
 	^ self collection select: selectBlock thenCollect: collectBlock
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 RDFSimpleCollectionFeatureViewsStore >> spheres [
 	<return: #RDFSpheres>
 	| spheres |

@@ -1,19 +1,19 @@
 Class {
-	#name : #RdfNamespace,
-	#superclass : #RdfResource,
+	#name : 'RdfNamespace',
+	#superclass : 'RdfResource',
 	#instVars : [
 		'iri'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Model'
+	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 RdfNamespace class >> name: nameString iri: iriString [
 
 	^ self new name: nameString iri: iriString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfNamespace >> classResources [
 	"Answer the class resouces in this namespace"
 
@@ -21,7 +21,7 @@ RdfNamespace >> classResources [
 		select: [ :each | each isRdfClass and: [ each namespace name = name ] ]
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 RdfNamespace >> gtPropertiesFor: aView [
 	<gtView>
 
@@ -34,7 +34,7 @@ RdfNamespace >> gtPropertiesFor: aView [
 		column: 'Comment' text: [ :item | item comment ]
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 RdfNamespace >> gtViewClassesFor: aView [
 	<gtView>
 	^ aView list
@@ -43,30 +43,30 @@ RdfNamespace >> gtViewClassesFor: aView [
 		items: [ self classResources ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfNamespace >> iri [
 	^ iri
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfNamespace >> iri: anObject [
 	iri := anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 RdfNamespace >> isRdfNamespace [
 
 	^ true
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RdfNamespace >> name: nameString iri: iriString [
 
 	name := nameString.
 	iri := iriString.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RdfNamespace >> printOn: aStream [
 
 	(name isNil and: [ iri isNil ]) ifTrue:
@@ -78,7 +78,7 @@ RdfNamespace >> printOn: aStream [
 		<< iri
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RdfNamespace >> printSparqlOn: aStream [
 	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
 	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
@@ -88,7 +88,7 @@ RdfNamespace >> printSparqlOn: aStream [
 		nextPut: $:
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfNamespace >> properties [ 
 	"Answer the receiver's properties"
 
@@ -96,7 +96,7 @@ RdfNamespace >> properties [
 		select: [ :each | each isRdfProperty and: [ each namespace name = name ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfNamespace >> qualifiedName [
 	"Answer the receiver's qualified name.
 	For a namespace, this is the name"

@@ -5,8 +5,8 @@ Unfortunately the format is rather loose, so a subclass is added for each known 
 
 "
 Class {
-	#name : #RdfVocabularyImporter,
-	#superclass : #Object,
+	#name : 'RdfVocabularyImporter',
+	#superclass : 'Object',
 	#instVars : [
 		'xmlDoc',
 		'name',
@@ -14,10 +14,10 @@ Class {
 		'resources',
 		'namespace'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Importers'
+	#category : 'ResourceDescriptionFramework-Core-Importers'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 RdfVocabularyImporter class >> fromFile: aFileReference shortName: aString [
 
 	^ self new 
@@ -25,27 +25,27 @@ RdfVocabularyImporter class >> fromFile: aFileReference shortName: aString [
 		shortName: aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RdfVocabularyImporter >> addClass: aXMLElement [
 	"Add a RdfClass based on the supplied element"
 
 	self subclassResponsibility 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RdfVocabularyImporter >> addProperty: aXMLElement [
 	"Add a RdfClass based on the supplied element"
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfVocabularyImporter >> file: aFileReference [ 
 
 	xmlDoc := XMLDOMParser parse: aFileReference asFileReference contents.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RdfVocabularyImporter >> findNamespaces [
 	"Find the namespaces.
 	Use known namespaces from RdfResources, but don't add new ones yet"
@@ -59,7 +59,7 @@ RdfVocabularyImporter >> findNamespaces [
 				[ RdfNamespace name: each name iri: each uri ]) ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RdfVocabularyImporter >> findResources [
 	"Iterate over all the elements and extract the resources"
 
@@ -70,7 +70,7 @@ RdfVocabularyImporter >> findResources [
 			[ self addProperty: each ] ] ]
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 RdfVocabularyImporter >> import [ 
 
 	self findNamespaces.
@@ -80,7 +80,7 @@ RdfVocabularyImporter >> import [
 		addAll: resources.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RdfVocabularyImporter >> initialize [
 
 	super initialize.
@@ -88,28 +88,28 @@ RdfVocabularyImporter >> initialize [
 	resources := Dictionary new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfVocabularyImporter >> name [
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfVocabularyImporter >> name: anObject [
 	name := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfVocabularyImporter >> namespace [ 
 
 	^ namespace ifNil: [ namespace := namespaces at: name ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfVocabularyImporter >> xmlDoc [
 	^ xmlDoc
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfVocabularyImporter >> xmlDoc: anObject [
 	xmlDoc := anObject
 ]

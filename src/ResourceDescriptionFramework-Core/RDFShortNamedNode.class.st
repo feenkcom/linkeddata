@@ -3,33 +3,33 @@ A RDFShortNamedNode is an IRI that uses a RDFNamespaceNamedNode for the prefix a
 
 "
 Class {
-	#name : #RDFShortNamedNode,
-	#superclass : #RDFNamedNode,
+	#name : 'RDFShortNamedNode',
+	#superclass : 'RDFNamedNode',
 	#instVars : [
 		'namespace'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Model'
+	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFShortNamedNode >> iri [ 
 
 	^ namespace value, value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFShortNamedNode >> name [ 
 
 	^ namespace value, value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFShortNamedNode >> namespace [
 	<return: #RDFNamespaceNamedNode>
 	^ namespace
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFShortNamedNode >> namespace: aRDFNamespaceNamedNode [
 	self 
 		assert: [ aRDFNamespaceNamedNode isNotNil ] 
@@ -37,7 +37,7 @@ RDFShortNamedNode >> namespace: aRDFNamespaceNamedNode [
 	namespace := aRDFNamespaceNamedNode
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFShortNamedNode >> printDescriptionOn: aStream [
 	aStream nextPutAll: 'Short name: '.
 	self printShortNameOn: aStream.
@@ -45,21 +45,21 @@ RDFShortNamedNode >> printDescriptionOn: aStream [
 	self printFullNameOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFShortNamedNode >> printFullNameOn: aStream [
 	self namespace ifNil: [ ^ self printOn: aStream ].
 	self namespace printFullNameOn: aStream.
 	aStream << value asString.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFShortNamedNode >> printFullNameWithDataTypeOn: aStream [
 	self namespace ifNil: [ ^ self printOn: aStream ].
 	self namespace printFullNameWithDataTypeOn: aStream.
 	aStream << value asString.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFShortNamedNode >> printOn: aStream [
 	self value ifNil: [ ^ super printOn: aStream ].
 	self namespace ifNil: [ ^ super printOn: aStream ].
@@ -69,13 +69,13 @@ RDFShortNamedNode >> printOn: aStream [
 	super printOn: aStream. 
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFShortNamedNode >> printShortNameOn: aStream [
 	self value ifNil: [ ^ super printOn: aStream ].
 	aStream nextPutAll: self value asString.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFShortNamedNode >> printSparqlOn: aStream [
 
 	aStream

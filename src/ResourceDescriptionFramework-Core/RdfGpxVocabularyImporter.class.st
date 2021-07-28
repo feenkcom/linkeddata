@@ -1,17 +1,17 @@
 Class {
-	#name : #RdfGpxVocabularyImporter,
-	#superclass : #RdfVocabularyImporter,
-	#category : #'ResourceDescriptionFramework-Core-Importers'
+	#name : 'RdfGpxVocabularyImporter',
+	#superclass : 'RdfVocabularyImporter',
+	#category : 'ResourceDescriptionFramework-Core-Importers'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 RdfGpxVocabularyImporter >> addClass: aXMLElement [
 	"Add a RdfClass based on the supplied element"
 
 	self error: 'The definition at the time didn''t define any classes'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RdfGpxVocabularyImporter >> addProperty: aXMLElement [
 	"Add a RdfClass based on the supplied element"
 	| propertyName hashIndex rdfClass |
@@ -29,7 +29,7 @@ RdfGpxVocabularyImporter >> addProperty: aXMLElement [
 	resources at: rdfClass qualifiedName put: rdfClass.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RdfGpxVocabularyImporter >> findNamespaces [
 	"GPX doesn't seem to specify its own namespace"
 

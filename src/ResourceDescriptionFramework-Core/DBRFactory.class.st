@@ -1,21 +1,21 @@
 Class {
-	#name : #DBRFactory,
-	#superclass : #RDFTermFactory,
-	#category : #'ResourceDescriptionFramework-Core-Factories'
+	#name : 'DBRFactory',
+	#superclass : 'RDFTermFactory',
+	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : #factory }
+{ #category : 'factory' }
 DBRFactory >> prefix [
 	^ 'http://dbpedia.org/resource/'
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 DBRFactory >> resource: aString [
 	<return: #DBRNamedNode>
 	^ self namedNodeSuffix: aString
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 DBRFactory >> shortName [
 	^ 'dbr'
 ]

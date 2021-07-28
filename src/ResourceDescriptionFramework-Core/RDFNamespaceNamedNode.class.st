@@ -3,21 +3,21 @@ RDFNamespaceNamedNode is an named namespace IRI, e.g. the value is a namespace s
 
 "
 Class {
-	#name : #RDFNamespaceNamedNode,
-	#superclass : #RDFNamedNode,
+	#name : 'RDFNamespaceNamedNode',
+	#superclass : 'RDFNamedNode',
 	#instVars : [
 		'shortName'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Model'
+	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFNamespaceNamedNode >> printFullNameOn: aStream [
 	self value ifNil: [ ^ super printOn: aStream ].
 	aStream nextPutAll: self value asString.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFNamespaceNamedNode >> printOn: aStream [
 	self value ifNil: [ ^ super printOn: aStream ].
 	aStream 
@@ -27,12 +27,12 @@ RDFNamespaceNamedNode >> printOn: aStream [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFNamespaceNamedNode >> shortName [
 	^ shortName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFNamespaceNamedNode >> shortName: anObject [
 	shortName := anObject
 ]

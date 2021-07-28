@@ -1,15 +1,15 @@
 Class {
-	#name : #OWL,
-	#superclass : #RDFConvenience,
-	#category : #'ResourceDescriptionFramework-Core-Factories'
+	#name : 'OWL',
+	#superclass : 'RDFConvenience',
+	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : #factory }
+{ #category : 'factory' }
 OWL class >> factory [
 	^ OWLFactory default
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 OWL class >> iriNames [
 
 	^ #()

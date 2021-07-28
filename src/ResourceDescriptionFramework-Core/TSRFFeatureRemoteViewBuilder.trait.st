@@ -1,9 +1,9 @@
 Trait {
-	#name : #TSRFFeatureRemoteViewBuilder,
-	#category : #'ResourceDescriptionFramework-Core-Storage'
+	#name : 'TSRFFeatureRemoteViewBuilder',
+	#category : 'ResourceDescriptionFramework-Core-Storage'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 TSRFFeatureRemoteViewBuilder >> computeColorFromColorMap: aColorMap forTarget: anObject [
 	| colorValues value |
 	colorValues := aColorMap at: 'colors'.
@@ -19,7 +19,7 @@ TSRFFeatureRemoteViewBuilder >> computeColorFromColorMap: aColorMap forTarget: a
 		ifAbsent: [ Color gray ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TSRFFeatureRemoteViewBuilder >> computeItemsFromQuery: aQuery forTarget: aTarget [
 	| currentObject |
 	currentObject := aTarget.
@@ -31,7 +31,7 @@ TSRFFeatureRemoteViewBuilder >> computeItemsFromQuery: aQuery forTarget: aTarget
 	^ currentObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TSRFFeatureRemoteViewBuilder >> computeObjectValueForPredicateMatching: aQuery forTarget: anObject [
 	| currentObject |
 	
@@ -45,7 +45,7 @@ TSRFFeatureRemoteViewBuilder >> computeObjectValueForPredicateMatching: aQuery f
 	^ currentObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TSRFFeatureRemoteViewBuilder >> createColumnedListViewFrom: aViewData onTarget: anObject [
 	| view |
 	view := GtPhlowView empty columnedList.
@@ -83,7 +83,7 @@ TSRFFeatureRemoteViewBuilder >> createColumnedListViewFrom: aViewData onTarget: 
 		
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TSRFFeatureRemoteViewBuilder >> createColumnedTreeMapFrom: aViewData onTarget: anObject [
 	| view |
 	view := GtPhlowView empty explicit.
@@ -131,7 +131,7 @@ TSRFFeatureRemoteViewBuilder >> createColumnedTreeMapFrom: aViewData onTarget: a
 		
 ]
 
-{ #category : #'private - ui' }
+{ #category : 'private - ui' }
 TSRFFeatureRemoteViewBuilder >> createHeaderElementFor: aString [ 
 	^ BrLabel new
 		look:( SoPolypolyLabelLook new
@@ -139,14 +139,14 @@ TSRFFeatureRemoteViewBuilder >> createHeaderElementFor: aString [
 		text: aString asRopedText
 ]
 
-{ #category : #'private - ui' }
+{ #category : 'private - ui' }
 TSRFFeatureRemoteViewBuilder >> createListElementFor: aString [ 
 	^ BrLabel new
 		look: SoPolypolyListLabelLook;
 		text: aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TSRFFeatureRemoteViewBuilder >> createListViewFrom: aViewData onTarget: anObject [
 	| view |
 	view := GtPhlowView empty list.
@@ -178,12 +178,12 @@ TSRFFeatureRemoteViewBuilder >> createListViewFrom: aViewData onTarget: anObject
 		
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TSRFFeatureRemoteViewBuilder >> getJsObjectCode [
 	self explicitRequirement
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TSRFFeatureRemoteViewBuilder >> getSerialisableViewDataForId: aViewId [
 	| featureServer importer |
 	featureServer := JSLinkApplication withDefaultSettings.
@@ -201,7 +201,7 @@ viewedObject.getViewDeclaration(''', aViewId, ''')');
 	] ensure: [ featureServer stop ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TSRFFeatureRemoteViewBuilder >> getSerialisableViewForId: aViewId [
 	| viewData viewType |
 	viewData := self getSerialisableViewDataForId: aViewId.
@@ -216,7 +216,7 @@ TSRFFeatureRemoteViewBuilder >> getSerialisableViewForId: aViewId [
 	^ nil
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 TSRFFeatureRemoteViewBuilder >> getSerialisableViewsData [
 	| featureServer importer |
 	featureServer := JSLinkApplication withDefaultSettings.
@@ -239,7 +239,7 @@ viewsData';
 	] ensure: [ featureServer stop ].
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 TSRFFeatureRemoteViewBuilder >> gtSerialisableViewsListFor: aView [
 	<gtView>
 	^ aView list 
@@ -252,7 +252,7 @@ TSRFFeatureRemoteViewBuilder >> gtSerialisableViewsListFor: aView [
 				data: data ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TSRFFeatureRemoteViewBuilder >> performFormatFor: anOperation on: extractedSubject [
 	| list |
 	list := OrderedCollection streamContents: [ :aStream | 
@@ -266,7 +266,7 @@ TSRFFeatureRemoteViewBuilder >> performFormatFor: anOperation on: extractedSubje
 			ifNone: [ nil ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TSRFFeatureRemoteViewBuilder >> performQuery: aQuery on: currentObject [
 	
 	^ currentObject extractedSubjects select: [ :each | 

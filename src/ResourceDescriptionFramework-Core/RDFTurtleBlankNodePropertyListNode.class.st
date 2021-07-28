@@ -1,29 +1,29 @@
 Class {
-	#name : #RDFTurtleBlankNodePropertyListNode,
-	#superclass : #RDFTurtleDocumentNode,
+	#name : 'RDFTurtleBlankNodePropertyListNode',
+	#superclass : 'RDFTurtleDocumentNode',
 	#instVars : [
 		'list'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Parsers'
+	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleBlankNodePropertyListNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitBlankNodePropertyList: self
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 RDFTurtleBlankNodePropertyListNode >> asRDFTermFor: aVisitor [
 
 	^ RDFBlankNode new label: aVisitor nextBlankNodeIndex 
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleBlankNodePropertyListNode >> list [
 	^ list
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleBlankNodePropertyListNode >> list: aRDFTurtlePredicateObjectListNode [
 	self list notNil
 		ifTrue: [ self list parent: nil ].
@@ -32,7 +32,7 @@ RDFTurtleBlankNodePropertyListNode >> list: aRDFTurtlePredicateObjectListNode [
 		ifTrue: [ self list parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleBlankNodePropertyListNode >> nodeVariables [
 	^ #(#list)
 ]

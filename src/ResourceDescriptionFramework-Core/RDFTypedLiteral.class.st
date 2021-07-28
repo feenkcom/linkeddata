@@ -3,12 +3,12 @@ For a discussion of 'literal' vs 'typed-literal', see https://jena.apache.org/do
 
 "
 Class {
-	#name : #RDFTypedLiteral,
-	#superclass : #RDFLiteral,
-	#category : #'ResourceDescriptionFramework-Core-Model'
+	#name : 'RDFTypedLiteral',
+	#superclass : 'RDFLiteral',
+	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFTypedLiteral class >> typeName [ 
 	"Answer the type the receiver represents."
 

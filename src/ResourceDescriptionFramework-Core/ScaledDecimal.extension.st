@@ -1,6 +1,6 @@
-Extension { #name : #ScaledDecimal }
+Extension { #name : 'ScaledDecimal' }
 
-{ #category : #'*ResourceDescriptionFramework-Core' }
+{ #category : '*ResourceDescriptionFramework-Core' }
 ScaledDecimal >> printSparqlOn: aStream [
 
 	self printOn: aStream showingDecimalPlaces: scale

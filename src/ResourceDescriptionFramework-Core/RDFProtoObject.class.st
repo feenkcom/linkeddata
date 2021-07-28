@@ -1,12 +1,12 @@
 Class {
-	#name : #RDFProtoObject,
-	#superclass : #Object,
+	#name : 'RDFProtoObject',
+	#superclass : 'Object',
 	#traits : 'TGtAssert',
 	#classTraits : 'TGtAssert classTrait',
-	#category : #'ResourceDescriptionFramework-Core-Model'
+	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFProtoObject >> gtMainViewsInContext: aContext [
 	"This collects all views for the current object.
 	By default, it simply looks for the #gtView pragma.
@@ -20,12 +20,12 @@ RDFProtoObject >> gtMainViewsInContext: aContext [
 		collect.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFProtoObject >> printShortNameOn: aStream [
 	self printOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFProtoObject >> shortName [
 	^ String streamContents: [ :aStream | 
 		self printShortNameOn: aStream ]

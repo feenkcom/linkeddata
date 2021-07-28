@@ -1,15 +1,15 @@
 Class {
-	#name : #DBOFactory,
-	#superclass : #RDFTermFactory,
-	#category : #'ResourceDescriptionFramework-Core-Factories'
+	#name : 'DBOFactory',
+	#superclass : 'RDFTermFactory',
+	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : #factory }
+{ #category : 'factory' }
 DBOFactory >> prefix [
 	^ 'http://dbpedia.org/ontology/'
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 DBOFactory >> shortName [
 	^ 'dbo'
 ]

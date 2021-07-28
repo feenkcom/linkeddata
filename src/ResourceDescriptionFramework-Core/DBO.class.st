@@ -1,15 +1,15 @@
 Class {
-	#name : #DBO,
-	#superclass : #RDFConvenience,
-	#category : #'ResourceDescriptionFramework-Core-Factories'
+	#name : 'DBO',
+	#superclass : 'RDFConvenience',
+	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : #factory }
+{ #category : 'factory' }
 DBO class >> factory [
 	^ DBOFactory default
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DBO class >> iriNames [
 
 	^ #()

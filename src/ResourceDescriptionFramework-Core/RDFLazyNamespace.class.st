@@ -1,42 +1,42 @@
 Class {
-	#name : #RDFLazyNamespace,
-	#superclass : #RDFTermFactory,
+	#name : 'RDFLazyNamespace',
+	#superclass : 'RDFTermFactory',
 	#instVars : [
 		'shortName',
 		'prefix'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Factories'
+	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 RDFLazyNamespace class >> isDynamic [
 	"Answer a boolean indicating whether the receiver is a dynamic factory, i.e. doesn't have a fixed prefix and shortName"
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFLazyNamespace >> prefix [
 	^ prefix
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFLazyNamespace >> prefix: anObject [
 	prefix := anObject
 ]
 
-{ #category : #properties }
+{ #category : 'properties' }
 RDFLazyNamespace >> propertyNamed: aString [ 
 
 	^ self namedNodeSuffix: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFLazyNamespace >> shortName [
 	^ shortName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFLazyNamespace >> shortName: anObject [
 	shortName := anObject
 ]

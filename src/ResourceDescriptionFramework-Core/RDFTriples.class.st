@@ -1,30 +1,30 @@
 Class {
-	#name : #RDFTriples,
-	#superclass : #RDFProtoObject,
+	#name : 'RDFTriples',
+	#superclass : 'RDFProtoObject',
 	#instVars : [
 		'collection',
 		'store'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Collections'
+	#category : 'ResourceDescriptionFramework-Core-Collections'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFTriples >> collection [
 	^ collection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFTriples >> collection: anObject [
 	collection := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RDFTriples >> defaultCollection [
 	<return: #Collection>
 	^ self subclassResponsibility
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFTriples >> gtCollectionFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
@@ -34,23 +34,23 @@ RDFTriples >> gtCollectionFor: aView [
 		itemText: [ :aTriple | aTriple sentence ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RDFTriples >> initialize [
 	super initialize.
 	collection := self defaultCollection.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 RDFTriples >> isNotEmpty [
 	^ self collection isNotEmpty
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFTriples >> store [
 	^ store
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFTriples >> store: anObject [
 	store := anObject
 ]

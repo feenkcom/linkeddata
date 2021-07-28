@@ -1,34 +1,34 @@
 Class {
-	#name : #RDFTurtleObjectListNode,
-	#superclass : #RDFTurtleDocumentNode,
+	#name : 'RDFTurtleObjectListNode',
+	#superclass : 'RDFTurtleDocumentNode',
 	#instVars : [
 		'objects'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Parsers'
+	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleObjectListNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitObjectList: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleObjectListNode >> compositeNodeVariables [
 	^ #(#objects)
 ]
 
-{ #category : #'generated-initialize-release' }
+{ #category : 'generated-initialize-release' }
 RDFTurtleObjectListNode >> initialize [
 	super initialize.
 	objects := OrderedCollection new: 2.
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleObjectListNode >> objects [
 	^ objects
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleObjectListNode >> objects: anOrderedCollection [
 	self setParents: self objects to: nil.
 	objects := anOrderedCollection.

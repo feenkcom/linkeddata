@@ -1,19 +1,19 @@
 Class {
-	#name : #RDFPreviewObject,
-	#superclass : #RDFProtoObject,
+	#name : 'RDFPreviewObject',
+	#superclass : 'RDFProtoObject',
 	#instVars : [
 		'store',
 		'realObject'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Helpers'
+	#category : 'ResourceDescriptionFramework-Core-Helpers'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFPreviewObject >> children [
 	^ #()
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFPreviewObject >> gtTriplesSubjectFor: aView [
 	"<gtView>"
 	self realObject ifNil: [ ^ aView empty ].
@@ -23,7 +23,7 @@ RDFPreviewObject >> gtTriplesSubjectFor: aView [
 		children: [ :eachExtractedItem | eachExtractedItem children ]
 ]
 
-{ #category : #simulation }
+{ #category : 'simulation' }
 RDFPreviewObject >> gtViewsInContext: aContext [
 	^ OrderedCollection new
 		addAll: (self realObject gtMainViewsInContext: GtPhlowEmptyView new);
@@ -31,22 +31,22 @@ RDFPreviewObject >> gtViewsInContext: aContext [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFPreviewObject >> realObject [
 	^ realObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFPreviewObject >> realObject: anObject [
 	realObject := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFPreviewObject >> store [
 	^ store
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFPreviewObject >> store: anObject [
 	store := anObject
 ]

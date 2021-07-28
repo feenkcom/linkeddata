@@ -1,15 +1,15 @@
 Class {
-	#name : #RDFS,
-	#superclass : #RDFConvenience,
-	#category : #'ResourceDescriptionFramework-Core-Factories'
+	#name : 'RDFS',
+	#superclass : 'RDFConvenience',
+	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : #factory }
+{ #category : 'factory' }
 RDFS class >> factory [
 	^ RDFSFactory default
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFS class >> iriNames [
 
 	^ #()

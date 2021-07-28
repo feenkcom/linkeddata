@@ -1,29 +1,29 @@
 Class {
-	#name : #RDFTurtleTriplesNode,
-	#superclass : #RDFTurtleDocumentNode,
+	#name : 'RDFTurtleTriplesNode',
+	#superclass : 'RDFTurtleDocumentNode',
 	#instVars : [
 		'subject',
 		'predicateObject'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Parsers'
+	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleTriplesNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitTriples: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleTriplesNode >> nodeVariables [
 	^ #(#subject #predicateObject)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleTriplesNode >> predicateObject [
 	^ predicateObject
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleTriplesNode >> predicateObject: aRDFTurtlePredicateObjectListNode [
 	self predicateObject notNil
 		ifTrue: [ self predicateObject parent: nil ].
@@ -32,12 +32,12 @@ RDFTurtleTriplesNode >> predicateObject: aRDFTurtlePredicateObjectListNode [
 		ifTrue: [ self predicateObject parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleTriplesNode >> subject [
 	^ subject
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleTriplesNode >> subject: aRDFTurtleDocumentNode [
 	self subject notNil
 		ifTrue: [ self subject parent: nil ].

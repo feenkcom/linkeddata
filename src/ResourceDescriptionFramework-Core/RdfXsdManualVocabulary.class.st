@@ -1,10 +1,10 @@
 Class {
-	#name : #RdfXsdManualVocabulary,
-	#superclass : #RdfManualVocabulary,
-	#category : #'ResourceDescriptionFramework-Core-Importers'
+	#name : 'RdfXsdManualVocabulary',
+	#superclass : 'RdfManualVocabulary',
+	#category : 'ResourceDescriptionFramework-Core-Importers'
 }
 
-{ #category : #adding }
+{ #category : 'adding' }
 RdfXsdManualVocabulary >> addToRdfResources [
 	| resource |
 
@@ -39,7 +39,7 @@ RdfXsdManualVocabulary >> addToRdfResources [
 		addAll: resources.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RdfXsdManualVocabulary >> initialize [
 
 	super initialize.

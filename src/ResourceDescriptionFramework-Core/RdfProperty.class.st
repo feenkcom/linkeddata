@@ -5,37 +5,37 @@ The namespace of the class is held in `namespace`, the local name is held in `na
 
 "
 Class {
-	#name : #RdfProperty,
-	#superclass : #RdfResource,
+	#name : 'RdfProperty',
+	#superclass : 'RdfResource',
 	#instVars : [
 		'namespace'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Model'
+	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfProperty >> iri [ 
 
 	^ namespace iri, name
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 RdfProperty >> isRdfProperty [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfProperty >> namespace [
 	^ namespace
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfProperty >> namespace: anObject [
 	namespace := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RdfProperty >> printOn: aStream [
 
 	name ifNotNil: 
@@ -45,7 +45,7 @@ RdfProperty >> printOn: aStream [
 		[ super printOn: aStream ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RdfProperty >> printSparqlOn: aStream [
 	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
 	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
@@ -56,14 +56,14 @@ RdfProperty >> printSparqlOn: aStream [
 		<< name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfProperty >> qualifiedName [
 	"Answer the receiver's qualified name, i.e. <namespace>:<name>."
 
 	^ namespace name, ':', name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RdfProperty >> termType [
 	"Compatibility with RDFNamedNode"
 

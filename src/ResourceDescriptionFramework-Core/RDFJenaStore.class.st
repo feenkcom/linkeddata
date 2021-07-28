@@ -6,8 +6,8 @@ Use Apache Jena as the back-end triple store.
 
 "
 Class {
-	#name : #RDFJenaStore,
-	#superclass : #RDFStore,
+	#name : 'RDFJenaStore',
+	#superclass : 'RDFStore',
 	#instVars : [
 		'sparqlClient',
 		'maxBufferSize',
@@ -16,16 +16,16 @@ Class {
 		'writeStrings',
 		'prefixes'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Storage'
+	#category : 'ResourceDescriptionFramework-Core-Storage'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 RDFJenaStore class >> datasetUrl: aURL [
 
 	^ self new datasetUrl: aURL
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFJenaStore >> addPrefix: prefixName iri: aString [ 
 	"Add the supplied prefix, ensuring that it matches an existing definition"
 	| iri newIri |
@@ -35,7 +35,7 @@ RDFJenaStore >> addPrefix: prefixName iri: aString [
 	newIri = iri ifFalse: [ self error: 'Prefix definition contradicts existing definition' ].
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 RDFJenaStore >> addTriple: aRDFTriple [
 
 	maxBufferSize = 0 ifTrue: [ ^ self flushTriples: { aRDFTriple } ].
@@ -43,7 +43,7 @@ RDFJenaStore >> addTriple: aRDFTriple [
 	writeTriples size >= maxBufferSize ifTrue: [ self flush ].
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 RDFJenaStore >> addTriples: aCollection [
 
 	maxBufferSize = 0 ifTrue: [ ^ self flushTriples: aCollection ].
@@ -51,7 +51,7 @@ RDFJenaStore >> addTriples: aCollection [
 	writeTriples size >= maxBufferSize ifTrue: [ self flush ].
 ]
 
-{ #category : #'querying - sparql' }
+{ #category : 'querying - sparql' }
 RDFJenaStore >> construct: aString [
 	"Add known prefixes and evaluate the supplied string"
 	| queryString |
@@ -62,7 +62,7 @@ RDFJenaStore >> construct: aString [
 	^ sparqlClient construct: queryString
 ]
 
-{ #category : #'querying - sparql' }
+{ #category : 'querying - sparql' }
 RDFJenaStore >> constructWhere: aString [
 	"Add known prefixes and evaluate the supplied string"
 	| queryString |
@@ -77,18 +77,18 @@ RDFJenaStore >> constructWhere: aString [
 	^ sparqlClient construct: queryString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFJenaStore >> count [
 
 	^ sparqlClient count
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFJenaStore >> datasetUrl [
 	^ sparqlClient datasetUrl
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFJenaStore >> datasetUrl: aUrl [
 	"Specify the URL of the back-end triple store.
 	E.g. 'http://localhost:3030/mydataset' asZnURL"
@@ -96,7 +96,7 @@ RDFJenaStore >> datasetUrl: aUrl [
 	sparqlClient := SparqlClient datasetUrl: aUrl
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 RDFJenaStore >> deleteWithSubject: aRdfSubject [
 	"Delete all the receiver's triples with the supplied subject"
 
@@ -109,14 +109,14 @@ RDFJenaStore >> deleteWithSubject: aRdfSubject [
 
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 RDFJenaStore >> deleteWithSubjectIRI: aString [
 	"Delete all the receiver's triples with the supplied subject"
 
 	self deleteWithSubject: (RDFTripleBuilder new subjectIRI: aString)
 ]
 
-{ #category : #'querying - sparql' }
+{ #category : 'querying - sparql' }
 RDFJenaStore >> evaluate: aString [
 	"Add known prefixes and evaluate the supplied string"
 	| queryString |
@@ -127,7 +127,7 @@ RDFJenaStore >> evaluate: aString [
 	^ sparqlClient evaluate: queryString
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 RDFJenaStore >> flush [ 
 
 	writeTriples ifNotEmpty:
@@ -138,7 +138,7 @@ RDFJenaStore >> flush [
 		writeStrings := OrderedCollection new: maxBufferSize ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RDFJenaStore >> flushStrings: aCollection [
 	"Write the supplied collection of sparql commands to the DB"
 
@@ -156,7 +156,7 @@ RDFJenaStore >> flushStrings: aCollection [
 			separatedBy: [ stream << ';'; cr ] ]).
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RDFJenaStore >> flushTriples: aCollection [
 	| cmdString |
 
@@ -189,7 +189,7 @@ RDFJenaStore >> flushTriples: aCollection [
 			sparqlClient update: cmdString. ] 
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 RDFJenaStore >> gtPredicatesFor: aView [
 	<gtView>
 
@@ -202,7 +202,7 @@ RDFJenaStore >> gtPredicatesFor: aView [
 		send: [ :item | self triplesWithPredicate: (RDFPredicate new term: item) ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 RDFJenaStore >> gtStatusFor: aView [
 	<gtView>
 
@@ -213,7 +213,7 @@ RDFJenaStore >> gtStatusFor: aView [
 		text: [ self statusString asRopedText glamorousCodeFont ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RDFJenaStore >> initialize [ 
 
 	super initialize.
@@ -224,17 +224,17 @@ RDFJenaStore >> initialize [
 	prefixes := Dictionary new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFJenaStore >> maxBufferSize [
 	^ maxBufferSize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFJenaStore >> maxBufferSize: anObject [
 	maxBufferSize := anObject
 ]
 
-{ #category : #'querying - values' }
+{ #category : 'querying - values' }
 RDFJenaStore >> objectValuesWithSubject: aRDFSubject predicate: aRdfPredicate [
 	<return: #Collection of: #RDFLiteral>
 	| queryResult |
@@ -250,7 +250,7 @@ RDFJenaStore >> objectValuesWithSubject: aRDFSubject predicate: aRdfPredicate [
 		ifNotEmpty: [ :array | array atColumn: 1 ].
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFJenaStore >> printNamespacesOn: aStream [
 	"Print all the known namespaces on aStream.
 	This includes locally specified namespaces and those in RdfResources."
@@ -266,7 +266,7 @@ RDFJenaStore >> printNamespacesOn: aStream [
 
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFJenaStore >> printOn: aStream [
 
 	aStream << 'RDF store: '.
@@ -274,7 +274,7 @@ RDFJenaStore >> printOn: aStream [
 	aStream << sparqlClient datasetUrl
 ]
 
-{ #category : #'querying - sparql' }
+{ #category : 'querying - sparql' }
 RDFJenaStore >> read: aString [
 	"Add known prefixes and evaluate the supplied string"
 	| queryString |
@@ -285,13 +285,13 @@ RDFJenaStore >> read: aString [
 	^ sparqlClient read: queryString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFJenaStore >> sparqlClient [
 
 	^ sparqlClient
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 RDFJenaStore >> statusString [ 
 
 	sparqlClient ifNil: [ ^ '<no client>' ].
@@ -303,7 +303,7 @@ RDFJenaStore >> statusString [
 				print: sparqlClient count; cr ].
 ]
 
-{ #category : #'querying - values' }
+{ #category : 'querying - values' }
 RDFJenaStore >> subjectValuesWithPredicate: aRdfPredicate object: aRdfObject [
 	<return: #Collection of: #RDFLiteral>
 	| queryResult |
@@ -319,7 +319,7 @@ RDFJenaStore >> subjectValuesWithPredicate: aRdfPredicate object: aRdfObject [
 		ifNotEmpty: [ :array | array atColumn: 1 ].
 ]
 
-{ #category : #'querying - values' }
+{ #category : 'querying - values' }
 RDFJenaStore >> subjectValuesWithPredicate: aRdfPredicate objectValue: anObject [
 	<return: #Collection of: #RDFLiteral>
 
@@ -328,17 +328,17 @@ RDFJenaStore >> subjectValuesWithPredicate: aRdfPredicate objectValue: anObject 
 		object: (RDFTripleBuilder new objectValue: anObject)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFJenaStore >> telemetry [
 	^ telemetry
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFJenaStore >> telemetry: anObject [
 	telemetry := anObject
 ]
 
-{ #category : #'querying - triples' }
+{ #category : 'querying - triples' }
 RDFJenaStore >> triplesWhere: aString [ 
 	"Answer the collection of triples that match the supplied criteria.
 	No security checks are made."
@@ -352,7 +352,7 @@ RDFJenaStore >> triplesWhere: aString [
 	^ self construct: constructQuery.
 ]
 
-{ #category : #'querying - triples' }
+{ #category : 'querying - triples' }
 RDFJenaStore >> triplesWithObject: aRDFObject [
 	"Answer the receiver's triples that match aRDFObject"
 	<return: #RDFList>
@@ -365,7 +365,7 @@ RDFJenaStore >> triplesWithObject: aRDFObject [
 	^ queryResult triplesWithObject: aRDFObject
 ]
 
-{ #category : #'querying - triples' }
+{ #category : 'querying - triples' }
 RDFJenaStore >> triplesWithPredicate: aRdfPredicate [
 	<return: #RDFList>
 	| queryResult |
@@ -378,7 +378,7 @@ RDFJenaStore >> triplesWithPredicate: aRdfPredicate [
 
 ]
 
-{ #category : #'querying - triples' }
+{ #category : 'querying - triples' }
 RDFJenaStore >> triplesWithSubject: aRDFSubject [
 	"Answer the receiver's triples that match aRDFSubject"
 	<return: #RDFList>
@@ -392,7 +392,7 @@ RDFJenaStore >> triplesWithSubject: aRDFSubject [
 
 ]
 
-{ #category : #'querying - triples' }
+{ #category : 'querying - triples' }
 RDFJenaStore >> triplesWithSubject: aRDFSubject predicate: aRdfPredicate [
 	"Answer the receiver's triples that match aRDFSubject"
 	<return: #RDFList>
@@ -408,13 +408,13 @@ RDFJenaStore >> triplesWithSubject: aRDFSubject predicate: aRdfPredicate [
 
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 RDFJenaStore >> tsAddTriple: aRdfTriple [
 
 	self tsAddTriples: { aRdfTriple }
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 RDFJenaStore >> tsAddTriples: aCollection [
 	| oldTriples newTriples |
 
@@ -428,7 +428,7 @@ RDFJenaStore >> tsAddTriples: aCollection [
 
 ]
 
-{ #category : #'querying - sparql' }
+{ #category : 'querying - sparql' }
 RDFJenaStore >> tsUpdate: aString [ 
 	| oldStrings newStrings queryString |
 
@@ -445,7 +445,7 @@ RDFJenaStore >> tsUpdate: aString [
 
 ]
 
-{ #category : #'querying - convenience' }
+{ #category : 'querying - convenience' }
 RDFJenaStore >> uniqueSubjects [
 	"Answer all the unique subjects in the database.
 	Mainly for testing in small datbaases."
@@ -453,7 +453,7 @@ RDFJenaStore >> uniqueSubjects [
 	^ self read: 'SELECT DISTINCT ?s WHERE { ?s ?p ?o }'
 ]
 
-{ #category : #'querying - sparql' }
+{ #category : 'querying - sparql' }
 RDFJenaStore >> update: aString [
 	"This shouldn't really be here, there should be a higher level api, but it's useful for now"
 	| queryString |

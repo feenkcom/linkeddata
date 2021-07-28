@@ -1,6 +1,6 @@
-Extension { #name : #Boolean }
+Extension { #name : 'Boolean' }
 
-{ #category : #'*ResourceDescriptionFramework-Core' }
+{ #category : '*ResourceDescriptionFramework-Core' }
 Boolean >> printSparqlOn: aStream [
 
 	self printOn: aStream

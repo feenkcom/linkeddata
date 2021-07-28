@@ -10,17 +10,17 @@ This is based on the Antlr parser from <https://github.com/antlr/grammars-v4/tre
 
 "
 Class {
-	#name : #RDFTurtleParser,
-	#superclass : #SmaCCGLRParser,
-	#category : #'ResourceDescriptionFramework-Core-Parsers'
+	#name : 'RDFTurtleParser',
+	#superclass : 'SmaCCGLRParser',
+	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : #'generated-accessing' }
+{ #category : 'generated-accessing' }
 RDFTurtleParser class >> cacheId [
 	^'2021-04-25T10:43:36.604141+02:00'
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleParser class >> definitionComment [
 "%glr;
 %root Document;
@@ -273,7 +273,7 @@ booleanLiteral
    ;"
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleParser class >> reduceTable [
 ^#(
 	#(28 0 #reduceActionForstatement__statements___1: 96257 false ) 
@@ -337,27 +337,27 @@ RDFTurtleParser class >> reduceTable [
 	).
 ]
 
-{ #category : #'generated-accessing' }
+{ #category : 'generated-accessing' }
 RDFTurtleParser class >> scannerClass [
 	^RDFTurtleScanner
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleParser class >> startingStateForturtleDoc [
 	^ 1
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleParser class >> symbolNames [
 	^ #('"("' '")"' '","' '"."' '";"' '"@base"' '"@prefix"' '"BASE"' '"PREFIX"' '"["' '"]"' '"^^"' '"a"' '<whitespace>' '<NumericLiteral>' '<BooleanLiteral>' '<BlankNode>' '<IRIREF>' '<PNAME_NS>' '<PrefixedName>' '<LANGTAG>' '<STRING_LITERAL_LONG_SINGLE_QUOTE>' '<STRING_LITERAL_LONG_QUOTE>' '<STRING_LITERAL_QUOTE>' '<STRING_LITERAL_SINGLE_QUOTE>' 'B e g i n' 'turtleDoc' 'statement ''statements'' *' 'statement' 'directive' 'prefixID' 'base' 'sparqlBase' 'sparqlPrefix' 'triples' 'predicateObjectList' '(";" (verb ''verb'' objectList ''objectList'')?)' '(";" (verb ''verb'' objectList ''objectList'')?)*' 'objectList' '("," object ''object'')' '("," object ''object'')*' 'verb' 'aPredicate' 'subject' 'predicate' 'object' 'literal' 'blankNodePropertyList' 'collection' 'object*' 'rdfLiteral' 'iri' 'stringSingle' 'stringTriple' 'numericLiteral' 'booleanLiteral' 'E O F' 'error')
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleParser class >> symbolTypes [
 	^ #(#SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #RDFTurtleTurtleDocNode #RDFTurtleTurtleDocNode #OrderedCollection #RDFTurtleStatementNode #RDFTurtleDirectiveNode #RDFTurtlePrefixIDNode #RDFTurtleBaseNode #RDFTurtleSparqlBaseNode #RDFTurtleSparqlPrefixNode #RDFTurtleTriplesNode #RDFTurtlePredicateObjectListNode #OrderedCollection #OrderedCollection #RDFTurtleObjectListNode #RDFTurtleObjectNode #OrderedCollection #RDFTurtleVerbNode #RDFTurtleAPredicateNode #RDFTurtleSubjectNode #RDFTurtlePredicateNode #RDFTurtleObjectNode #RDFTurtleLiteralNode #RDFTurtleBlankNodePropertyListNode #RDFTurtleCollectionNode nil #RDFTurtleRdfLiteralNode #RDFTurtleIriNode #RDFTurtleStringSingleNode #RDFTurtleStringTripleNode #RDFTurtleNumericLiteralNode #RDFTurtleBooleanLiteralNode #SmaCCToken #SmaCCErrorNode)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleParser class >> transitionTable [
 ^#(
 #[1 0 6 0 1 0 6 0 6 0 6 0 7 0 6 0 8 0 6 0 9 0 6 0 10 0 6 0 17 0 6 0 18 0 6 0 20 0 9 0 27 0 13 0 28 0 6 0 57] 
@@ -440,14 +440,14 @@ RDFTurtleParser class >> transitionTable [
 	).
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionFor______verb__verb__objectList__objectList____1: nodes [
 	| result |
 	result := Array new: 2.
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionFor______verb__verb__objectList__objectList____2: nodes [
 	| result |
 	result := Array new: 2.
@@ -456,7 +456,7 @@ RDFTurtleParser >> reduceActionFor______verb__verb__objectList__objectList____2:
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionFor______verb__verb__objectList__objectList_____1: nodes [
 	| result |
 	result := Array new: 2.
@@ -465,7 +465,7 @@ RDFTurtleParser >> reduceActionFor______verb__verb__objectList__objectList_____1
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionFor______verb__verb__objectList__objectList_____2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -474,14 +474,14 @@ RDFTurtleParser >> reduceActionFor______verb__verb__objectList__objectList_____2
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForaPredicate1: nodes [
 	| result |
 	result := RDFTurtleAPredicateNode new.
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForbase1: nodes [
 	| result |
 	result := RDFTurtleBaseNode new.
@@ -489,7 +489,7 @@ RDFTurtleParser >> reduceActionForbase1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForblankNodePropertyList1: nodes [
 	| result |
 	result := RDFTurtleBlankNodePropertyListNode new.
@@ -497,7 +497,7 @@ RDFTurtleParser >> reduceActionForblankNodePropertyList1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForbooleanLiteral1: nodes [
 	| result |
 	result := RDFTurtleBooleanLiteralNode new.
@@ -505,14 +505,14 @@ RDFTurtleParser >> reduceActionForbooleanLiteral1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForcollection1: nodes [
 	| result |
 	result := RDFTurtleCollectionNode new.
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionFordirective1: nodes [
 	| result |
 	result := RDFTurtleDirectiveNode new.
@@ -520,7 +520,7 @@ RDFTurtleParser >> reduceActionFordirective1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForiri1: nodes [
 	| result |
 	result := RDFTurtleIriNode new.
@@ -528,7 +528,7 @@ RDFTurtleParser >> reduceActionForiri1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForliteral1: nodes [
 	| result |
 	result := RDFTurtleLiteralNode new.
@@ -536,7 +536,7 @@ RDFTurtleParser >> reduceActionForliteral1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionFornumericLiteral1: nodes [
 	| result |
 	result := RDFTurtleNumericLiteralNode new.
@@ -544,7 +544,7 @@ RDFTurtleParser >> reduceActionFornumericLiteral1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForobject2: nodes [
 	| result |
 	result := RDFTurtleObjectNode new.
@@ -552,7 +552,7 @@ RDFTurtleParser >> reduceActionForobject2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForobjectList1: nodes [
 	| result |
 	result := RDFTurtleObjectListNode new.
@@ -561,7 +561,7 @@ RDFTurtleParser >> reduceActionForobjectList1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForpredicate1: nodes [
 	| result |
 	result := RDFTurtlePredicateNode new.
@@ -569,7 +569,7 @@ RDFTurtleParser >> reduceActionForpredicate1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForpredicateObjectList1: nodes [
 	| result |
 	result := RDFTurtlePredicateObjectListNode new.
@@ -580,7 +580,7 @@ RDFTurtleParser >> reduceActionForpredicateObjectList1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForprefixID1: nodes [
 	| result |
 	result := RDFTurtlePrefixIDNode new.
@@ -589,7 +589,7 @@ RDFTurtleParser >> reduceActionForprefixID1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForrdfLiteral1: nodes [
 	| result |
 	result := RDFTurtleRdfLiteralNode new.
@@ -597,7 +597,7 @@ RDFTurtleParser >> reduceActionForrdfLiteral1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForrdfLiteral2: nodes [
 	| result |
 	result := RDFTurtleRdfLiteralNode new.
@@ -606,7 +606,7 @@ RDFTurtleParser >> reduceActionForrdfLiteral2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForrdfLiteral3: nodes [
 	| result |
 	result := RDFTurtleRdfLiteralNode new.
@@ -615,7 +615,7 @@ RDFTurtleParser >> reduceActionForrdfLiteral3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForsparqlBase1: nodes [
 	| result |
 	result := RDFTurtleSparqlBaseNode new.
@@ -623,7 +623,7 @@ RDFTurtleParser >> reduceActionForsparqlBase1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForsparqlPrefix1: nodes [
 	| result |
 	result := RDFTurtleSparqlPrefixNode new.
@@ -632,7 +632,7 @@ RDFTurtleParser >> reduceActionForsparqlPrefix1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForstatement1: nodes [
 	| result |
 	result := RDFTurtleStatementNode new.
@@ -640,14 +640,14 @@ RDFTurtleParser >> reduceActionForstatement1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForstatement__statements___1: nodes [
 	| result |
 	result := OrderedCollection new: 2.
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForstatement__statements___2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -655,7 +655,7 @@ RDFTurtleParser >> reduceActionForstatement__statements___2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForstringSingle2: nodes [
 	| result |
 	result := RDFTurtleStringSingleNode new.
@@ -663,7 +663,7 @@ RDFTurtleParser >> reduceActionForstringSingle2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForstringTriple1: nodes [
 	| result |
 	result := RDFTurtleStringTripleNode new.
@@ -671,7 +671,7 @@ RDFTurtleParser >> reduceActionForstringTriple1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForsubject2: nodes [
 	| result |
 	result := RDFTurtleSubjectNode new.
@@ -679,7 +679,7 @@ RDFTurtleParser >> reduceActionForsubject2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionFortriples1: nodes [
 	| result |
 	result := RDFTurtleTriplesNode new.
@@ -688,7 +688,7 @@ RDFTurtleParser >> reduceActionFortriples1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionFortriples2: nodes [
 	| result |
 	result := RDFTurtleTriplesNode new.
@@ -696,7 +696,7 @@ RDFTurtleParser >> reduceActionFortriples2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForturtleDoc1: nodes [
 	| result |
 	result := RDFTurtleTurtleDocNode new.
@@ -704,7 +704,7 @@ RDFTurtleParser >> reduceActionForturtleDoc1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 RDFTurtleParser >> reduceActionForverb2: nodes [
 	| result |
 	result := RDFTurtleVerbNode new.

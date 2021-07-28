@@ -1,34 +1,34 @@
 Class {
-	#name : #RDFTurtleVerbNode,
-	#superclass : #RDFTurtleDocumentNode,
+	#name : 'RDFTurtleVerbNode',
+	#superclass : 'RDFTurtleDocumentNode',
 	#instVars : [
 		'verb'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Parsers'
+	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleVerbNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitVerb: self
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 RDFTurtleVerbNode >> asRDFTermFor: aVisitor [
 
 	^ verb asRDFTermFor: aVisitor
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleVerbNode >> nodeVariables [
 	^ #(#verb)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleVerbNode >> verb [
 	^ verb
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleVerbNode >> verb: aRDFTurtleDocumentNode [
 	self verb notNil
 		ifTrue: [ self verb parent: nil ].

@@ -1,26 +1,26 @@
 Class {
-	#name : #RDFConvenience,
-	#superclass : #Object,
+	#name : 'RDFConvenience',
+	#superclass : 'Object',
 	#classVars : [
 		'KnownIRIs',
 		'KnownPredicates'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Factories'
+	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : #cleanup }
+{ #category : 'cleanup' }
 RDFConvenience class >> cleanAll [
 	<script>
 	self withAllSubclassesDo: #reset 
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 RDFConvenience class >> factory [ 
 
 	^ self subclassResponsibility 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RDFConvenience class >> getKnownIRIs [
 	| dictionary iri |
 
@@ -32,7 +32,7 @@ RDFConvenience class >> getKnownIRIs [
 	^ dictionary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFConvenience class >> iriAt: aString [
 
 	^ self knownIRIs at: aString ifAbsent: [ 
@@ -41,26 +41,26 @@ RDFConvenience class >> iriAt: aString [
 			ifNotNil: [ :node | self knownIRIs at: node fullName put: node ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFConvenience class >> iriNames [
 	"Answer the collection of known IRI names for the receiver's namespace"
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFConvenience class >> knownIRIs [
 
 	^ KnownIRIs ifNil: [ KnownIRIs := self getKnownIRIs ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFConvenience class >> knownPredicates [
 
 	^ KnownPredicates ifNil: [ KnownPredicates := Dictionary new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFConvenience class >> predicateAt: aString [ 
 
 	^ self knownPredicates 
@@ -68,7 +68,7 @@ RDFConvenience class >> predicateAt: aString [
 		ifAbsentPut: [ RDF predicate: (self iriAt: aString) ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RDFConvenience class >> reset [ 
 	<script>
 
@@ -76,7 +76,7 @@ RDFConvenience class >> reset [
 	KnownIRIs := nil.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 RDFConvenience class >> shortNamedNodeFor: aString [ 
 	| prefix |
 

@@ -1,59 +1,67 @@
 Class {
-	#name : #RDFSimpleCollectionStore,
-	#superclass : #RDFStore,
+	#name : 'RDFSimpleCollectionStore',
+	#superclass : 'RDFStore',
 	#instVars : [
-		'collection'
+		'collection',
+		'cachedSubjectsByIRI'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Storage'
+	#category : 'ResourceDescriptionFramework-Core-Storage'
 }
 
-{ #category : #adding }
+{ #category : 'adding' }
 RDFSimpleCollectionStore >> addTriple: aRDFTriple [
 	aRDFTriple store: self.
-	self collection add: aRDFTriple
+	self collection add: aRDFTriple.
+	cachedSubjectsByIRI 
+		at: aRDFTriple subject
+		ifAbsentPut: [ 
+			RDFExtractedSubject new 
+				realObject: aRDFTriple subject;
+				store: self ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 RDFSimpleCollectionStore >> addTriples: aCollectionOfRDFTriples [
 	aCollectionOfRDFTriples do: [ :aRDFTriple | 
 		self addTriple: aRDFTriple ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFSimpleCollectionStore >> collection [
 	^ collection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFSimpleCollectionStore >> datasetUrl [ 
 
 	^ #'memory://'
 ]
 
-{ #category : #deleting }
+{ #category : 'deleting' }
 RDFSimpleCollectionStore >> deleteWithSubject: aRdfSubject predicate: aRdfPredicate [
 
 	collection := collection reject: 
 		[ :each | each subject = aRdfSubject and: [ each predicate = aRdfPredicate ] ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 RDFSimpleCollectionStore >> do: doBlock [
 	^ self collection do: doBlock
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 RDFSimpleCollectionStore >> extractedSubjects [
 	<return: #Array of: #RDFExtracedSubject>
-	| theSubjects |
+	^ cachedSubjectsByIRI values
+	"| theSubjects |
 	theSubjects := (self collection collect: #subject as: OrderedCollection) removeDuplicates.
 	^ theSubjects collect: [ :eachSubject | 
 			RDFExtractedSubject new 
 				realObject: eachSubject;
-				store: self ]
+				store: self ]"
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionStore >> gtCollectionFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
@@ -64,7 +72,7 @@ RDFSimpleCollectionStore >> gtCollectionFor: aView [
 		itemText: [ :aTriple | aTriple sentence ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionStore >> gtTriplesSubjectFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
@@ -75,7 +83,7 @@ RDFSimpleCollectionStore >> gtTriplesSubjectFor: aView [
 		children: [ :eachExtractedItem | eachExtractedItem children ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionStore >> gtViewCollectionRawFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
@@ -94,7 +102,7 @@ RDFSimpleCollectionStore >> gtViewCollectionRawFor: aView [
 			text: [ :anObject | anObject term fullNameWithDataType ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFSimpleCollectionStore >> gtViewCollectionSimpleFor: aView [
 	<gtView>
 	self collection ifNil: [ ^ aView empty ].
@@ -107,13 +115,14 @@ RDFSimpleCollectionStore >> gtViewCollectionSimpleFor: aView [
 		column: 'Object' item: #object
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RDFSimpleCollectionStore >> initialize [
 	super initialize.
 	collection := OrderedCollection new.
+	cachedSubjectsByIRI := Dictionary new.
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 RDFSimpleCollectionStore >> objectValuesWithSubject: aRDFSubject predicate: aRdfPredicate [
 	<return: #Collection of: #RDFLiteral>
 
@@ -123,7 +132,7 @@ RDFSimpleCollectionStore >> objectValuesWithSubject: aRDFSubject predicate: aRdf
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFSimpleCollectionStore >> printOn: aStream [
 	super printOn: aStream.
 	aStream
@@ -133,12 +142,12 @@ RDFSimpleCollectionStore >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 RDFSimpleCollectionStore >> select: selectBlock thenCollect: collectBlock [
 	^ self collection select: selectBlock thenCollect: collectBlock
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 RDFSimpleCollectionStore >> spheres [
 	<return: #RDFSpheres>
 	| spheres |

@@ -1,13 +1,13 @@
 Class {
-	#name : #RDFTermFactory,
-	#superclass : #RDFProtoFactory,
+	#name : 'RDFTermFactory',
+	#superclass : 'RDFProtoFactory',
 	#instVars : [
 		'namespace'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Factories'
+	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 RDFTermFactory class >> isDynamic [
 	"Answer a boolean indicating whether the receiver is a dynamic factory, i.e. doesn't have a fixed prefix and shortName.
 	Most subclasses aren't dynamic, those that are should override this"
@@ -15,7 +15,7 @@ RDFTermFactory class >> isDynamic [
 	^ false.
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 RDFTermFactory >> namedNode: aString [
 	<return: #RDFNamedNode>
 	self 
@@ -24,14 +24,14 @@ RDFTermFactory >> namedNode: aString [
 	^ RDFNamedNode new value: aString
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 RDFTermFactory >> namedNodeSuffix: aString [
 	<return: #RDFNamedNode>
 
 	^ self namedNodeSuffix: aString parser: nil
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 RDFTermFactory >> namedNodeSuffix: aString parser: aBlockClosure [
 	<return: #RDFNamedNode>
 	self 
@@ -42,7 +42,7 @@ RDFTermFactory >> namedNodeSuffix: aString parser: aBlockClosure [
 		parser: aBlockClosure
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 RDFTermFactory >> namespace [
 	<return: #RDFNamespaceNamedNode>
 	^ namespace ifNil: [ namespace := RDFNamespaceNamedNode new 
@@ -50,20 +50,20 @@ RDFTermFactory >> namespace [
 		shortName: self shortName ]
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 RDFTermFactory >> prefix [
 	"Note that the prefix must finish with a separator, typically / or #, so that name can be appended"
 	<return: #String>
 	^ self subclassResponsibility
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 RDFTermFactory >> shortName [
 	<return: #String>
 	^ self subclassResponsibility
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 RDFTermFactory >> shortNamedNode [
 	<return: #RDFNamedNode>
 	^ RDFShortNamedNode new namespace: self namespace

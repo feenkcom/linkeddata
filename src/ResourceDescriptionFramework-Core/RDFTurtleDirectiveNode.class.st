@@ -1,23 +1,23 @@
 Class {
-	#name : #RDFTurtleDirectiveNode,
-	#superclass : #RDFTurtleDocumentNode,
+	#name : 'RDFTurtleDirectiveNode',
+	#superclass : 'RDFTurtleDocumentNode',
 	#instVars : [
 		'directive'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Parsers'
+	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleDirectiveNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitDirective: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleDirectiveNode >> directive [
 	^ directive
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleDirectiveNode >> directive: aRDFTurtleDocumentNode [
 	self directive notNil
 		ifTrue: [ self directive parent: nil ].
@@ -26,7 +26,7 @@ RDFTurtleDirectiveNode >> directive: aRDFTurtleDocumentNode [
 		ifTrue: [ self directive parent: self ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleDirectiveNode >> nodeVariables [
 	^ #(#directive)
 ]

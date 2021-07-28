@@ -1,18 +1,18 @@
 Class {
-	#name : #RDFLanguage,
-	#superclass : #RDFProtoObject,
+	#name : 'RDFLanguage',
+	#superclass : 'RDFProtoObject',
 	#instVars : [
 		'tags'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Model'
+	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFLanguage class >> factory [
 	^ RDFLanguageFactory default
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 RDFLanguage >> gtTagsFor: aView [
 	<gtView>
 	self tags ifNil: [ ^ aView empty ].
@@ -21,13 +21,13 @@ RDFLanguage >> gtTagsFor: aView [
 		items: [ self tags ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RDFLanguage >> initialize [
 	super initialize.
 	tags := #( 'en' ).
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RDFLanguage >> printOn: aStream [
 	self tags ifNil: [ ^ super printOn: aStream ].
 	self tags 
@@ -35,18 +35,18 @@ RDFLanguage >> printOn: aStream [
 		separatedBy: [ aStream nextPut: $- ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFLanguage >> tag: aString [
 	self tags: (Array with: aString)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFLanguage >> tags [
 	<return: #Array of: #String>
 	^ tags
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RDFLanguage >> tags: anArray [
 	self 
 		assert: [ anArray isArray and: [ anArray isNotEmpty ] ] 

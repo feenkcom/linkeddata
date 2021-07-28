@@ -1,15 +1,15 @@
 Class {
-	#name : #RDFTurtleAPredicateNode,
-	#superclass : #RDFTurtleDocumentNode,
-	#category : #'ResourceDescriptionFramework-Core-Parsers'
+	#name : 'RDFTurtleAPredicateNode',
+	#superclass : 'RDFTurtleDocumentNode',
+	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 RDFTurtleAPredicateNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitAPredicate: self
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 RDFTurtleAPredicateNode >> asRDFTermFor: aVisitor [
 
 	^ RDF type
