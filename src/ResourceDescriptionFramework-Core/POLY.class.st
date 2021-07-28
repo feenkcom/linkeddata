@@ -1,7 +1,7 @@
 Class {
 	#name : #POLY,
 	#superclass : #RDFConvenience,
-	#category : #'ResourceDescriptionFramework-Core-Factories'
+	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
 { #category : #factory }
@@ -12,6 +12,11 @@ POLY class >> baseDomain [
 { #category : #factory }
 POLY class >> endIndex [
 	^ self factory endIndex
+]
+
+{ #category : #factory }
+POLY class >> entity [
+	^ self factory entity
 ]
 
 { #category : #accessing }

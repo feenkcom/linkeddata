@@ -2,15 +2,22 @@ Class {
 	#name : #RDFSimpleCollectionStore,
 	#superclass : #RDFStore,
 	#instVars : [
-		'collection'
+		'collection',
+		'cachedSubjectsByIRI'
 	],
-	#category : #'ResourceDescriptionFramework-Core-Storage'
+	#category : 'ResourceDescriptionFramework-Core-Storage'
 }
 
 { #category : #adding }
 RDFSimpleCollectionStore >> addTriple: aRDFTriple [
 	aRDFTriple store: self.
-	self collection add: aRDFTriple
+	self collection add: aRDFTriple.
+	cachedSubjectsByIRI 
+		at: aRDFTriple subject
+		ifAbsentPut: [ 
+			RDFExtractedSubject new 
+				realObject: aRDFTriple subject;
+				store: self ]
 ]
 
 { #category : #adding }
@@ -45,12 +52,13 @@ RDFSimpleCollectionStore >> do: doBlock [
 { #category : #enumerating }
 RDFSimpleCollectionStore >> extractedSubjects [
 	<return: #Array of: #RDFExtracedSubject>
-	| theSubjects |
+	^ cachedSubjectsByIRI values
+	"| theSubjects |
 	theSubjects := (self collection collect: #subject as: OrderedCollection) removeDuplicates.
 	^ theSubjects collect: [ :eachSubject | 
 			RDFExtractedSubject new 
 				realObject: eachSubject;
-				store: self ]
+				store: self ]"
 ]
 
 { #category : #'gt-extension' }
@@ -111,6 +119,7 @@ RDFSimpleCollectionStore >> gtViewCollectionSimpleFor: aView [
 RDFSimpleCollectionStore >> initialize [
 	super initialize.
 	collection := OrderedCollection new.
+	cachedSubjectsByIRI := Dictionary new.
 ]
 
 { #category : #querying }

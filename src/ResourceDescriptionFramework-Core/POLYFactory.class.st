@@ -1,7 +1,7 @@
 Class {
 	#name : #POLYFactory,
 	#superclass : #RDFTermFactory,
-	#category : #'ResourceDescriptionFramework-Core-Factories'
+	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
 { #category : #accessing }
@@ -12,6 +12,11 @@ POLYFactory >> baseDomain [
 { #category : #accessing }
 POLYFactory >> endIndex [
 	^ self namedNodeSuffix: 'endIndex'
+]
+
+{ #category : #accessing }
+POLYFactory >> entity [
+	^ self namedNodeSuffix: 'Entity'
 ]
 
 { #category : #accessing }

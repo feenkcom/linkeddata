@@ -3,14 +3,14 @@ Class {
 	#superclass : #RDFPreviewObject,
 	#traits : 'TRDFPreviewTriplesEnumeration - {#store}',
 	#classTraits : 'TRDFPreviewTriplesEnumeration classTrait',
-	#category : #'ResourceDescriptionFramework-Core-Helpers'
+	#category : 'ResourceDescriptionFramework-Core-Helpers'
 }
 
 { #category : #accessing }
 RDFExtractedSubject >> children [
-	^ OrderedCollection
+	^ #() "OrderedCollection
 		streamContents: [ :aStream | 
-			self triplesWithSameSubjectInto: aStream ]
+			self triplesWithSameSubjectInto: aStream ]"
 ]
 
 { #category : #accessing }
@@ -68,7 +68,10 @@ RDFExtractedSubject >> gtViewTriplesFor: aView [
 	^ aView columnedList
 		title: 'Triples';
 		priority: -10;
-		items: [ self children ];
+		items: [ 
+			OrderedCollection
+				streamContents: [ :aStream | 
+					self triplesWithSameSubjectInto: aStream ] ];
 		column: 'Subject' item: #subject;
 		column: 'Predicate' item: #predicate;
 		column: 'Object' item: #object
