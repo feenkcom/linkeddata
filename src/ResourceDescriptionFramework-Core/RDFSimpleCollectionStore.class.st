@@ -31,6 +31,22 @@ RDFSimpleCollectionStore >> collection [
 	^ collection
 ]
 
+{ #category : 'enumerating' }
+RDFSimpleCollectionStore >> dataTypeObjects [
+	<return: #Array of: #RDFExtracedSubject>
+	
+	| theTypeObjects |
+	theTypeObjects := Set new. 
+	self collection do: [ :aTriple | 
+		aTriple predicate term = RDF type ifTrue: [ 
+			theTypeObjects add: aTriple object ] ].
+	^ theTypeObjects
+	"^ theSubjects collect: [ :eachSubject | 
+			RDFExtractedSubject new 
+				realObject: eachSubject;
+				store: self ]"
+]
+
 { #category : 'accessing' }
 RDFSimpleCollectionStore >> datasetUrl [ 
 
