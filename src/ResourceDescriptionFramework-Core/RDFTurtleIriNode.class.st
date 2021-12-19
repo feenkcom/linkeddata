@@ -1,18 +1,18 @@
 Class {
-	#name : 'RDFTurtleIriNode',
-	#superclass : 'RDFTurtleDocumentNode',
+	#name : #RDFTurtleIriNode,
+	#superclass : #RDFTurtleDocumentNode,
 	#instVars : [
 		'iri'
 	],
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleIriNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitIri: self
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 RDFTurtleIriNode >> asRDFTermFor: aVisitor [
 	| iriString |
 
@@ -22,22 +22,22 @@ RDFTurtleIriNode >> asRDFTermFor: aVisitor [
 		ifAbsent: [ RDFNamedNode new value: iriString ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleIriNode >> iri [
 	^ iri
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleIriNode >> iri: aSmaCCToken [
 	iri := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleIriNode >> tokenVariables [
 	^ #(#iri)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTurtleIriNode >> url [ 
 	"Answer the receiver's url.
 	This can only be used if the iri is in the form '<url>'"
@@ -47,7 +47,7 @@ RDFTurtleIriNode >> url [
 	^ iri value copyFrom: 2 to: iri value size - 1
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTurtleIriNode >> urlWithPrefixes: aDictionary [
 	"Answer the receiver's url"
 	| iriValue colonIndex namespace name |

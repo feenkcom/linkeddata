@@ -1,23 +1,23 @@
 Class {
-	#name : 'RDFFactory',
-	#superclass : 'RDFTermFactory',
+	#name : #RDFFactory,
+	#superclass : #RDFTermFactory,
 	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 RDFFactory class >> isDeprecated [ 
 	"RDF is deprecated, RdfVocabularies should be used instead"
 	
 	^ true
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFFactory >> literal: aValue [
 	<return: #RDFLiteral>
 	^ self literal: aValue type: XSD string
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFFactory >> literal: aValue type: aNamedNode [
 	<return: #RDFLiteral>
 	^ RDFLiteral new
@@ -25,7 +25,7 @@ RDFFactory >> literal: aValue type: aNamedNode [
 		dataType: aNamedNode
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFFactory >> namedNode: aString inNamespace: aNamespace [
 	<return: #RDFShortNamedNode>
 	self 
@@ -39,7 +39,7 @@ RDFFactory >> namedNode: aString inNamespace: aNamespace [
 		namespace: aNamespace
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFFactory >> namespaceValue: aNamespaceString shortName: aShortNameString [
 	<return: #RDFNamespaceNamedNode>
 	self 
@@ -53,37 +53,37 @@ RDFFactory >> namespaceValue: aNamespaceString shortName: aShortNameString [
 		shortName: aShortNameString
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFFactory >> object: aTerm [
 	^ RDFObject new term: aTerm
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFFactory >> predicate: aTerm [
 	^ RDFPredicate new term: aTerm
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFFactory >> prefix [
 	^ 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFFactory >> shortName [
 	^ 'rdf'
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFFactory >> subject: aTerm [
 	^ RDFSubject new term: aTerm
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFFactory >> triple [
 	^ RDFTriple new
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFFactory >> type [
 	<return: #RDFShortNamedNode>
 	^ self namedNodeSuffix: 'type'

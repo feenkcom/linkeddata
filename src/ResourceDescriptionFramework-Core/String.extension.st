@@ -1,6 +1,6 @@
-Extension { #name : 'String' }
+Extension { #name : #String }
 
-{ #category : '*ResourceDescriptionFramework-Core' }
+{ #category : #'*ResourceDescriptionFramework-Core' }
 String >> printSparqlOn: aStream [
 
 	aStream 

@@ -1,17 +1,17 @@
 Class {
-	#name : 'XSDFactory',
-	#superclass : 'RDFTermFactory',
+	#name : #XSDFactory,
+	#superclass : #RDFTermFactory,
 	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 XSDFactory class >> isDeprecated [ 
 	"XSDFactory is deprecated, RdfVocabularies should be used instead"
 	
 	^ true
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 XSDFactory >> boolean [
 	<return: #RDFNamedNode>
 
@@ -20,7 +20,7 @@ XSDFactory >> boolean [
 		parser: [ :aString | XSD parseBoolean: aString ]
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 XSDFactory >> date [
 	<return: #RDFNamedNode>
 	^ self 
@@ -28,7 +28,7 @@ XSDFactory >> date [
 		parser: [ :aString | XSD parseDate: aString ]
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 XSDFactory >> dateTime [
 	<return: #RDFNamedNode>
 	^ self 
@@ -36,7 +36,7 @@ XSDFactory >> dateTime [
 		parser: [ :aString | XSD parseDateTime: aString ]
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 XSDFactory >> decimal [
 	<return: #RDFNamedNode>
 
@@ -45,7 +45,7 @@ XSDFactory >> decimal [
 		parser: [ :aString | XSD parseDecimal: aString ]
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 XSDFactory >> double [
 	<return: #RDFNamedNode>
 
@@ -54,7 +54,7 @@ XSDFactory >> double [
 		parser: [ :aString | XSD parseDouble: aString ]
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 XSDFactory >> integer [
 	<return: #RDFNamedNode>
 
@@ -63,18 +63,18 @@ XSDFactory >> integer [
 		parser: [ :aString | XSD parseInteger: aString ]
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 XSDFactory >> prefix [
 	<return: #String>
 	^ 'http://www.w3.org/2001/XMLSchema#'
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 XSDFactory >> shortName [
 	^ 'xsd'
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 XSDFactory >> string [
 	<return: #RDFNamedNode>
 	^ self namedNodeSuffix: 'string'

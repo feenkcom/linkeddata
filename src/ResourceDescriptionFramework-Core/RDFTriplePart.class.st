@@ -1,36 +1,36 @@
 Class {
-	#name : 'RDFTriplePart',
-	#superclass : 'RDFProtoObject',
+	#name : #RDFTriplePart,
+	#superclass : #RDFProtoObject,
 	#instVars : [
 		'term'
 	],
 	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 RDFTriplePart class >> iri: aString [ 
 
 	^ self term: (RDFNamedNode new value: aString)
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 RDFTriplePart class >> term: aRDFTerm [
 
 	^ self new term: aRDFTerm
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 RDFTriplePart >> = aTriplePart [
 	^ self class = aTriplePart class and: [ 
 		self term = aTriplePart term ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriplePart >> fullName [
 	^ self term fullName
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 RDFTriplePart >> gtTermFor: aView [
 	<gtView>
 	self term ifNil: [ ^ aView empty ].
@@ -40,59 +40,59 @@ RDFTriplePart >> gtTermFor: aView [
 		view: #gtValueFor:
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 RDFTriplePart >> hash [
 	^ self class hash bitXor: self term hash
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 RDFTriplePart >> isObject [
 
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 RDFTriplePart >> isPredicate [
 
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 RDFTriplePart >> isSubject [
 
 	^ false
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriplePart >> name [
 	<return: #String>
 	^ self subclassResponsibility
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFTriplePart >> printOn: aStream [
 	self term ifNil: [ ^ super printOn: aStream ].
 	self term printShortNameOn: aStream.
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFTriplePart >> printSparqlOn: aStream [
 
 	term printSparqlOn: aStream
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriplePart >> shortName [
 	^ self term shortName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriplePart >> term [
 	<return: #RDFTerm>
 	^ term
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriplePart >> term: aRDFTerm [
 	self 
 		assert: [ aRDFTerm isNotNil ]

@@ -1,6 +1,6 @@
 Class {
-	#name : 'RDFProtoBuilder',
-	#superclass : 'Object',
+	#name : #RDFProtoBuilder,
+	#superclass : #Object,
 	#traits : 'TGtAssert',
 	#classTraits : 'TGtAssert classTrait',
 	#category : 'ResourceDescriptionFramework-Core-Builders'

@@ -1,6 +1,6 @@
 Class {
-	#name : 'RDFTurtleRdfLiteralNode',
-	#superclass : 'RDFTurtleDocumentNode',
+	#name : #RDFTurtleRdfLiteralNode,
+	#superclass : #RDFTurtleDocumentNode,
 	#instVars : [
 		'string',
 		'tag',
@@ -9,12 +9,12 @@ Class {
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleRdfLiteralNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitRdfLiteral: self
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 RDFTurtleRdfLiteralNode >> asRDFTermFor: aVisitor [
 
 	^ iri
@@ -22,12 +22,12 @@ RDFTurtleRdfLiteralNode >> asRDFTermFor: aVisitor [
 		ifNotNil: [ RDFLiteral new value: string value dataType: (iri asRDFTermFor: aVisitor) ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleRdfLiteralNode >> iri [
 	^ iri
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleRdfLiteralNode >> iri: aRDFTurtleIriNode [
 	self iri notNil
 		ifTrue: [ self iri parent: nil ].
@@ -36,17 +36,17 @@ RDFTurtleRdfLiteralNode >> iri: aRDFTurtleIriNode [
 		ifTrue: [ self iri parent: self ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleRdfLiteralNode >> nodeVariables [
 	^ #(#string #iri)
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleRdfLiteralNode >> string [
 	^ string
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleRdfLiteralNode >> string: aRDFTurtleDocumentNode [
 	self string notNil
 		ifTrue: [ self string parent: nil ].
@@ -55,17 +55,17 @@ RDFTurtleRdfLiteralNode >> string: aRDFTurtleDocumentNode [
 		ifTrue: [ self string parent: self ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleRdfLiteralNode >> tag [
 	^ tag
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleRdfLiteralNode >> tag: aSmaCCToken [
 	tag := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleRdfLiteralNode >> tokenVariables [
 	^ #(#tag)
 ]

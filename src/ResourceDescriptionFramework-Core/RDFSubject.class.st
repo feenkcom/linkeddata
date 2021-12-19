@@ -1,16 +1,16 @@
 Class {
-	#name : 'RDFSubject',
-	#superclass : 'RDFTriplePart',
+	#name : #RDFSubject,
+	#superclass : #RDFTriplePart,
 	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 RDFSubject >> isSubject [
 
 	^ true
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFSubject >> name [
 	^ 'Subject'
 ]

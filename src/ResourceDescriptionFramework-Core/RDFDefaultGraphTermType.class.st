@@ -1,10 +1,10 @@
 Class {
-	#name : 'RDFDefaultGraphTermType',
-	#superclass : 'RDFTermType',
+	#name : #RDFDefaultGraphTermType,
+	#superclass : #RDFTermType,
 	#category : 'ResourceDescriptionFramework-Core-Constants'
 }
 
-{ #category : 'evaluating' }
+{ #category : #evaluating }
 RDFDefaultGraphTermType >> name [
 	^ 'DefaultGraph'
 ]

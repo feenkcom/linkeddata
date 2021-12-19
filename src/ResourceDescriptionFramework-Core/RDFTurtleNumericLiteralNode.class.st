@@ -1,18 +1,18 @@
 Class {
-	#name : 'RDFTurtleNumericLiteralNode',
-	#superclass : 'RDFTurtleDocumentNode',
+	#name : #RDFTurtleNumericLiteralNode,
+	#superclass : #RDFTurtleDocumentNode,
 	#instVars : [
 		'literal'
 	],
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleNumericLiteralNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitNumericLiteral: self
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 RDFTurtleNumericLiteralNode >> asRDFTermFor: aVisitor [
 	| dataType string |
 
@@ -28,17 +28,17 @@ RDFTurtleNumericLiteralNode >> asRDFTermFor: aVisitor [
 	^ RDFLiteral new value: string dataType: dataType
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleNumericLiteralNode >> literal [
 	^ literal
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleNumericLiteralNode >> literal: aSmaCCToken [
 	literal := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleNumericLiteralNode >> tokenVariables [
 	^ #(#literal)
 ]

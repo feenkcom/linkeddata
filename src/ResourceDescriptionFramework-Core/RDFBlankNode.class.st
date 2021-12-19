@@ -1,10 +1,10 @@
 Class {
-	#name : 'RDFBlankNode',
-	#superclass : 'RDFTerm',
+	#name : #RDFBlankNode,
+	#superclass : #RDFTerm,
 	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 RDFBlankNode class >> fromJsonDictionary: aDictionary [
 	"Answer an instance of the appropriate subclass.
 	aDictionary follows the structure defined at https://www.w3.org/TR/sparql11-results-json/"
@@ -12,14 +12,14 @@ RDFBlankNode class >> fromJsonDictionary: aDictionary [
 	^ self new label: (aDictionary at: #value)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFBlankNode class >> typeName [ 
 	"Answer the type the receiver represents."
 
 	^ #bnode
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFBlankNode >> iri [ 
 	"The printString is currently the same as the iri"
 
@@ -27,7 +27,7 @@ RDFBlankNode >> iri [
 		self printOn: stream ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFBlankNode >> label [ 
 	"Answer the receiver's label.
 	Labels can be any simple string (no spaces), but are often sequential numbers"
@@ -36,13 +36,13 @@ RDFBlankNode >> label [
 	^ value
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFBlankNode >> label: aStringOrInteger [
 
 	value := aStringOrInteger 
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFBlankNode >> printOn: aStream [
 
 	value ifNil: [ ^ super printOn: aStream ].
@@ -52,7 +52,7 @@ RDFBlankNode >> printOn: aStream [
 		<< value asString
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFBlankNode >> printSparqlOn: aStream [
 	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
 	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
@@ -62,7 +62,7 @@ RDFBlankNode >> printSparqlOn: aStream [
 		<< value asString
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFBlankNode >> termType [
 	^ RDFTermType blankNode
 ]

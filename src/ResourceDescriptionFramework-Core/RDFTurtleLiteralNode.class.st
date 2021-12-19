@@ -1,29 +1,29 @@
 Class {
-	#name : 'RDFTurtleLiteralNode',
-	#superclass : 'RDFTurtleDocumentNode',
+	#name : #RDFTurtleLiteralNode,
+	#superclass : #RDFTurtleDocumentNode,
 	#instVars : [
 		'literal'
 	],
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleLiteralNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitLiteral: self
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 RDFTurtleLiteralNode >> asRDFTermFor: aVisitor [
 
 	^ literal asRDFTermFor: aVisitor
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleLiteralNode >> literal [
 	^ literal
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleLiteralNode >> literal: aRDFTurtleDocumentNode [
 	self literal notNil
 		ifTrue: [ self literal parent: nil ].
@@ -32,7 +32,7 @@ RDFTurtleLiteralNode >> literal: aRDFTurtleDocumentNode [
 		ifTrue: [ self literal parent: self ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleLiteralNode >> nodeVariables [
 	^ #(#literal)
 ]

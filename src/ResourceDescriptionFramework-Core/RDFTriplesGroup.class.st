@@ -1,20 +1,20 @@
 Class {
-	#name : 'RDFTriplesGroup',
-	#superclass : 'RDFTriples',
+	#name : #RDFTriplesGroup,
+	#superclass : #RDFTriples,
 	#category : 'ResourceDescriptionFramework-Core-Collections'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 RDFTriplesGroup >> defaultCollection [
 	^ OrderedCollection new
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 RDFTriplesGroup >> do: aBlock [ 
 	self collection do: aBlock 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriplesGroup >> first [ 
 	^ self collection first
 ]

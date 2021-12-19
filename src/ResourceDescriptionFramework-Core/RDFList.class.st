@@ -1,6 +1,6 @@
 Class {
-	#name : 'RDFList',
-	#superclass : 'RDFProtoObject',
+	#name : #RDFList,
+	#superclass : #RDFProtoObject,
 	#instVars : [
 		'collection',
 		'store'
@@ -8,23 +8,23 @@ Class {
 	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFList >> collection [
 	^ collection
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFList >> collection: aCollection [
 	collection := aCollection
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 RDFList >> do: aBlock [ 
 
 	collection do: aBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFList >> gtItemsFor: aView [
 	<gtView>
 	^ aView list
@@ -33,18 +33,18 @@ RDFList >> gtItemsFor: aView [
 		itemText: [ :aTriple | aTriple sentence ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 RDFList >> initialize [
 	super initialize.
 	collection := OrderedCollection new.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFList >> store [
 	^ store
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFList >> store: anObject [
 	store := anObject
 ]

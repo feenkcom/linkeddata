@@ -1,16 +1,16 @@
 Class {
-	#name : 'RDFTriple',
-	#superclass : 'RDFProtoObject',
+	#name : #RDFTriple,
+	#superclass : #RDFProtoObject,
 	#instVars : [
 		'subject',
 		'predicate',
 		'object',
 		'store'
 	],
-	#category : 'ResourceDescriptionFramework-Core-Model'
+	#category : #'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 RDFTriple class >> fromNTriple: aString [
 	"Answer an instance based on the values in the supplied N-Triple"
 	| fields subject predicate |
@@ -32,18 +32,19 @@ RDFTriple class >> fromNTriple: aString [
 
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 RDFTriple >> gtPartsFor: aView [
+
 	<gtView>
 	^ aView columnedList
-		title: 'Parts';
-		priority: 2;
-		items: [ self parts ];
-		column: 'Part' item: [ :aPart | aPart name ] width: 80;
-		column: 'Term' item: [ :aPart | aPart ]
+		  title: 'Parts';
+		  priority: 2;
+		  items: [ self parts ];
+		  column: 'Part' text: [ :aPart | aPart name ] width: 80;
+		  column: 'Term' text: [ :aPart | aPart ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 RDFTriple >> gtSentenceFor: aView [
 	<gtView>
 	self subject ifNil: [ ^ aView empty ].
@@ -56,17 +57,17 @@ RDFTriple >> gtSentenceFor: aView [
 		text: [ self sentence ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> object [
 	^ object
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> object: anObject [
 	object := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> parts [
 	^ Array new: 3 streamContents: [ :aStream | 
 		self subject ifNotNil: [ :aSubject | aStream nextPut: aSubject ].
@@ -74,12 +75,12 @@ RDFTriple >> parts [
 		self object ifNotNil: [ :anObject | aStream nextPut: anObject ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> predicate [
 	^ predicate
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> predicate: aPredicate [
 	"Set the receiver's predicate"
 
@@ -87,19 +88,19 @@ RDFTriple >> predicate: aPredicate [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> predicateIRI [
 
 	^ predicate term printString
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFTriple >> printOn: aStream [
 	self subject ifNil: [ ^ super printOn: aStream ].
 	self printSentenceOn: aStream
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFTriple >> printSentenceOn: aStream [
 	self subject ifNotNil: [ :aSubject | 
 		aStream print: aSubject; space ].
@@ -109,7 +110,7 @@ RDFTriple >> printSentenceOn: aStream [
 		aStream nextPutAll: ' whose value is '; print: anObject; nextPut: $. ].
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFTriple >> printSparqlOn: aStream [
 
 	subject printSparqlOn: aStream.
@@ -120,34 +121,34 @@ RDFTriple >> printSparqlOn: aStream [
 	aStream << ' .'.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> sentence [
 	<return: #String>
 	^ String streamContents: [ :aStream | 
 		self printSentenceOn: aStream ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> store [
 	^ store
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> store: anObject [
 	store := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> subject [
 	^ subject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> subject: anObject [
 	subject := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTriple >> subjectIRI [
 	"Answer the receiver's subject IRI as a string (useful for adhoc searches)"
 

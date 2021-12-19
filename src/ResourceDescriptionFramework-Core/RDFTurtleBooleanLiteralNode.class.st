@@ -1,34 +1,34 @@
 Class {
-	#name : 'RDFTurtleBooleanLiteralNode',
-	#superclass : 'RDFTurtleDocumentNode',
+	#name : #RDFTurtleBooleanLiteralNode,
+	#superclass : #RDFTurtleDocumentNode,
 	#instVars : [
 		'literal'
 	],
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleBooleanLiteralNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitBooleanLiteral: self
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 RDFTurtleBooleanLiteralNode >> asRDFTermFor: aVisitor [
 
 	^ RDFLiteral new value: literal value dataType: RdfResources boolean
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleBooleanLiteralNode >> literal [
 	^ literal
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleBooleanLiteralNode >> literal: aSmaCCToken [
 	literal := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleBooleanLiteralNode >> tokenVariables [
 	^ #(#literal)
 ]

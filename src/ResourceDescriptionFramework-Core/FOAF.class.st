@@ -1,26 +1,26 @@
 Class {
-	#name : 'FOAF',
-	#superclass : 'RDFConvenience',
+	#name : #FOAF,
+	#superclass : #RDFConvenience,
 	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : 'factory' }
+{ #category : #factory }
 FOAF class >> factory [
 	^ FOAFFactory default
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 FOAF class >> givenName [
 	^ self factory givenName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 FOAF class >> iriNames [
 
 	^ #(givenName)
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 FOAF class >> isDeprecated [ 
 	"FOAF is deprecated, RdfVocabularies should be used instead"
 	

@@ -3,8 +3,8 @@ RDFTurtleTripleVisitor extracts all the triples from a RDFTurtleTurtleDocNode.
 
 "
 Class {
-	#name : 'RDFTurtleTripleVisitor',
-	#superclass : 'RDFTurtleDocumentNodeVisitor',
+	#name : #RDFTurtleTripleVisitor,
+	#superclass : #RDFTurtleDocumentNodeVisitor,
 	#instVars : [
 		'prefixes',
 		'triples',
@@ -18,7 +18,7 @@ Class {
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 RDFTurtleTripleVisitor class >> parse: aRDFTurtleDocumentString [
 	"Parse the supplied TURTLE document (String) and answer the collection of triples"
 	| visitor |
@@ -28,7 +28,7 @@ RDFTurtleTripleVisitor class >> parse: aRDFTurtleDocumentString [
 	^ visitor triples
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 RDFTurtleTripleVisitor >> initialize [ 
 
 	super initialize.
@@ -39,29 +39,29 @@ RDFTurtleTripleVisitor >> initialize [
 	blankNodeIndex := -1.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTurtleTripleVisitor >> nextBlankNodeIndex [
 	"Answer the next index to be used for RdfBlankNodes"
 
 	^ blankNodeIndex := blankNodeIndex + 1
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTurtleTripleVisitor >> prefixes [
 	^ prefixes
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTurtleTripleVisitor >> resources [
 	^ resources
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTurtleTripleVisitor >> triples [
 	^ triples
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleTripleVisitor >> visitBlankNodePropertyList: aBlankNodePropertyList [
 	| oldSubject |
 
@@ -71,7 +71,7 @@ RDFTurtleTripleVisitor >> visitBlankNodePropertyList: aBlankNodePropertyList [
 	subject := oldSubject.
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleTripleVisitor >> visitObject: aRdfTurtleObjectNode [
 
 	object := aRdfTurtleObjectNode asRDFTermFor: self.
@@ -81,7 +81,7 @@ RDFTurtleTripleVisitor >> visitObject: aRdfTurtleObjectNode [
 	self visitDocument: aRdfTurtleObjectNode.
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleTripleVisitor >> visitPrefixID: aPrefixID [
 	| iri url |
 
@@ -91,14 +91,14 @@ RDFTurtleTripleVisitor >> visitPrefixID: aPrefixID [
 	^ self visitDocument: aPrefixID
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleTripleVisitor >> visitSubject: aSubject [
 
 	tripleBuilder subjectTerm: (subject := aSubject asRDFTermFor: self).
 	^ self visitDocument: aSubject
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleTripleVisitor >> visitVerb: aVerb [
 
 	tripleBuilder predicateTerm: (predicate := aVerb asRDFTermFor: self).

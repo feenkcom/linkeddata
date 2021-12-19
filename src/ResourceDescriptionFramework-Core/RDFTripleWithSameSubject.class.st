@@ -1,12 +1,12 @@
 Class {
-	#name : 'RDFTripleWithSameSubject',
-	#superclass : 'RDFPreviewTriple',
+	#name : #RDFTripleWithSameSubject,
+	#superclass : #RDFPreviewTriple,
 	#traits : 'TRDFPreviewTriplesEnumeration - {#store}',
 	#classTraits : 'TRDFPreviewTriplesEnumeration classTrait',
 	#category : 'ResourceDescriptionFramework-Core-Helpers'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTripleWithSameSubject >> children [
 	^ OrderedCollection
 		streamContents: [ :aStream | 
@@ -15,13 +15,13 @@ RDFTripleWithSameSubject >> children [
 			"self triplesReferingToSubjectInto: aStream." ]
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFTripleWithSameSubject >> printOn: aStream [
 	self realObject ifNil: [ ^ super printOn: aStream ].
 	self printSentenceOn: aStream
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFTripleWithSameSubject >> printSentenceOn: aStream [
 	self predicate ifNotNil: [ :aPredicate | 
 		aStream nextPutAll: 'has a '; print: aPredicate ].
@@ -29,13 +29,13 @@ RDFTripleWithSameSubject >> printSentenceOn: aStream [
 		aStream nextPutAll: ' whose value is '; print: anObject; nextPut: $. ].
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTripleWithSameSubject >> tripleObjectTerm [
 	<return: #RDFTerm>
 	^ self realObject object term
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTripleWithSameSubject >> tripleSubject [
 	<return: #RDFSubject>
 	^ self realObject subject

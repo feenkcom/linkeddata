@@ -1,6 +1,6 @@
 Class {
-	#name : 'RDFTurtlePrefixIDNode',
-	#superclass : 'RDFTurtleDocumentNode',
+	#name : #RDFTurtlePrefixIDNode,
+	#superclass : #RDFTurtleDocumentNode,
 	#instVars : [
 		'name',
 		'iri'
@@ -8,32 +8,32 @@ Class {
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtlePrefixIDNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitPrefixID: self
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtlePrefixIDNode >> iri [
 	^ iri
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtlePrefixIDNode >> iri: aSmaCCToken [
 	iri := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtlePrefixIDNode >> name [
 	^ name
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtlePrefixIDNode >> name: aSmaCCToken [
 	name := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtlePrefixIDNode >> tokenVariables [
 	^ #(#name #iri)
 ]

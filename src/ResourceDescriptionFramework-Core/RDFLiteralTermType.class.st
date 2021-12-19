@@ -1,10 +1,10 @@
 Class {
-	#name : 'RDFLiteralTermType',
-	#superclass : 'RDFTermType',
+	#name : #RDFLiteralTermType,
+	#superclass : #RDFTermType,
 	#category : 'ResourceDescriptionFramework-Core-Constants'
 }
 
-{ #category : 'evaluating' }
+{ #category : #evaluating }
 RDFLiteralTermType >> name [
 	^ 'Literal'
 ]

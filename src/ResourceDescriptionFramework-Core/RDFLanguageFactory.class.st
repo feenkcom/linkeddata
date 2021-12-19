@@ -1,20 +1,20 @@
 Class {
-	#name : 'RDFLanguageFactory',
-	#superclass : 'RDFProtoFactory',
+	#name : #RDFLanguageFactory,
+	#superclass : #RDFProtoFactory,
 	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFLanguageFactory >> en [
 	^ self language: 'en'
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFLanguageFactory >> language [
 	^ RDFLanguage new
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFLanguageFactory >> language: aString [
 	<return: #RDFLanguage>
 	^ self language tag: aString

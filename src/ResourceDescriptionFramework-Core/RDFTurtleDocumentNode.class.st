@@ -1,10 +1,10 @@
 Class {
-	#name : 'RDFTurtleDocumentNode',
-	#superclass : 'SmaCCParseNode',
+	#name : #RDFTurtleDocumentNode,
+	#superclass : #SmaCCParseNode,
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleDocumentNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitDocument: self
 ]

@@ -1,76 +1,76 @@
 Class {
-	#name : 'SCHEMA',
-	#superclass : 'RDFConvenience',
+	#name : #SCHEMA,
+	#superclass : #RDFConvenience,
 	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> author [
 	^ self factory author
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> contentUrl [
 	^ self factory contentUrl
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> dateCreated [
 	^ self factory dateCreated
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> datePublished [
 	^ self factory datePublished
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> factory [
 	^ SCHEMAFactory default
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> identifier [
 	^ self factory identifier
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> image [
 	^ self factory image
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> imageObject [
 	^ self factory imageObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 SCHEMA class >> iriNames [
 
 	^ #(author contentUrl dateCreated datePublished identifier image imageObject mentions person socialMediaPosting text)
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> mentions [
 	^ self factory mentions
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> name1 [
 	^ self factory name
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> person [
 	^ self factory person
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> socialMediaPosting [
 	^ self factory socialMediaPosting
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 SCHEMA class >> text [
 	^ self factory text
 ]

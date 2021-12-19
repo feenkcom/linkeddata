@@ -1,10 +1,10 @@
 Class {
-	#name : 'RdfObjectValueParsers',
-	#superclass : 'Object',
+	#name : #RdfObjectValueParsers,
+	#superclass : #Object,
 	#category : 'ResourceDescriptionFramework-Core-Helpers'
 }
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 RdfObjectValueParsers class >> parseBoolean: aString [ 
 	| boolean |
 
@@ -13,31 +13,31 @@ RdfObjectValueParsers class >> parseBoolean: aString [
 	^ boolean
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 RdfObjectValueParsers class >> parseDate: aString [ 
 
 	^ Date readFrom: aString readStream
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 RdfObjectValueParsers class >> parseDateTime: aString [ 
 
 	^ DateAndTime readFrom: aString readStream
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 RdfObjectValueParsers class >> parseDecimal: aString [ 
 
 	^ ScaledDecimal readFrom: aString
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 RdfObjectValueParsers class >> parseDouble: aString [ 
 
 	^ aString asLowercase asNumber
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 RdfObjectValueParsers class >> parseInteger: aString [ 
 
 	^ aString asInteger

@@ -1,15 +1,15 @@
 Class {
-	#name : 'OWLFactory',
-	#superclass : 'RDFTermFactory',
+	#name : #OWLFactory,
+	#superclass : #RDFTermFactory,
 	#category : 'ResourceDescriptionFramework-Core-Factories'
 }
 
-{ #category : 'factory' }
+{ #category : #factory }
 OWLFactory >> prefix [
 	^ 'http://www.w3.org/2002/07/owl#'
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 OWLFactory >> shortName [
 	^ 'owl'
 ]

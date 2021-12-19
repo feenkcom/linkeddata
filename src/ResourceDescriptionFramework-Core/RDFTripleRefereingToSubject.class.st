@@ -1,12 +1,12 @@
 Class {
-	#name : 'RDFTripleRefereingToSubject',
-	#superclass : 'RDFPreviewTriple',
+	#name : #RDFTripleRefereingToSubject,
+	#superclass : #RDFPreviewTriple,
 	#traits : 'TRDFPreviewTriplesEnumeration - {#store}',
 	#classTraits : 'TRDFPreviewTriplesEnumeration classTrait',
 	#category : 'ResourceDescriptionFramework-Core-Helpers'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTripleRefereingToSubject >> children [
 	^ OrderedCollection
 		streamContents: [ :aStream | 
@@ -14,13 +14,13 @@ RDFTripleRefereingToSubject >> children [
 			self triplesReferingToSubjectInto: aStream. ]
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFTripleRefereingToSubject >> printOn: aStream [
 	self realObject ifNil: [ ^ super printOn: aStream ].
 	self printSentenceOn: aStream
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFTripleRefereingToSubject >> printSentenceOn: aStream [
 	self predicate ifNotNil: [ :aPredicate | 
 		aStream nextPutAll: 'is a '; print: aPredicate ].
@@ -28,7 +28,7 @@ RDFTripleRefereingToSubject >> printSentenceOn: aStream [
 		aStream nextPutAll: ' of '; print: aSubject; nextPut: $. ].
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTripleRefereingToSubject >> tripleSubject [
 	<return: #RDFStore>
 	^ self realObject subject

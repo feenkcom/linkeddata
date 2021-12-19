@@ -1,6 +1,6 @@
 Class {
-	#name : 'RdfDataType',
-	#superclass : 'RdfProperty',
+	#name : #RdfDataType,
+	#superclass : #RdfProperty,
 	#instVars : [
 		'parser',
 		'printer'
@@ -8,22 +8,22 @@ Class {
 	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfDataType >> parser [
 	^ parser
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfDataType >> parser: anObject [
 	parser := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfDataType >> printer [
 	^ printer
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfDataType >> printer: anObject [
 	printer := anObject
 ]

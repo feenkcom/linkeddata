@@ -1,28 +1,28 @@
 Class {
-	#name : 'RDFTurtleBaseNode',
-	#superclass : 'RDFTurtleDocumentNode',
+	#name : #RDFTurtleBaseNode,
+	#superclass : #RDFTurtleDocumentNode,
 	#instVars : [
 		'iri'
 	],
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleBaseNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitBase: self
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleBaseNode >> iri [
 	^ iri
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleBaseNode >> iri: aSmaCCToken [
 	iri := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleBaseNode >> tokenVariables [
 	^ #(#iri)
 ]

@@ -1,29 +1,29 @@
 Class {
-	#name : 'RDFTurtlePredicateNode',
-	#superclass : 'RDFTurtleDocumentNode',
+	#name : #RDFTurtlePredicateNode,
+	#superclass : #RDFTurtleDocumentNode,
 	#instVars : [
 		'iri'
 	],
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtlePredicateNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitPredicate: self
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 RDFTurtlePredicateNode >> asRDFTermFor: aVisitor [
 
 	^ iri asRDFTermFor: aVisitor
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtlePredicateNode >> iri [
 	^ iri
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtlePredicateNode >> iri: aRDFTurtleIriNode [
 	self iri notNil
 		ifTrue: [ self iri parent: nil ].
@@ -32,7 +32,7 @@ RDFTurtlePredicateNode >> iri: aRDFTurtleIriNode [
 		ifTrue: [ self iri parent: self ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtlePredicateNode >> nodeVariables [
 	^ #(#iri)
 ]

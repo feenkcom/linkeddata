@@ -1,6 +1,6 @@
-Extension { #name : 'DateAndTime' }
+Extension { #name : #DateAndTime }
 
-{ #category : '*ResourceDescriptionFramework-Core' }
+{ #category : #'*ResourceDescriptionFramework-Core' }
 DateAndTime >> printSparqlOn: aStream [
 
 	aStream

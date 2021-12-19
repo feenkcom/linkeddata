@@ -1,15 +1,15 @@
 Trait {
-	#name : 'TRDFPreviewTriplesEnumeration',
+	#name : #TRDFPreviewTriplesEnumeration,
 	#category : 'ResourceDescriptionFramework-Core-Helpers'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TRDFPreviewTriplesEnumeration >> store [
 	<return: #RDFStore>
 	^ self explicitRequirement
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 TRDFPreviewTriplesEnumeration >> subjectsMentionedInTripleObjectInto: aStream [
 	self store extractedSubjects
 		do: [ :eachSubject | 
@@ -17,25 +17,25 @@ TRDFPreviewTriplesEnumeration >> subjectsMentionedInTripleObjectInto: aStream [
 				ifTrue: [ aStream nextPut: eachSubject ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TRDFPreviewTriplesEnumeration >> tripleObjectTerm [
 	<return: #RDFTerm>
 	^ self explicitRequirement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TRDFPreviewTriplesEnumeration >> tripleSubject [
 	<return: #RDFSubject>
 	^ self explicitRequirement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TRDFPreviewTriplesEnumeration >> tripleSubjectTerm [
 	<return: #RDFTerm>
 	^ self tripleSubject term
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 TRDFPreviewTriplesEnumeration >> triplesReferingToSubjectInto: aStream [
 	self store
 		do: [ :eachTriple | 
@@ -47,7 +47,7 @@ TRDFPreviewTriplesEnumeration >> triplesReferingToSubjectInto: aStream [
 							realObject: eachTriple) ] ]
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 TRDFPreviewTriplesEnumeration >> triplesWithSameSubjectInto: aStream [
 	self store
 		do: [ :eachTriple | 

@@ -1,10 +1,10 @@
 Class {
-	#name : 'RDFTurtleScanner',
-	#superclass : 'SmaCCScanner',
+	#name : #RDFTurtleScanner,
+	#superclass : #SmaCCScanner,
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'generated-initialization' }
+{ #category : #'generated-initialization' }
 RDFTurtleScanner class >> initializeKeywordMap [
 	keywordMap := Dictionary new.
 	#(#(21 '@base' 6) #(21 '@prefix' 7))
@@ -15,17 +15,17 @@ RDFTurtleScanner class >> initializeKeywordMap [
 	^ keywordMap
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> emptySymbolTokenId [
 	^ 57
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> errorTokenId [
 	^ 58
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan1 [
 	[ self step.
 	currentCharacter == $"
@@ -40,7 +40,7 @@ RDFTurtleScanner >> scan1 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan10 [
 	[ self step.
 	currentCharacter == $'
@@ -51,7 +51,7 @@ RDFTurtleScanner >> scan10 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan11 [
 	(self scanForString: '''''')
 		ifTrue: [ [ self recordMatch: #(22).
@@ -64,7 +64,7 @@ RDFTurtleScanner >> scan11 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan12 [
 	[ self step.
 	currentCharacter == $'
@@ -96,7 +96,7 @@ RDFTurtleScanner >> scan12 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan13 [
 	self step.
 	(currentCharacter isDigit
@@ -118,7 +118,7 @@ RDFTurtleScanner >> scan13 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan14 [
 	[ self recordMatch: #(15).
 	self step.
@@ -128,7 +128,7 @@ RDFTurtleScanner >> scan14 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan15 [
 	self step.
 	currentCharacter isDigit
@@ -145,7 +145,7 @@ RDFTurtleScanner >> scan15 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan16 [
 	[ self recordMatch: #(15).
 	self step.
@@ -162,7 +162,7 @@ RDFTurtleScanner >> scan16 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan17 [
 	self recordMatch: #(19 20).
 	self step.
@@ -177,7 +177,7 @@ RDFTurtleScanner >> scan17 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan18 [
 	self step.
 	(currentCharacter isDigit
@@ -191,7 +191,7 @@ RDFTurtleScanner >> scan18 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan19 [
 	[ self recordMatch: #(20).
 	self step.
@@ -220,7 +220,7 @@ RDFTurtleScanner >> scan19 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan2 [
 	self step.
 	currentCharacter == $U
@@ -249,7 +249,7 @@ RDFTurtleScanner >> scan2 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan20 [
 	self step.
 	(currentCharacter == $!
@@ -261,7 +261,7 @@ RDFTurtleScanner >> scan20 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan21 [
 	self step.
 	((currentCharacter between: $0 and: $9)
@@ -277,7 +277,7 @@ RDFTurtleScanner >> scan21 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan22 [
 	[ self step.
 	currentCharacter == $.
@@ -292,7 +292,7 @@ RDFTurtleScanner >> scan22 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan23 [
 	[ self step.
 	currentCharacter == $. ] whileTrue.
@@ -304,7 +304,7 @@ RDFTurtleScanner >> scan23 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan24 [
 	[ self recordMatch: #(17).
 	self step.
@@ -325,7 +325,7 @@ RDFTurtleScanner >> scan24 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan25 [
 	self step.
 	currentCharacter == $.
@@ -355,7 +355,7 @@ RDFTurtleScanner >> scan25 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan3 [
 	self step.
 	(currentCharacter isDigit
@@ -377,7 +377,7 @@ RDFTurtleScanner >> scan3 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan4 [
 	[ self step.
 	currentCharacter == $"
@@ -391,7 +391,7 @@ RDFTurtleScanner >> scan4 [
 	true ] whileTrue
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan5 [
 	self step.
 	currentCharacter == $U
@@ -420,7 +420,7 @@ RDFTurtleScanner >> scan5 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan6 [
 	self step.
 	(currentCharacter isDigit
@@ -442,7 +442,7 @@ RDFTurtleScanner >> scan6 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan7 [
 	[ self step.
 	currentCharacter == $'
@@ -457,7 +457,7 @@ RDFTurtleScanner >> scan7 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan8 [
 	self step.
 	currentCharacter == $U
@@ -486,7 +486,7 @@ RDFTurtleScanner >> scan8 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scan9 [
 	self step.
 	(currentCharacter isDigit
@@ -508,7 +508,7 @@ RDFTurtleScanner >> scan9 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForToken [
 	self step.
 	currentCharacter == $"
@@ -526,7 +526,7 @@ RDFTurtleScanner >> scanForToken [
 	^ self scanForTokenX17
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX1 [
 	self step.
 	currentCharacter == $.
@@ -545,7 +545,7 @@ RDFTurtleScanner >> scanForTokenX1 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX10 [
 	self step.
 	currentCharacter == $:
@@ -557,7 +557,7 @@ RDFTurtleScanner >> scanForTokenX10 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX11 [
 	self step.
 	((currentCharacter between: $A and: $Z)
@@ -571,7 +571,7 @@ RDFTurtleScanner >> scanForTokenX11 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX12 [
 	[ self recordMatch: #(14).
 	self step.
@@ -580,7 +580,7 @@ RDFTurtleScanner >> scanForTokenX12 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX13 [
 	self step.
 	currentCharacter == $.
@@ -593,7 +593,7 @@ RDFTurtleScanner >> scanForTokenX13 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX14 [
 	self step.
 	currentCharacter == $^
@@ -601,7 +601,7 @@ RDFTurtleScanner >> scanForTokenX14 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX15 [
 	self recordMatch: #(4).
 	self step.
@@ -610,7 +610,7 @@ RDFTurtleScanner >> scanForTokenX15 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX16 [
 	currentCharacter == $f
 		ifTrue:
@@ -637,7 +637,7 @@ RDFTurtleScanner >> scanForTokenX16 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX17 [
 	currentCharacter == $.
 		ifTrue:
@@ -675,7 +675,7 @@ RDFTurtleScanner >> scanForTokenX17 [
 	^ self scanForTokenX16
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX1X1 [
 	self step.
 	currentCharacter == $.
@@ -694,7 +694,7 @@ RDFTurtleScanner >> scanForTokenX1X1 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX1X1X1 [
 	self step.
 	currentCharacter == $.
@@ -749,7 +749,7 @@ RDFTurtleScanner >> scanForTokenX1X1X1 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX2 [
 	self step.
 	currentCharacter == $.
@@ -803,7 +803,7 @@ RDFTurtleScanner >> scanForTokenX2 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX3 [
 	self step.
 	currentCharacter == $.
@@ -848,7 +848,7 @@ RDFTurtleScanner >> scanForTokenX3 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX4 [
 	self step.
 	currentCharacter == $.
@@ -881,7 +881,7 @@ RDFTurtleScanner >> scanForTokenX4 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX5 [
 	[ self step.
 	currentCharacter == $>
@@ -898,7 +898,7 @@ RDFTurtleScanner >> scanForTokenX5 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX6 [
 	self step.
 	currentCharacter == $'
@@ -918,7 +918,7 @@ RDFTurtleScanner >> scanForTokenX6 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX7 [
 	self step.
 	currentCharacter == $"
@@ -938,7 +938,7 @@ RDFTurtleScanner >> scanForTokenX7 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX8 [
 	self recordMatch: #(13).
 	self step.
@@ -954,7 +954,7 @@ RDFTurtleScanner >> scanForTokenX8 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> scanForTokenX9 [
 	self recordMatch: #(10).
 	self step.
@@ -972,7 +972,7 @@ RDFTurtleScanner >> scanForTokenX9 [
 	^ self reportLastMatch
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleScanner >> tokenActions [
 	^ #(nil nil nil nil nil nil nil nil nil nil nil nil nil #whitespace)
 ]

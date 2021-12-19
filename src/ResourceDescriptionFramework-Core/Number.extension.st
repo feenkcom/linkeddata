@@ -1,6 +1,6 @@
-Extension { #name : 'Number' }
+Extension { #name : #Number }
 
-{ #category : '*ResourceDescriptionFramework-Core' }
+{ #category : #'*ResourceDescriptionFramework-Core' }
 Number >> printSparqlOn: aStream [
 
 	aStream print: self

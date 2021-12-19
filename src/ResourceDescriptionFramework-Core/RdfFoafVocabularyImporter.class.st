@@ -1,10 +1,10 @@
 Class {
-	#name : 'RdfFoafVocabularyImporter',
-	#superclass : 'RdfVocabularyImporter',
+	#name : #RdfFoafVocabularyImporter,
+	#superclass : #RdfVocabularyImporter,
 	#category : 'ResourceDescriptionFramework-Core-Importers'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 RdfFoafVocabularyImporter >> addClass: aXMLElement [
 	"Add a RdfClass based on the supplied element"
 	| rdfClass className |
@@ -23,7 +23,7 @@ RdfFoafVocabularyImporter >> addClass: aXMLElement [
 	resources at: rdfClass qualifiedName put: rdfClass.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 RdfFoafVocabularyImporter >> addProperty: aXMLElement [
 	"Add a RdfClass based on the supplied element"
 	| rdfClass propertyName |

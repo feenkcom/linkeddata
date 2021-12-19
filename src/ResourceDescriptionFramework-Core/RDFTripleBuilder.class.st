@@ -1,6 +1,6 @@
 Class {
-	#name : 'RDFTripleBuilder',
-	#superclass : 'RDFProtoBuilder',
+	#name : #RDFTripleBuilder,
+	#superclass : #RDFProtoBuilder,
 	#instVars : [
 		'triple',
 		'subject',
@@ -10,7 +10,7 @@ Class {
 	#category : 'ResourceDescriptionFramework-Core-Builders'
 }
 
-{ #category : 'building - object' }
+{ #category : #'building - object' }
 RDFTripleBuilder >> build [
 
 	self assert: subject isSubject.
@@ -23,12 +23,12 @@ RDFTripleBuilder >> build [
 		object: object
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTripleBuilder >> object [
 	^ object
 ]
 
-{ #category : 'building - object' }
+{ #category : #'building - object' }
 RDFTripleBuilder >> object: aRdfObject [
 	self 
 		assert: [ aRdfObject isNotNil ] 
@@ -36,7 +36,7 @@ RDFTripleBuilder >> object: aRdfObject [
 	object := aRdfObject.
 ]
 
-{ #category : 'building - object' }
+{ #category : #'building - object' }
 RDFTripleBuilder >> objectIRI: aString [
 	| aTerm |
 	self 
@@ -46,7 +46,7 @@ RDFTripleBuilder >> objectIRI: aString [
 	self objectTerm: aTerm.
 ]
 
-{ #category : 'building - subject' }
+{ #category : #'building - subject' }
 RDFTripleBuilder >> objectJSONDictionary: aDictionary [
 	"Set the triple's object based on the dictionary returned by the SPARQL server"
 	| type |
@@ -60,7 +60,7 @@ RDFTripleBuilder >> objectJSONDictionary: aDictionary [
 
 ]
 
-{ #category : 'building - object' }
+{ #category : #'building - object' }
 RDFTripleBuilder >> objectLiteral: aString [
 	| aTerm |
 	self 
@@ -70,14 +70,14 @@ RDFTripleBuilder >> objectLiteral: aString [
 	^ self objectTerm: aTerm.
 ]
 
-{ #category : 'building - object' }
+{ #category : #'building - object' }
 RDFTripleBuilder >> objectLiteral: aValue type: aType [
 	| aTerm |
 	aTerm := RDF literal: aValue type: aType.
 	^ self objectTerm: aTerm.
 ]
 
-{ #category : 'building - object' }
+{ #category : #'building - object' }
 RDFTripleBuilder >> objectNTerm: aString [ 
 	"Build the object assuming the type from the encoding.
 	This is a hack - the type should be determined by looking up the predicate schema and parsing based on that information.
@@ -103,21 +103,21 @@ RDFTripleBuilder >> objectNTerm: aString [
 	self error: 'Unknown N-Type'.
 ]
 
-{ #category : 'building - object' }
+{ #category : #'building - object' }
 RDFTripleBuilder >> objectNamespace: aNamespace suffix: aSuffixString [
 	| aTerm |
 	aTerm := RDF namedNode: aSuffixString inNamespace: aNamespace.
 	self objectTerm: aTerm
 ]
 
-{ #category : 'building - object' }
+{ #category : #'building - object' }
 RDFTripleBuilder >> objectNamespaceIRI: aNamespaceString as: aShortNameString suffix: aSuffixString [
 	| aNamespace |
 	aNamespace := RDF namespaceValue: aNamespaceString shortName: aShortNameString.
 	self objectNamespace: aNamespace suffix: aSuffixString.
 ]
 
-{ #category : 'building - object' }
+{ #category : #'building - object' }
 RDFTripleBuilder >> objectTerm: aTerm [
 
 	self 
@@ -127,7 +127,7 @@ RDFTripleBuilder >> objectTerm: aTerm [
 
 ]
 
-{ #category : 'building - object' }
+{ #category : #'building - object' }
 RDFTripleBuilder >> objectValue: anObject [
 	"Build the object based on the objects class.  Note that IRI's should be added with objectIRI:
 	Assume type based on first character:
@@ -150,12 +150,12 @@ RDFTripleBuilder >> objectValue: anObject [
 	self error: 'Unknown object type'.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTripleBuilder >> predicate [
 	^ predicate
 ]
 
-{ #category : 'building - predicate' }
+{ #category : #'building - predicate' }
 RDFTripleBuilder >> predicate: aPredicate [
 	self 
 		assert: [ aPredicate isNotNil ] 
@@ -163,7 +163,7 @@ RDFTripleBuilder >> predicate: aPredicate [
 	predicate := aPredicate.
 ]
 
-{ #category : 'building - predicate' }
+{ #category : #'building - predicate' }
 RDFTripleBuilder >> predicateIRI: aString [
 	| aTerm |
 	self 
@@ -173,21 +173,21 @@ RDFTripleBuilder >> predicateIRI: aString [
 	self predicateTerm: aTerm.
 ]
 
-{ #category : 'building - predicate' }
+{ #category : #'building - predicate' }
 RDFTripleBuilder >> predicateNamespace: aNamespace suffix: aSuffixString [
 	| aTerm |
 	aTerm := RDF namedNode: aSuffixString inNamespace: aNamespace.
 	self predicateTerm: aTerm
 ]
 
-{ #category : 'building - predicate' }
+{ #category : #'building - predicate' }
 RDFTripleBuilder >> predicateNamespaceIRI: aNamespaceString as: aShortNameString suffix: aSuffixString [
 	| aNamespace |
 	aNamespace := RDF namespaceValue: aNamespaceString shortName: aShortNameString.
 	self predicateNamespace: aNamespace suffix: aSuffixString.
 ]
 
-{ #category : 'building - predicate' }
+{ #category : #'building - predicate' }
 RDFTripleBuilder >> predicateTerm: aTerm [
 	| aPredicate |
 	self 
@@ -197,12 +197,12 @@ RDFTripleBuilder >> predicateTerm: aTerm [
 	self predicate: aPredicate.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTripleBuilder >> subject [
 	^ subject
 ]
 
-{ #category : 'building - subject' }
+{ #category : #'building - subject' }
 RDFTripleBuilder >> subject: aSubject [
 	self 
 		assert: [ aSubject isNotNil ] 
@@ -210,7 +210,7 @@ RDFTripleBuilder >> subject: aSubject [
 	^ subject := aSubject.
 ]
 
-{ #category : 'building - subject' }
+{ #category : #'building - subject' }
 RDFTripleBuilder >> subjectIRI: aString [
 	| aTerm |
 	self 
@@ -220,14 +220,14 @@ RDFTripleBuilder >> subjectIRI: aString [
 	^ self subjectTerm: aTerm.
 ]
 
-{ #category : 'building - subject' }
+{ #category : #'building - subject' }
 RDFTripleBuilder >> subjectJSONDictionary: aDictionary [
 
 	self assert: (aDictionary at: #type) equals: #uri.
 	self subjectTerm: (RDF namedNode: (aDictionary at: #value)).
 ]
 
-{ #category : 'building - subject' }
+{ #category : #'building - subject' }
 RDFTripleBuilder >> subjectTerm: aTerm [
 	| aSubject |
 	self 
@@ -237,7 +237,7 @@ RDFTripleBuilder >> subjectTerm: aTerm [
 	^ self subject: aSubject.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFTripleBuilder >> triple [
 
 	^ self build

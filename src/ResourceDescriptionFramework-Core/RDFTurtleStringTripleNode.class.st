@@ -1,33 +1,33 @@
 Class {
-	#name : 'RDFTurtleStringTripleNode',
-	#superclass : 'RDFTurtleDocumentNode',
+	#name : #RDFTurtleStringTripleNode,
+	#superclass : #RDFTurtleDocumentNode,
 	#instVars : [
 		'string'
 	],
 	#category : 'ResourceDescriptionFramework-Core-Parsers'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleStringTripleNode >> acceptVisitor: aDocumentVisitor [
 	^ aDocumentVisitor visitStringTriple: self
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleStringTripleNode >> string [
 	^ string
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleStringTripleNode >> string: aSmaCCToken [
 	string := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 RDFTurtleStringTripleNode >> tokenVariables [
 	^ #(#string)
 ]
 
-{ #category : 'evaluating' }
+{ #category : #evaluating }
 RDFTurtleStringTripleNode >> value [ 
 
 	^ string value copyFrom: 4 to: string value size - 3

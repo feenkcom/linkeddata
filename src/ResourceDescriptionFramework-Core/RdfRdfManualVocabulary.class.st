@@ -1,10 +1,10 @@
 Class {
-	#name : 'RdfRdfManualVocabulary',
-	#superclass : 'RdfManualVocabulary',
+	#name : #RdfRdfManualVocabulary,
+	#superclass : #RdfManualVocabulary,
 	#category : 'ResourceDescriptionFramework-Core-Importers'
 }
 
-{ #category : 'adding' }
+{ #category : #adding }
 RdfRdfManualVocabulary >> addToRdfResources [
 	| resource |
 
@@ -21,7 +21,7 @@ RdfRdfManualVocabulary >> addToRdfResources [
 		addAll: resources.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 RdfRdfManualVocabulary >> initialize [
 
 	super initialize.

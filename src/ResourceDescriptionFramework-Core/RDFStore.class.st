@@ -1,60 +1,60 @@
 Class {
-	#name : 'RDFStore',
-	#superclass : 'Object',
+	#name : #RDFStore,
+	#superclass : #Object,
 	#instVars : [
 		'dbMutex'
 	],
 	#category : 'ResourceDescriptionFramework-Core-Storage'
 }
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFStore class >> jena [
 
 	^ RDFJenaStore new
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 RDFStore class >> simple [
 	^ RDFSimpleCollectionStore new
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 RDFStore >> addTriple: aRDFTriple [
 	self subclassResponsibility
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 RDFStore >> addTriples: aCollection [
 
 	self subclassResponsibility
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFStore >> datasetUrl [ 
 
 	^ self subclassResponsibility
 ]
 
-{ #category : 'deleting' }
+{ #category : #deleting }
 RDFStore >> deleteWithSubject: aRdfSubject predicate: aRdfPredicate [
 
 	self subclassResponsibility 
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 RDFStore >> flush [ 
 	"Flush the receiver's write cache.
 	Subclasses will override this as required."
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 RDFStore >> initialize [ 
 
 	super initialize.
 	dbMutex := Semaphore forMutualExclusion.
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 RDFStore >> resourceForSubject: aSubject withSphere: aRDFSphere [
 	<return: #RDFResourceWithSphere>
 
@@ -64,7 +64,7 @@ RDFStore >> resourceForSubject: aSubject withSphere: aRDFSphere [
 		triples: (self triplesForSubject: aSubject forSphere: aRDFSphere)
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 RDFStore >> triplesForSubject: aSubject forSphere: aRDFSphere [
 	<return: #RDFList>
 
@@ -73,7 +73,7 @@ RDFStore >> triplesForSubject: aSubject forSphere: aRDFSphere [
 			aRDFSphere isInterestedInTriplet: aTriplet ])
 ]
 
-{ #category : 'querying' }
+{ #category : #querying }
 RDFStore >> triplesForSubjectIRI: aString [ 
 	"Answer the collection of triples for the supplied subject IRI"
 	<return: #RDFList>
@@ -81,7 +81,7 @@ RDFStore >> triplesForSubjectIRI: aString [
 	^ self triplesWithSubject: (RDFTripleBuilder new subjectIRI: aString)
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 RDFStore >> triplesWithPredicate: aPredicate [
 	<return: #RDFList>
 
@@ -92,7 +92,7 @@ RDFStore >> triplesWithPredicate: aPredicate [
 				aList add: eachTriple ]. aList ])
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 RDFStore >> triplesWithSubject: aSubject [
 	<return: #RDFList>
 
@@ -103,7 +103,7 @@ RDFStore >> triplesWithSubject: aSubject [
 				aList add: eachTriple ]. aList ])
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 RDFStore >> tsAddTriple: aRdfTriple [
 	"Add the supplied triple, allowing for multi-threading"
 
@@ -111,7 +111,7 @@ RDFStore >> tsAddTriple: aRdfTriple [
 		[ self addTriple: aRdfTriple ]
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 RDFStore >> tsAddTriples: aCollection [
 	"Add the supplied triples, allowing for multi-threading"
 
@@ -119,13 +119,13 @@ RDFStore >> tsAddTriples: aCollection [
 		[ self addTriples: aCollection ]
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 RDFStore >> tsFlush [
 
 	dbMutex critical: [ self flush ]
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 RDFStore >> tsUpdate: aString [
 	"Evalute the supplied update string, allowing for multi-threading"
 

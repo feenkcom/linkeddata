@@ -1,6 +1,6 @@
 Class {
-	#name : 'RdfResource',
-	#superclass : 'RDFProtoObject',
+	#name : #RdfResource,
+	#superclass : #RDFProtoObject,
 	#instVars : [
 		'name',
 		'label',
@@ -9,45 +9,45 @@ Class {
 	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 RdfResource >> = anObject [ 
 
 	^ (anObject isKindOf: RdfResource) and:
 		[ self iri = anObject iri ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfResource >> comment [
 	^ comment
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfResource >> comment: anObject [
 	comment := anObject
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RdfResource >> description [ 
 
 	^ String streamContents: [ :stream |
 		self printDescriptionOn: stream ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfResource >> fullName [ 
 
 	^ String streamContents: [ :stream |
 		self printFullNameOn: stream ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfResource >> fullNameWithDataType [
 	"RDFTerm compatibility"
 
 	^ self printString
 ]
 
-{ #category : 'ui' }
+{ #category : #ui }
 RdfResource >> gtDescriptionFor: aView [
 	<gtView>
 
@@ -57,63 +57,63 @@ RdfResource >> gtDescriptionFor: aView [
 		text: [ self description asRopedText glamorousCodeFont ]
 ]
 
-{ #category : 'ui' }
+{ #category : #ui }
 RdfResource >> gtValueFor: aView [
 
 	^ self gtDescriptionFor: aView
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 RdfResource >> hash [ 
 
 	^ self iri hash
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfResource >> iri [ 
 
 	^ self subclassResponsibility 
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 RdfResource >> isRdfClass [ 
 
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 RdfResource >> isRdfNamespace [
 
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 RdfResource >> isRdfProperty [
 
 	^ false
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfResource >> label [
 	^ label
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfResource >> label: anObject [
 	label := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfResource >> name [
 	^ name
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfResource >> name: anObject [
 	name := anObject
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RdfResource >> printDescriptionOn: stream [
 
 	self printOn: stream.
@@ -132,7 +132,7 @@ RdfResource >> printDescriptionOn: stream [
 		cr.
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RdfResource >> printFullNameOn: stream [
 
 	stream 
@@ -141,7 +141,7 @@ RdfResource >> printFullNameOn: stream [
 		nextPut: $>
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RdfResource >> printOn: aStream [
 
 	label ifNotNil: [ ^ aStream << label ].
@@ -149,7 +149,7 @@ RdfResource >> printOn: aStream [
 	super printOn: aStream
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RdfResource >> printSparqlOn: aStream [
 	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
 	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
@@ -157,7 +157,7 @@ RdfResource >> printSparqlOn: aStream [
 	self subclassResponsibility 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RdfResource >> qualifiedName [
 	"Answer the receiver's qualified name, i.e. <namespace>:<name>."
 

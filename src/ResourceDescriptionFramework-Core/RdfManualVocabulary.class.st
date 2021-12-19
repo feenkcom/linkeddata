@@ -1,6 +1,6 @@
 Class {
-	#name : 'RdfManualVocabulary',
-	#superclass : 'Object',
+	#name : #RdfManualVocabulary,
+	#superclass : #Object,
 	#instVars : [
 		'resources',
 		'namespace'
@@ -8,14 +8,14 @@ Class {
 	#category : 'ResourceDescriptionFramework-Core-Importers'
 }
 
-{ #category : 'adding' }
+{ #category : #adding }
 RdfManualVocabulary class >> add [ 
 	<script>
 
 	self new addToRdfResources
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 RdfManualVocabulary >> addToRdfResources [
 
 	self subclassResponsibility 

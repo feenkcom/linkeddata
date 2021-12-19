@@ -1,6 +1,6 @@
 Class {
-	#name : 'RDFLiteral',
-	#superclass : 'RDFTerm',
+	#name : #RDFLiteral,
+	#superclass : #RDFTerm,
 	#instVars : [
 		'language',
 		'dataType'
@@ -8,7 +8,7 @@ Class {
 	#category : 'ResourceDescriptionFramework-Core-Model'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 RDFLiteral class >> fromJsonDictionary: aDictionary [
 	"Answer an instance of the appropriate subclass.
 	aDictionary follows the structure defined at https://www.w3.org/TR/sparql11-results-json/"
@@ -22,14 +22,14 @@ RDFLiteral class >> fromJsonDictionary: aDictionary [
 		yourself
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFLiteral class >> typeName [ 
 	"Answer the type the receiver represents."
 
 	^ #literal
 ]
 
-{ #category : 'convenient' }
+{ #category : #convenient }
 RDFLiteral >> boolean: aBoolean [
 	self 
 		assert: [ aBoolean isString ] 
@@ -38,26 +38,26 @@ RDFLiteral >> boolean: aBoolean [
 	self value: aBoolean.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFLiteral >> dataType [
 	"Return a value whose IRI represents the datatype of the literal"
 	<return: #RDFNamedNode>
 	^ dataType
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFLiteral >> dataType: anObject [
 	dataType := anObject
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 RDFLiteral >> equals: aRDFTerm [
 	^ (super equals: aRDFTerm) and: [ 
 		self dataType = aRDFTerm dataType and: [ 
 			self language = aRDFTerm language ] ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 RDFLiteral >> gtAttributesFor: aView [
 	<gtView>
 	self value ifNil: [ ^ aView empty ].
@@ -69,7 +69,7 @@ RDFLiteral >> gtAttributesFor: aView [
 		send: [ :anAssoc | anAssoc value ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 RDFLiteral >> gtValueFor: aView [
 	<gtView>
 	self value ifNil: [ ^ aView empty ].
@@ -78,18 +78,18 @@ RDFLiteral >> gtValueFor: aView [
 		text: [ self value asString ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFLiteral >> language [
 	<return: #RDFLanguage>
 	^ language
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFLiteral >> language: anObject [
 	language := anObject
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFLiteral >> printDescriptionOn: aStream [
 	self value ifNil: [ ^ self printOn: aStream ].
 	aStream nextPutAll: self dataType asString.
@@ -99,13 +99,13 @@ RDFLiteral >> printDescriptionOn: aStream [
 		aStream nextPut: $@; print: self language ]
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFLiteral >> printFullNameOn: aStream [
 	self value ifNil: [ ^ self printOn: aStream ].
 	aStream nextPutAll: self value asString
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFLiteral >> printFullNameWithDataTypeOn: aStream [
 	self value ifNil: [ ^ self printFullNameOn: aStream ].
 	aStream 
@@ -114,7 +114,7 @@ RDFLiteral >> printFullNameWithDataTypeOn: aStream [
 		nextPutAll: self value asString
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFLiteral >> printOn: aStream [
 	self value ifNil: [ ^ super printOn: aStream ].
 	aStream nextPutAll: self value asString.
@@ -122,13 +122,13 @@ RDFLiteral >> printOn: aStream [
 	aStream nextPut: $@; print: self language. 
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFLiteral >> printShortNameOn: aStream [
 	self value ifNil: [ ^ self printOn: aStream ].
 	aStream nextPutAll: self value asString.
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RDFLiteral >> printSparqlOn: aStream [
 	"Print the SPARQL syntax encoding of the receiver on the supplied stream.
 	See: https://www.w3.org/TR/2013/REC-sparql11-query-20130321"
@@ -138,7 +138,7 @@ RDFLiteral >> printSparqlOn: aStream [
 		ifNotNil: [ dataType print: value onSparqlStream: aStream ]
 ]
 
-{ #category : 'convenient' }
+{ #category : #convenient }
 RDFLiteral >> string: aString [
 	self 
 		assert: [ aString isString ] 
@@ -147,12 +147,12 @@ RDFLiteral >> string: aString [
 	self value: aString.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFLiteral >> termType [
 	^ RDFTermType literal
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RDFLiteral >> value: anObject dataType: aRDFNamedNode [
 	"Set the receiver's type and value, decoding the supplied string for common types"
 
