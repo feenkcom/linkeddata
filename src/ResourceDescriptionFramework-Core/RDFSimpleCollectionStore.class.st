@@ -5,8 +5,15 @@ Class {
 		'collection',
 		'cachedSubjectsByIRI'
 	],
-	#category : 'ResourceDescriptionFramework-Core-Storage'
+	#category : #'ResourceDescriptionFramework-Core-Storage'
 }
+
+{ #category : #accessing }
+RDFSimpleCollectionStore >> addPrefix: prefixName iri: aString [ 
+	"Add the supplied prefix, ensuring that it matches an existing definition.
+	Compatability with RDFJenaStore."
+
+]
 
 { #category : #adding }
 RDFSimpleCollectionStore >> addTriple: aRDFTriple [
@@ -136,6 +143,11 @@ RDFSimpleCollectionStore >> initialize [
 	super initialize.
 	collection := OrderedCollection new.
 	cachedSubjectsByIRI := Dictionary new.
+]
+
+{ #category : #accessing }
+RDFSimpleCollectionStore >> maxBufferSize: aNumber [
+	"Compatibility with RDFJenSotre"
 ]
 
 { #category : #querying }

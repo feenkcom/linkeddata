@@ -34,13 +34,14 @@ RDFTriple class >> fromNTriple: aString [
 
 { #category : #'gt-extension' }
 RDFTriple >> gtPartsFor: aView [
+
 	<gtView>
 	^ aView columnedList
-		title: 'Parts';
-		priority: 2;
-		items: [ self parts ];
-		column: 'Part' item: [ :aPart | aPart name ] width: 80;
-		column: 'Term' item: [ :aPart | aPart ]
+		  title: 'Parts';
+		  priority: 2;
+		  items: [ self parts ];
+		  column: 'Part' text: [ :aPart | aPart name ] width: 80;
+		  column: 'Term' text: [ :aPart | aPart ]
 ]
 
 { #category : #'gt-extension' }

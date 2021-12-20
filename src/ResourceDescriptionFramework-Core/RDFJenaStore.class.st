@@ -220,7 +220,7 @@ RDFJenaStore >> initialize [
 	maxBufferSize := 0.
 	writeTriples := OrderedCollection new: (maxBufferSize * 1.5) rounded.
 	writeStrings := OrderedCollection new: maxBufferSize.
-	telemetry := BlNullTelemetry new.
+	telemetry := NullTelemetry new.
 	prefixes := Dictionary new.
 ]
 
