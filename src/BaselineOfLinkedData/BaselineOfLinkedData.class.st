@@ -8,7 +8,8 @@ Class {
 BaselineOfLinkedData >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
-		spec baseline: 'ResourceDescriptionFramework' with: [
-				spec repository: 'github://feenkcom/linkeddata:v0.6.10/src' ]. ].
-
+		spec
+			baseline: 'ResourceDescriptionFramework' with: [
+				spec repository: 'github://feenkcom/linkeddata:v0.6.11/src' ].
+	]
 ]
