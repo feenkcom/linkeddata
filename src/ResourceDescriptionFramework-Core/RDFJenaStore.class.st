@@ -110,6 +110,23 @@ RDFJenaStore >> deleteWithSubject: aRdfSubject [
 ]
 
 { #category : #querying }
+RDFJenaStore >> deleteWithSubject: aRdfSubject predicate: aRdfPredicate [
+	"Delete all the receiver's triples with the supplied subject"
+
+	self tsUpdate: (String streamContents: [ :stream |
+		stream << 'DELETE { '.
+		aRdfSubject printSparqlOn: stream.
+		stream << ' '.
+		aRdfPredicate printSparqlOn: stream.
+		stream << ' ?o } WHERE { '.
+		aRdfSubject printSparqlOn: stream.
+		stream << ' '.
+		aRdfPredicate printSparqlOn: stream.
+		stream << ' ?o }' ])
+
+]
+
+{ #category : #querying }
 RDFJenaStore >> deleteWithSubjectIRI: aString [
 	"Delete all the receiver's triples with the supplied subject"
 
