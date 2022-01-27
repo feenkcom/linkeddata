@@ -59,14 +59,19 @@ RDFLiteral >> equals: aRDFTerm [
 
 { #category : #'gt-extension' }
 RDFLiteral >> gtAttributesFor: aView [
+
 	<gtView>
 	self value ifNil: [ ^ aView empty ].
 	^ aView columnedList
-		title: 'Attributes';
-		items: [ { 'Value' -> self value. 'Language' -> self language. 'Data type' -> self dataType } ];
-		column: 'Description' item: [ :anAssoc | anAssoc key ] width: 80;
-		column: 'Value' item: [ :anAssoc | anAssoc value ];
-		send: [ :anAssoc | anAssoc value ]
+		  title: 'Attributes';
+		  items: [ 
+			  { 
+				  ('Value' -> self value).
+				  ('Language' -> self language).
+				  ('Data type' -> self dataType) } ];
+		  column: 'Description' text: [ :anAssoc | anAssoc key ] width: 80;
+		  column: 'Value' text: [ :anAssoc | anAssoc value ];
+		  send: [ :anAssoc | anAssoc value ]
 ]
 
 { #category : #'gt-extension' }
