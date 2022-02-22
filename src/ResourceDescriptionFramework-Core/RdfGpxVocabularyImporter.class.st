@@ -1,7 +1,7 @@
 Class {
 	#name : #RdfGpxVocabularyImporter,
 	#superclass : #RdfVocabularyImporter,
-	#category : 'ResourceDescriptionFramework-Core-Importers'
+	#category : #'ResourceDescriptionFramework-Core-Importers'
 }
 
 { #category : #private }
@@ -43,5 +43,4 @@ RdfGpxVocabularyImporter >> findNamespaces [
 	"Add GPX"
 	namespace := RdfNamespace name: #gpx iri: 'http://www.w3.org/ns/pim/gpx#'.
 	namespaces at: #gpx put: namespace.
-	
 ]
