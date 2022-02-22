@@ -10,6 +10,6 @@ BaselineOfLinkedData >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'ResourceDescriptionFramework' with: [
-				spec repository: 'github://feenkcom/linkeddata:v0.6.13/src' ].
+				spec repository: 'github://feenkcom/linkeddata:v0.6.14/src' ].
 	]
 ]
