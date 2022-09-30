@@ -177,7 +177,7 @@ RDFSimpleCollectionStore >> select: selectBlock thenCollect: collectBlock [
 
 { #category : #enumerating }
 RDFSimpleCollectionStore >> spheres [
-	<return: #RDFSpheres>
+	"<return: #RDFSpheres>"
 	| spheres |
 	spheres := RDFSpheres new store: self.
 	self collection 

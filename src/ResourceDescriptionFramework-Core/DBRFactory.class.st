@@ -1,7 +1,7 @@
 Class {
 	#name : #DBRFactory,
 	#superclass : #RDFTermFactory,
-	#category : 'ResourceDescriptionFramework-Core-Factories'
+	#category : #'ResourceDescriptionFramework-Core-Factories'
 }
 
 { #category : #factory }
@@ -11,7 +11,7 @@ DBRFactory >> prefix [
 
 { #category : #factory }
 DBRFactory >> resource: aString [
-	<return: #DBRNamedNode>
+	<return: #RDFNamedNode>
 	^ self namedNodeSuffix: aString
 ]
 

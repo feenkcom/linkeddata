@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'dbMutex'
 	],
-	#category : 'ResourceDescriptionFramework-Core-Storage'
+	#category : #'ResourceDescriptionFramework-Core-Storage'
 }
 
 { #category : #factory }
@@ -56,7 +56,7 @@ RDFStore >> initialize [
 
 { #category : #enumerating }
 RDFStore >> resourceForSubject: aSubject withSphere: aRDFSphere [
-	<return: #RDFResourceWithSphere>
+	"<return: #RDFResourceWithSphere>"
 
 	^ RDFResourceWithSphere new 
 		subject: aSubject;

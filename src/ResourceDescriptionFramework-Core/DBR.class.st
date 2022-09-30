@@ -17,6 +17,6 @@ DBR class >> iriNames [
 
 { #category : #factory }
 DBR class >> resource: aString [
-	<return: #DBRNamedNode>
+	<return: #RDFNamedNode>
 	^ self factory resource: aString
 ]

@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'collection'
 	],
-	#category : 'ResourceDescriptionFramework-Core-Storage'
+	#category : #'ResourceDescriptionFramework-Core-Storage'
 }
 
 { #category : #adding }
@@ -153,7 +153,7 @@ RDFSimpleCollectionFeatureViewsStore >> select: selectBlock thenCollect: collect
 
 { #category : #enumerating }
 RDFSimpleCollectionFeatureViewsStore >> spheres [
-	<return: #RDFSpheres>
+	"<return: #RDFSpheres>"
 	| spheres |
 	spheres := RDFSpheres new store: self.
 	self collection 
