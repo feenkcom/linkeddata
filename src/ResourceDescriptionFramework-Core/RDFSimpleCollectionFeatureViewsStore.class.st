@@ -153,7 +153,7 @@ RDFSimpleCollectionFeatureViewsStore >> select: selectBlock thenCollect: collect
 
 { #category : #enumerating }
 RDFSimpleCollectionFeatureViewsStore >> spheres [
-	<return: #RDFSpheres>
+	"<return: #RDFSpheres>"
 	| spheres |
 	spheres := RDFSpheres new store: self.
 	self collection 
